@@ -28,9 +28,40 @@ export default function BelowFold() {
   // This chunk resolves asynchronously, so it can land after App's own refresh
   // has already run. Re-measure once the sections are actually in the DOM, or
   // every ScrollTrigger below the hero binds to stale offsets.
+  //
+  // One refresh on mount is not enough: the pinned sections (Science, Benefits)
+  // measure their start/end against the current document height, and that height
+  // keeps changing after mount as the webfont swaps in (headings reflow) and as
+  // section images decode. A pin measured against the pre-swap layout starts at
+  // a stale scroll position and visibly overlaps the section above it until the
+  // browser's own load-event refresh finally corrects it. So we refresh again at
+  // each moment the layout can shift: after mount, once fonts are ready, once all
+  // images/resources have loaded, and after in-view images inside this subtree
+  // finish decoding.
   useEffect(() => {
-    const id = requestAnimationFrame(() => ScrollTrigger.refresh())
-    return () => cancelAnimationFrame(id)
+    const refresh = () => ScrollTrigger.refresh()
+
+    const raf = requestAnimationFrame(refresh)
+    const timers = [setTimeout(refresh, 400), setTimeout(refresh, 1200)]
+
+    document.fonts?.ready.then(refresh).catch(() => {})
+
+    if (document.readyState === 'complete') refresh()
+    else window.addEventListener('load', refresh)
+
+    // Any image that decodes after mount changes the height above a pinned
+    // section; refresh once each one lands (capture phase catches them all).
+    const onImgLoad = (e: Event) => {
+      if ((e.target as HTMLElement)?.tagName === 'IMG') refresh()
+    }
+    document.addEventListener('load', onImgLoad, true)
+
+    return () => {
+      cancelAnimationFrame(raf)
+      timers.forEach(clearTimeout)
+      window.removeEventListener('load', refresh)
+      document.removeEventListener('load', onImgLoad, true)
+    }
   }, [])
 
   return (

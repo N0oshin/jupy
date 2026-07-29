@@ -123,7 +123,7 @@ export default function About() {
             >
               <div className="font-display text-5xl leading-none text-accent">"</div>
               <p className="-mt-4 font-display text-[clamp(1.25rem,1.8vw,1.6rem)] font-light leading-[1.25] text-bg">
-                We refused to ship a single milligram we couldn't verify by HPLC. That refusal became the whole company.
+                We refused to release a single milligram we couldn't verify by HPLC. That refusal became the whole company.
               </p>
               <div className="mt-8 flex items-center justify-between">
                 <span className="text-[0.7rem] uppercase tracking-[0.22em] text-bg/60">— The Founders</span>

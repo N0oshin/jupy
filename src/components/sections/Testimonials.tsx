@@ -77,9 +77,9 @@ export default function Testimonials() {
     <section id="testimonials" className="section-pad relative overflow-hidden bg-bg">
       <div className="container-x mb-16">
         <Heading
-          eyebrow="Customer Stories"
-          title={'Loved by people who\nread the label.'}
-          intro="Forty thousand members and a 4.9-star average. Here is what life with Jupyter Labs actually feels like."
+          eyebrow="From The Bench"
+          title={'Trusted by labs that\nread the certificate.'}
+          intro="What research buyers, analytical chemists and QA teams say about the documentation, purity verification and service."
         />
       </div>
 

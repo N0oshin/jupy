@@ -20,7 +20,7 @@ const STEPS = [
   {
     k: 'Validate',
     t: 'Tested, then tested again',
-    d: 'Independent labs verify identity, potency and purity for every batch. If it does not pass, it does not ship.',
+    d: 'Independent labs verify identity, potency and purity for every batch. If it does not pass, it does not leave the lab.',
     img: '/images/jupyter-labs/peptide-validation-quality-testing.webp',
   },
 ]
@@ -38,9 +38,10 @@ export default function Science() {
       const st = ScrollTrigger.create({
         trigger: ref.current,
         start: 'top top',
-        end: `+=${total * 100}%`,
+        end: () => `+=${total * 100}%`,
         pin: '.science-pin',
         scrub: true,
+        invalidateOnRefresh: true,
         onUpdate: (self) => setActive(Math.min(total - 1, Math.floor(self.progress * total))),
       })
 
@@ -51,7 +52,13 @@ export default function Science() {
         {
           scaleX: 1,
           ease: 'none',
-          scrollTrigger: { trigger: ref.current, start: 'top top', end: `+=${total * 100}%`, scrub: true },
+          scrollTrigger: {
+            trigger: ref.current,
+            start: 'top top',
+            end: () => `+=${total * 100}%`,
+            scrub: true,
+            invalidateOnRefresh: true,
+          },
         },
       )
 

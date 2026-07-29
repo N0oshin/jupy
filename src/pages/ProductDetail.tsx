@@ -165,8 +165,9 @@ export default function ProductDetail() {
                   </svg>
                 </span>
                 <p className="text-xs leading-relaxed text-ink">
-                  <span className="font-medium">Safety Protocol:</span> Produced for laboratory research only. Not for human or
-                  veterinary consumption.
+                  <span className="font-medium">For research purposes only.</span> Not intended for human or veterinary use.
+                  Not intended to diagnose, treat, cure, or prevent any disease. Supplied strictly for laboratory and analytical
+                  research conducted by qualified professionals.
                 </p>
               </div>
 
@@ -307,6 +308,13 @@ export default function ProductDetail() {
                 </button>
               </div>
 
+              {/* Required research-only disclaimer, immediately beside the purchase action */}
+              <p className="mt-4 rounded-2xl border border-line bg-section px-4 py-3 text-[0.7rem] leading-relaxed text-muted">
+                <span className="font-semibold uppercase tracking-[0.14em] text-ink">For research purposes only.</span>{' '}
+                Not intended for human or veterinary use. Not intended to diagnose, treat, cure, or prevent any disease.
+                Products are supplied strictly for laboratory and analytical research conducted by qualified professionals.
+              </p>
+
             </div>
           </div>
 
@@ -337,6 +345,17 @@ export default function ProductDetail() {
                 </Link>
               ))}
             </div>
+          </section>
+
+          {/* Product-footer compliance band */}
+          <section className="mt-20 rounded-[var(--radius-xl2)] border border-line bg-section p-6 text-center lg:p-8">
+            <p className="text-[0.6rem] uppercase tracking-[0.28em] text-accent-dark">Compliance Notice</p>
+            <p className="mx-auto mt-3 max-w-3xl text-xs leading-relaxed text-muted">
+              <span className="font-semibold text-ink">FOR RESEARCH PURPOSES ONLY.</span> Not intended for human or veterinary
+              use. Not intended to diagnose, treat, cure, or prevent any disease. Products are supplied strictly for laboratory
+              and analytical research conducted by qualified professionals. Nothing on this page constitutes medical, therapeutic
+              or usage guidance.
+            </p>
           </section>
         </div>
       </main>
@@ -429,7 +448,7 @@ export default function ProductDetail() {
               </button>
             ) : (
               <p className="mt-6 rounded-2xl border border-line bg-section px-4 py-3 text-center text-xs leading-relaxed text-muted">
-                A batch-specific Janoshik Certificate of Analysis is dispatched with every order.
+                A batch-specific Janoshik Certificate of Analysis is included with every order.
               </p>
             )}
           </div>

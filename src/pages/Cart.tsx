@@ -161,9 +161,15 @@ export default function Cart() {
                   Continue shopping
                 </Link>
 
-                <p className="mt-7 border-t border-line pt-5 text-center text-[0.65rem] uppercase tracking-[0.22em] text-muted">
-                  For laboratory R&D use only · Not for human or veterinary consumption
-                </p>
+                <div className="mt-7 border-t border-line pt-5 text-[0.7rem] leading-relaxed text-muted">
+                  <p>
+                    By proceeding to checkout, you acknowledge that these products are intended solely for laboratory research
+                    purposes and are not intended for human or veterinary use.
+                  </p>
+                  <p className="mt-2">
+                    These products are not intended to diagnose, treat, cure, or prevent any disease.
+                  </p>
+                </div>
               </aside>
             </div>
           )}

@@ -192,13 +192,12 @@ export default function OrderTracking() {
                 </section>
               </div>
 
-              {/* Right: summary + customer + shipping */}
+              {/* Right: summary + customer + address */}
               <aside className="flex h-fit flex-col gap-6 lg:sticky lg:top-28">
                 <section className="rounded-[var(--radius-xl2)] border border-line bg-section p-7">
                   <h2 className="font-display text-xl text-ink">Summary</h2>
                   <dl className="mt-6 space-y-3 text-sm">
                     <Row label="Subtotal" value={formatApiMoney(order.subtotal, order.currency)} />
-                    <Row label="Shipping" value={moneyIsZero(order.shipping) ? 'Free' : formatApiMoney(order.shipping, order.currency)} />
                     {order.discount_amount && !moneyIsZero(order.discount_amount) && (
                       <Row label={`Discount${order.promo_code ? ` (${order.promo_code})` : ''}`} value={`−${formatApiMoney(order.discount_amount, order.currency)}`} accent />
                     )}
@@ -222,7 +221,7 @@ export default function OrderTracking() {
                 </section>
 
                 <section className="rounded-[var(--radius-xl2)] border border-line bg-card p-7">
-                  <h2 className="font-display text-sm uppercase tracking-[0.2em] text-ink">Shipping address</h2>
+                  <h2 className="font-display text-sm uppercase tracking-[0.2em] text-ink">Address</h2>
                   <address className="mt-4 space-y-1 text-sm not-italic text-muted">
                     {order.shipping_address && <p>{order.shipping_address}</p>}
                     <p>{[order.shipping_city, order.shipping_zip].filter(Boolean).join(', ')}</p>

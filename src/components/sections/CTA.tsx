@@ -88,7 +88,7 @@ export default function CTA() {
               stagger={0.18}
               className="mt-6 font-display text-[clamp(2.3rem,1.3rem+4.2vw,5.25rem)] font-light leading-[1.04] tracking-[-0.025em] text-bg"
             >
-              {'The science of healing,\nin every molecule.'}
+              {'The science of certainty,\nin every molecule.'}
             </SplitReveal>
 
             {/* Subtitle */}
@@ -100,7 +100,7 @@ export default function CTA() {
               className="mx-auto mt-7 max-w-xl text-base leading-[1.55] text-bg/75 lg:text-lg"
             >
               Every peptide HPLC-verified. Every batch documented. Every milligram on the label — pharmaceutical
-              precision in the form of a ritual.
+              precision, traceable to the lot.
             </motion.p>
           </div>
         </div>

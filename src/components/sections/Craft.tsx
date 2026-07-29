@@ -5,9 +5,9 @@ import Reveal from '../ui/Reveal'
 import Img from '../ui/Img'
 
 const PILLARS = [
-  { t: 'Sourced at Origin', d: 'We work directly with growers and certified labs to bring rare, traceable actives to your daily ritual.' },
+  { t: 'Sourced at Origin', d: 'We work directly with certified synthesis labs to bring traceable, research-grade compounds to your bench.' },
   { t: 'Tested at Every Stage', d: 'Identity, potency, purity — verified before, during, and after manufacture by independent labs.' },
-  { t: 'Made in Small Batches', d: 'Limited runs mean fresher actives and tighter quality control on every single kit we produce.' },
+  { t: 'Made in Small Batches', d: 'Limited runs mean fresher compounds and tighter quality control on every single kit we produce.' },
 ]
 
 export default function Craft() {
@@ -23,7 +23,7 @@ export default function Craft() {
             <Heading
               eyebrow="How We Make It"
               title={'Crafted with\nuncompromising care.'}
-              intro="From the raw active to the seal on the injection pen, every step is held to a single rule — do it right, or don't do it at all."
+              intro="From the raw compound to the seal on the research device, every step is held to a single rule — do it right, or don't do it at all."
             />
             <div className="mt-16 space-y-3">
               {PILLARS.map((p, i) => (
@@ -72,7 +72,7 @@ export default function Craft() {
               className="glass absolute bottom-4 left-4 w-48 rounded-3xl p-6 sm:-bottom-8 sm:-left-4 sm:w-56 lg:-left-10"
             >
               <div className="font-display text-3xl font-light leading-[1.2] text-accent-dark">12 checks</div>
-              <p className="mt-2 text-sm text-muted">per batch — from raw active to the seal on every injection pen.</p>
+              <p className="mt-2 text-sm text-muted">per batch — from raw compound to the seal on every research device.</p>
             </motion.div>
           </div>
         </div>

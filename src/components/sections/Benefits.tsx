@@ -42,9 +42,9 @@ export default function Benefits() {
         <div ref={track} className="lg:flex lg:items-center lg:gap-10 lg:px-20">
           <div className="container-x lg:w-[42vw] lg:shrink-0 lg:px-0">
             <Heading
-              eyebrow="Benefits & Results"
-              title={'What changes\nwhen you commit.'}
-              intro="Consistency compounds. Within weeks, members report the kind of results that turn a supplement into a non-negotiable."
+              eyebrow="The Research Standard"
+              title={'What ships\nwith every batch.'}
+              intro="Every Jupyter Labs compound is supplied as a research reference material — verified for purity, independently tested, fully documented and stability-protected from synthesis to storage."
             />
           </div>
 
@@ -75,7 +75,7 @@ export default function Benefits() {
 
                 {/* Chip */}
                 <span className="absolute left-5 top-5 z-10 rounded-full bg-bg/95 px-3 py-1 text-[0.65rem] uppercase tracking-[0.22em] text-ink backdrop-blur-md transition-all duration-500 group-hover:-translate-y-0.5 group-hover:bg-gold">
-                  Benefit · {b.k}
+                  Standard · {b.k}
                 </span>
 
                 {/* Image height spacer */}

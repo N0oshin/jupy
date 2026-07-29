@@ -54,7 +54,7 @@ export default function WhyChoose() {
             <Reveal delay={0.2}>
               <p className="text-[1.05rem] leading-[1.55] text-muted text-pretty">
                 We don't market peptides. We document them. Every active begins in the clinical literature and ends on
-                the COA shipped with your kit.
+                the COA included with your kit.
               </p>
             </Reveal>
           </div>
@@ -156,7 +156,7 @@ export default function WhyChoose() {
             <span className="text-ink">All claims verifiable.</span> All certificates available on request.
           </p>
           <p className="text-[0.7rem] uppercase tracking-[0.28em] text-muted">
-            cGMP · HPLC-verified · COA published · Cold-chain shipped
+            cGMP · HPLC-verified · COA published · Lot-traceable
           </p>
         </div>
       </div>

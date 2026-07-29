@@ -1,40 +1,25 @@
 /**
- * Jupyter Labs — centralized content & curated editorial imagery.
- * Images are high-end Unsplash editorial photographs (wellness, botanical,
- * skincare, lab). Every <Img> degrades to an on-brand gradient if a source
- * is ever unavailable, so the experience never shows a broken asset.
+ * Jupyter Labs — centralized content.
+ *
+ * COMPLIANCE: every product supplied by Jupyter Labs is a research reference
+ * material for laboratory use only. All copy in this file is written to that
+ * standard — it describes compound identity, purity, testing, format and
+ * research applications. It must never describe human or veterinary use,
+ * dosing for a person, medical/therapeutic outcomes, or physical/body
+ * transformation. When adding or editing content, keep it factual, analytical
+ * and research-only.
  */
-
-const U = (id: string, w = 1400, q = 80) =>
-  `https://images.unsplash.com/photo-${id}?auto=format&fit=crop&w=${w}&q=${q}`
-
-export const IMG = {
-  heroProduct: U('1620916566398-39f1143ab7be', 1100),
-  heroAtmosphere: U('1556228720-195a672e8a03', 1600),
-  difference: U('1556228578-8c89e6adf883', 1200),
-  lifestyle1: U('1540555700478-4be289fbecef', 1400),
-  lifestyle2: U('1591343395082-e120087004b4', 1200),
-  lifestyle3: U('1545205597-3d9d02c29597', 1000),
-  science: U('1532187863486-abf9dbad1b69', 1400),
-  scienceLab: U('1581093588401-fbb62a02f120', 1200),
-  about: U('1517960413843-0aee8e2b3285', 1400),
-  sustainability: U('1542601906990-b4d3fb778b09', 1400),
-  ingredientAdaptogen: U('1515823064-d6e0c04616a7', 900),
-  ingredientCollagen: U('1559827260-dc66d52bef19', 900),
-  ingredientOmega: U('1559181567-c3190ca9959b', 900),
-  ingredientGreens: U('1416879595882-3373a0480b5b', 900),
-} as const
 
 export const PRODUCTS = [
   {
     id: 'bpc-157',
     slug: 'bpc-157-tb-500',
     name: 'BPC-157 & TB-500',
-    tagline: 'Recovery · Joint · Tissue',
-    category: 'Tissue Repair',
-    desc: 'A research-grade peptide studied for tissue repair, joint recovery and connective-tissue support in pre-clinical models.',
+    tagline: 'Peptide Blend · Reference Standard',
+    category: 'Peptide Complex',
+    desc: 'A synthetic research-peptide blend supplied as a laboratory reference material for in-vitro and pre-clinical study.',
     longDesc:
-      'A synergistic research blend of BPC-157 (Body Protection Compound 157) — a synthetic pentadecapeptide derived from a protective sequence found in human gastric juice — and TB-500 (Thymosin Beta-4), a naturally-occurring peptide studied for actin-binding and cellular migration. Delivered pre-filled into an Alluvi research pen (4 × 10mg doses) for laboratory study of soft-tissue and joint-recovery pathways.',
+      'A research blend of BPC-157 (a synthetic pentadecapeptide) and TB-500 (a fragment of Thymosin Beta-4, an actin-binding peptide). Supplied pre-filled into an Alluvi research device (4 × 10mg) as a characterized reference material for laboratory analysis, method development and in-vitro study. Supplied strictly for laboratory research use — not for human or veterinary use.',
     price: 130,
     currency: 'USD',
     accent: '#0f766e',
@@ -50,28 +35,28 @@ export const PRODUCTS = [
     specs: [
       { k: 'Purity', v: '99.21%+ HPLC verified' },
       { k: 'Testing', v: 'Janoshik independent COA' },
-      { k: 'Format', v: 'Pre-filled research pen · 4 × 10mg' },
+      { k: 'Format', v: 'Pre-filled research device · 4 × 10mg' },
       { k: 'Storage', v: '2–8°C · Do not freeze' },
       { k: 'Shelf life', v: '24–36 months sealed' },
     ],
     mechanism:
-      'BPC-157 is studied for its interaction with angiogenic pathways (VEGF, growth-factor upregulation) and nitric oxide signalling, while TB-500 is investigated for actin sequestration and endothelial cell migration. In tandem, researchers model potential synergistic effects on granulation, revascularisation and connective-tissue remodelling.',
+      'BPC-157 is studied in the literature in relation to angiogenic signalling markers (VEGF) and nitric-oxide pathways, while TB-500 is characterized for actin sequestration and cell-migration assays. Supplied as a reference material for in-vitro investigation of these pathways; no human or veterinary application is implied or intended.',
     benefits: [
-      'Tissue-repair pathway research',
-      'Blood-vessel growth modelling',
-      'Inflammatory-response modulation',
-      'Muscle, tendon and ligament recovery studies',
-      'Gut-barrier integrity investigations',
-      'Post-injury remodelling protocols',
+      'Angiogenesis pathway assay reference',
+      'Actin-binding / cell-migration in-vitro studies',
+      'Peptide-stability and degradation research',
+      'HPLC method-development reference standard',
+      'Comparative purity and identity analysis',
+      'Formulation and reconstitution research',
     ],
     applications: [
-      'Pre-clinical soft-tissue recovery studies',
-      'In-vitro angiogenesis assays',
+      'Pre-clinical in-vitro assay reference material',
+      'In-vitro angiogenesis and migration assays',
       'Comparative peptide-stability research',
       'Reference standard for HPLC method development',
     ],
     included: [
-      'Pre-filled research pen · 40mg total (4 × 10mg)',
+      'Pre-filled research device · 40mg total (4 × 10mg)',
       'Batch-specific Janoshik Certificate of Analysis',
       'Material Safety Data Sheet (MSDS)',
       'Reconstitution & storage guidelines',
@@ -99,11 +84,11 @@ export const PRODUCTS = [
     id: 'retatrutide-20',
     slug: 'retatrutide-20mg',
     name: 'Retatrutide 20mg',
-    tagline: 'Metabolic · Glucose · Energy',
+    tagline: 'Triple Agonist · GIP/GLP-1/Glucagon',
     category: 'Triple Agonist',
-    desc: 'A triple-agonist research peptide studied for its effects on metabolic regulation and body composition outcomes.',
+    desc: 'A triple-receptor-agonist research peptide supplied as a laboratory reference material for in-vitro receptor and metabolic-pathway study.',
     longDesc:
-      'A 20mg Retatrutide formulation supplied in a pre-filled research device, provided exclusively for controlled laboratory R&D applications. Delivered in sealed format to support compound stability analysis, formulation studies, and delivery mechanism evaluation.',
+      'A 20mg Retatrutide research formulation supplied in a pre-filled research device, provided exclusively for controlled laboratory R&D. Retatrutide is characterized as a triple receptor agonist (GIP, GLP-1 and glucagon receptors). Supplied in sealed format to support compound-stability analysis, formulation studies and delivery-mechanism evaluation. For laboratory research use only — not for human or veterinary use.',
     price: 100,
     currency: 'USD',
     accent: '#7A8F87',
@@ -119,28 +104,28 @@ export const PRODUCTS = [
     specs: [
       { k: 'Purity', v: '99.27%+ HPLC verified' },
       { k: 'Testing', v: 'Janoshik independent COA' },
-      { k: 'Format', v: 'Pre-filled research pen · 4 × 5mg' },
+      { k: 'Format', v: 'Pre-filled research device · 4 × 5mg' },
       { k: 'Storage', v: '2–8°C · Do not freeze' },
       { k: 'Shelf life', v: '24–36 months sealed' },
     ],
     mechanism:
-      'Retatrutide activates GIP, GLP-1 and glucagon receptors simultaneously — a triple-agonist profile investigated for its downstream effects on insulin sensitivity, satiety signalling and lipolysis. The 20mg configuration is well-suited to comparative dose-response research.',
+      'Retatrutide is characterized as a triple receptor agonist engaging GIP, GLP-1 and glucagon receptors — a reference profile used in in-vitro receptor-signalling and comparative pharmacology assays. The 20mg configuration suits comparative concentration–response research. No human or veterinary application is implied or intended.',
     benefits: [
-      'Multi-pathway metabolic modelling',
-      'Insulin & glucose response research',
-      'Appetite-signalling pathway studies',
-      'Lipolysis and energy-expenditure assays',
-      'Comparative receptor-affinity investigations',
-      'Body-composition outcome modelling',
+      'Multi-receptor signalling assay reference',
+      'GIP / GLP-1 / glucagon binding studies',
+      'Comparative concentration–response research',
+      'Receptor-affinity in-vitro investigations',
+      'Peptide-stability and degradation analysis',
+      'HPLC identity and purity reference',
     ],
     applications: [
-      'Dose-response comparative studies',
+      'Concentration–response comparative studies',
       'Receptor-signalling investigations',
-      'Pharmacokinetic profiling',
+      'Pharmacokinetic profiling (in-vitro / pre-clinical)',
       'Formulation and delivery-mechanism evaluation',
     ],
     included: [
-      'Pre-filled research pen · 20mg total (4 × 5mg)',
+      'Pre-filled research device · 20mg total (4 × 5mg)',
       'Batch-specific Janoshik Certificate of Analysis',
       'Material Safety Data Sheet (MSDS)',
       'Reconstitution & storage guidelines',
@@ -168,11 +153,11 @@ export const PRODUCTS = [
     id: 'retatrutide',
     slug: 'retatrutide-40mg',
     name: 'Retatrutide 40mg',
-    tagline: 'Metabolic · Glucose · Energy',
+    tagline: 'Triple Agonist · GIP/GLP-1/Glucagon',
     category: 'Triple Agonist',
-    desc: 'A triple-agonist research peptide studied for its effects on metabolic regulation and body composition outcomes.',
+    desc: 'A triple-receptor-agonist research peptide supplied as a laboratory reference material for in-vitro receptor and metabolic-pathway study.',
     longDesc:
-      'Retatrutide 40mg pre-filled into an Alluvi research pen (4 × 10mg doses). A triple receptor agonist targeting GLP-1, GIP and glucagon pathways — the same molecule that produced an average 22.5% weight reduction in published Phase 2 clinical data. Independently Janoshik-verified across a 56-day stability window for metabolic-pathway R&D.',
+      'Retatrutide 40mg pre-filled into an Alluvi research device (4 × 10mg). Characterized as a triple receptor agonist (GLP-1, GIP and glucagon receptors) and independently Janoshik-verified across a 56-day stability window. Supplied as a reference material for in-vitro receptor-signalling and metabolic-pathway R&D. For laboratory research use only — not for human or veterinary use.',
     price: 180,
     currency: 'USD',
     accent: '#6B7F78',
@@ -188,28 +173,28 @@ export const PRODUCTS = [
     specs: [
       { k: 'Purity', v: '99.38%+ HPLC verified' },
       { k: 'Testing', v: 'Janoshik 56-day stability' },
-      { k: 'Format', v: 'Pre-filled research pen · 4 × 10mg' },
+      { k: 'Format', v: 'Pre-filled research device · 4 × 10mg' },
       { k: 'Storage', v: '2–8°C · Do not freeze' },
       { k: 'Shelf life', v: '24–36 months sealed' },
     ],
     mechanism:
-      'Retatrutide is the first triple hormone receptor agonist to activate GIP, GLP-1 and glucagon pathways in a single molecule. This multi-pathway approach is investigated for enhanced glycaemic control, satiety induction, thermogenesis and hepatic lipid metabolism relative to single- or dual-agonist references.',
+      'Retatrutide is characterized as a triple receptor agonist engaging GIP, GLP-1 and glucagon receptors in a single molecule — a reference profile studied in in-vitro receptor-signalling and comparative pharmacology relative to single- and dual-agonist references. No human or veterinary application is implied or intended.',
     benefits: [
-      'Triple-agonist metabolic modelling',
-      'Body-composition outcome research (per Phase 2 references)',
-      'Glucose regulation & insulin sensitivity assays',
-      'Appetite and satiety pathway studies',
-      'Hepatic lipid metabolism investigations',
-      'Thermogenesis and energy-expenditure modelling',
+      'Triple-agonist receptor-signalling reference',
+      'Comparative agonist pharmacology assays',
+      'Concentration–response in-vitro studies',
+      '56-day stability-window evaluation',
+      'Receptor-binding affinity investigations',
+      'HPLC identity and purity reference',
     ],
     applications: [
       'Comparative triple- vs. dual-agonist studies',
-      '56-day stability window evaluation',
+      '56-day stability-window evaluation',
       'Receptor-binding affinity investigations',
-      'Pre-clinical pharmacokinetic profiling',
+      'Pre-clinical / in-vitro pharmacokinetic profiling',
     ],
     included: [
-      'Pre-filled research pen · 40mg total (4 × 10mg)',
+      'Pre-filled research device · 40mg total (4 × 10mg)',
       'Batch-specific Janoshik Certificate of Analysis',
       'Material Safety Data Sheet (MSDS)',
       'Reconstitution & storage guidelines',
@@ -237,11 +222,11 @@ export const PRODUCTS = [
     id: 'tirzepatide',
     slug: 'tirzepatide-40mg',
     name: 'Tirzepatide 40mg',
-    tagline: 'GLP-1 · GIP · Glucose',
+    tagline: 'Dual Agonist · GLP-1/GIP',
     category: 'GLP-1 / GIP',
-    desc: 'A dual GIP/GLP-1 receptor agonist studied for glucose response and appetite regulation in research settings.',
+    desc: 'A dual GIP/GLP-1 receptor-agonist research peptide supplied as a laboratory reference material for in-vitro receptor and metabolic-pathway study.',
     longDesc:
-      'Tirzepatide 40mg (4 × 10mg doses) pre-filled into an Alluvi research pen. A dual receptor agonist of GLP-1 (glucagon-like peptide-1) and GIP (glucose-dependent insulinotropic polypeptide) — studied in metabolic pharmacology models for insulin sensitivity, satiety and glucose homeostasis. Approximately 22% weight-reduction outcomes are reported in the published clinical literature this compound derives from.',
+      'Tirzepatide 40mg (4 × 10mg) pre-filled into an Alluvi research device. Characterized as a dual receptor agonist of GLP-1 (glucagon-like peptide-1) and GIP (glucose-dependent insulinotropic polypeptide), and widely used as a reference compound in in-vitro metabolic-pharmacology and receptor-signalling models. For laboratory research use only — not for human or veterinary use.',
     price: 100,
     currency: 'USD',
     accent: '#7E8FA6',
@@ -257,28 +242,28 @@ export const PRODUCTS = [
     specs: [
       { k: 'Purity', v: '99.15%+ HPLC verified' },
       { k: 'Testing', v: 'Janoshik independent COA' },
-      { k: 'Format', v: 'Pre-filled research pen · 4 × 10mg' },
+      { k: 'Format', v: 'Pre-filled research device · 4 × 10mg' },
       { k: 'Storage', v: '2–8°C · Do not freeze' },
       { k: 'Shelf life', v: '24–36 months sealed' },
     ],
     mechanism:
-      'Tirzepatide simultaneously engages GLP-1 and GIP receptors, producing complementary incretin effects. Its dual action is investigated for enhanced insulinotropic response, delayed gastric emptying and central appetite modulation — a reference profile widely used in endocrine and metabolic disease pharmacology models.',
+      'Tirzepatide is characterized as a dual agonist engaging GLP-1 and GIP receptors, producing complementary incretin-receptor signalling — a reference profile widely used in endocrine and metabolic in-vitro pharmacology assays. No human or veterinary application is implied or intended.',
     benefits: [
-      'Dual-incretin pathway modelling',
-      'Metabolic disease pharmacology research',
-      'Obesity mechanism investigations',
-      'Type 2 diabetes therapeutic modelling',
-      'Endocrine-system regulation studies',
-      'Gastric-emptying and satiety assays',
+      'Dual-incretin receptor-signalling reference',
+      'Metabolic-pharmacology in-vitro assays',
+      'Receptor-binding and selectivity studies',
+      'Comparative GLP-1 vs. dual-agonist research',
+      'Peptide-stability and degradation analysis',
+      'HPLC identity and purity reference',
     ],
     applications: [
-      'In-vitro and in-vivo pre-clinical investigations',
+      'In-vitro and pre-clinical assay reference material',
       'GLP-1 vs. dual-agonist comparative studies',
       'Formulation and reconstitution research',
       'Reference standard for method development',
     ],
     included: [
-      'Pre-filled research pen · 40mg total (4 × 10mg)',
+      'Pre-filled research device · 40mg total (4 × 10mg)',
       'Batch-specific Janoshik Certificate of Analysis',
       'Material Safety Data Sheet (MSDS)',
       'Reconstitution & storage guidelines',
@@ -307,11 +292,11 @@ export const PRODUCTS = [
     id: 'glow',
     slug: 'glow-70mg',
     name: 'Glow 70mg (GHK-Cu)',
-    tagline: 'Skin · Radiance · Repair',
+    tagline: 'Copper Peptide · GHK-Cu',
     category: 'Copper Peptide',
-    desc: 'A copper-peptide studied in dermal research for collagen support, skin elasticity and visible radiance.',
+    desc: 'A copper-tripeptide (GHK-Cu) research compound supplied as a laboratory reference material for in-vitro biochemical study.',
     longDesc:
-      'Glow 70mg GHK-Cu pre-filled into an Alluvi research pen. GHK-Cu (glycyl-L-histidyl-L-lysine copper) is a naturally-occurring tripeptide-copper complex found in human plasma, saliva and urine — declining significantly with age. This research formulation supports dermal-research evaluation of collagen synthesis, skin-barrier and repair pathways.',
+      'Glow 70mg GHK-Cu pre-filled into an Alluvi research device. GHK-Cu (glycyl-L-histidyl-L-lysine copper) is a naturally-occurring tripeptide-copper complex. Supplied as a characterized reference material for in-vitro investigation of copper-peptide chemistry, collagen-related assay development and comparative peptide analysis. For laboratory research use only — not for human or veterinary use.',
     price: 100,
     currency: 'USD',
     accent: '#B9A37E',
@@ -327,28 +312,28 @@ export const PRODUCTS = [
     specs: [
       { k: 'Purity', v: '99.52%+ HPLC verified' },
       { k: 'Testing', v: 'Janoshik independent COA' },
-      { k: 'Format', v: 'Pre-filled research pen · 70mg' },
+      { k: 'Format', v: 'Pre-filled research device · 70mg' },
       { k: 'Storage', v: '2–8°C · Do not freeze' },
       { k: 'Shelf life', v: '24–36 months sealed' },
     ],
     mechanism:
-      'GHK-Cu upregulates growth factors and modulates inflammatory response — investigated in skin-research models for its ability to encourage collagen and elastin synthesis, reduce oxidative damage and support tissue remodelling. The copper chelation is central to its biological activity profile.',
+      'GHK-Cu is characterized in the literature for copper-chelation chemistry and its interaction with growth-factor and matrix-remodelling markers in in-vitro dermal-research models. Supplied as a reference material for such assays; no human or veterinary application is implied or intended.',
     benefits: [
-      'Collagen synthesis stimulation research',
-      'Elastin production pathway studies',
-      'Wound-healing acceleration assays',
-      'Cellular-level skin regeneration modelling',
-      'Antioxidant activity investigations',
-      'Hair follicle stimulation studies',
+      'Copper-chelation chemistry reference',
+      'Collagen / elastin in-vitro assay development',
+      'Matrix-remodelling marker studies',
+      'Antioxidant-activity in-vitro assays',
+      'Comparative cosmetic-peptide research',
+      'HPLC identity and purity reference',
     ],
     applications: [
-      'Dermal-repair research models',
-      'Oxidative-damage reduction assays',
-      'Comparative cosmetic-peptide studies',
-      'Skin-barrier and follicle research protocols',
+      'In-vitro dermal-research assay reference',
+      'Oxidative-marker in-vitro assays',
+      'Comparative copper-peptide studies',
+      'Method-development reference standard',
     ],
     included: [
-      'Pre-filled research pen · 70mg GHK-Cu',
+      'Pre-filled research device · 70mg GHK-Cu',
       'Batch-specific Janoshik Certificate of Analysis',
       'Material Safety Data Sheet (MSDS)',
       'Reconstitution & storage guidelines',
@@ -376,11 +361,11 @@ export const PRODUCTS = [
     id: 'nad-plus',
     slug: 'nad-plus-1000mg',
     name: 'NAD+ 1,000mg',
-    tagline: 'Cellular · Longevity · Energy',
+    tagline: 'Coenzyme · NAD+ Reference',
     category: 'Coenzyme',
-    desc: 'A Nicotinamide Adenine Dinucleotide research formulation studied for cellular energetics, redox balance and longevity pathways.',
+    desc: 'A Nicotinamide Adenine Dinucleotide (NAD+) research formulation supplied as a laboratory reference material for in-vitro cellular-energetics and redox study.',
     longDesc:
-      'NAD+ (Nicotinamide Adenine Dinucleotide) supplied as two pre-filled 500mg pens (1,000mg total) for laboratory analysis and in-vitro study. NAD+ is the primary coenzyme powering hundreds of cellular metabolic processes — including mitochondrial energy production, DNA repair signalling (PARP, sirtuins) and redox balance. Levels decline significantly with age, making this a central molecule in longevity-pathway research.',
+      'NAD+ (Nicotinamide Adenine Dinucleotide) supplied as two pre-filled 500mg devices (1,000mg total) for laboratory analysis and in-vitro study. NAD+ is a coenzyme central to cellular metabolic biochemistry — including mitochondrial electron transport, sirtuin/PARP enzyme activity and redox balance — making it a widely used reference molecule in in-vitro cellular-energetics research. For laboratory research use only — not for human or veterinary use.',
     price: 140,
     currency: 'USD',
     accent: '#7A6FA8',
@@ -396,28 +381,28 @@ export const PRODUCTS = [
     specs: [
       { k: 'Purity', v: '99.06%+ HPLC verified' },
       { k: 'Testing', v: 'Janoshik independent COA' },
-      { k: 'Format', v: '2 × pre-filled 500mg pens' },
+      { k: 'Format', v: '2 × pre-filled 500mg devices' },
       { k: 'Storage', v: '2–8°C · Do not freeze' },
       { k: 'Shelf life', v: '24–36 months sealed' },
     ],
     mechanism:
-      'NAD+ acts as a hydride carrier and substrate for sirtuins and PARP enzymes — driving mitochondrial oxidative phosphorylation, DNA-repair signalling and cellular redox balance. Restoring intracellular NAD+ pools is a central hypothesis in longevity and mitochondrial-health research.',
+      'NAD+ acts as a hydride carrier and as a substrate for sirtuin and PARP enzymes in in-vitro biochemistry — a reference molecule for mitochondrial-energetics, enzyme-activity and redox-balance assays. No human or veterinary application is implied or intended.',
     benefits: [
-      'Cellular energy restoration research',
-      'Mitochondrial-function modelling',
-      'DNA-repair pathway (PARP/sirtuin) studies',
-      'Longevity and biological-ageing marker research',
-      'Cognitive performance and mental-clarity assays',
-      'Muscle recovery and endurance investigations',
+      'Cellular-energetics in-vitro assay reference',
+      'Mitochondrial-function assay studies',
+      'Sirtuin / PARP enzyme-activity assays',
+      'Redox-balance in-vitro research',
+      'Coenzyme biochemistry reference standard',
+      'HPLC identity and purity reference',
     ],
     applications: [
-      'In-vitro mitochondrial energetics studies',
-      'Sirtuin activity assays',
+      'In-vitro mitochondrial-energetics studies',
+      'Sirtuin / PARP enzyme-activity assays',
       'Comparative redox-balance research',
-      'Longevity protocol reference standard',
+      'Method-development reference standard',
     ],
     included: [
-      '2 × pre-filled research pens · 500mg each',
+      '2 × pre-filled research devices · 500mg each',
       'Batch-specific Janoshik Certificate of Analysis',
       'Material Safety Data Sheet (MSDS)',
       'Reconstitution & storage guidelines',
@@ -428,7 +413,7 @@ export const PRODUCTS = [
       batch: 'Batch-specific COA on request',
       taskId: '—',
       purity: 'Manufacturer verified',
-      testDate: 'See dispatched batch',
+      testDate: 'See supplied batch',
       verifyUrl: 'https://verify.janoshik.com/',
       fillVolume: '2.4 mL',
       compound: 'NAD+',
@@ -439,100 +424,61 @@ export const PRODUCTS = [
   },
 ] as const
 
-export const INGREDIENTS = [
-  {
-    name: 'Marine Collagen',
-    latin: 'Hydrolyzed Type I',
-    note: 'Peptide-perfect for elasticity, bounce and visible glow.',
-    image: IMG.ingredientCollagen,
-  },
-  {
-    name: 'Ashwagandha',
-    latin: 'KSM-66®',
-    note: 'A clinically-studied adaptogen that calms cortisol and steadies energy.',
-    image: IMG.ingredientAdaptogen,
-  },
-  {
-    name: 'Omega-3 DHA',
-    latin: 'Algae-derived',
-    note: 'Plant-sourced essential fats for brain, heart and cellular health.',
-    image: IMG.ingredientOmega,
-  },
-  {
-    name: 'Organic Greens',
-    latin: 'Spirulina · Chlorella',
-    note: 'Cold-processed phytonutrients delivering whole-food micronutrition.',
-    image: IMG.ingredientGreens,
-  },
-] as const
-
-export const STATS = [
-  { value: 47, suffix: '+', label: 'Peer-reviewed studies referenced' },
-  { value: 100, suffix: '%', label: 'Traceable, third-party tested actives' },
-  { value: 92, suffix: '%', label: 'Reported better energy in 8 weeks' },
-  { value: 0, prefix: '', suffix: '', label: 'Fillers, dyes & synthetic additives', display: 'Zero' },
-] as const
-
+/**
+ * Homepage "standards" grid. Framed as research characteristics of the
+ * catalogue — purity, testing, documentation and stability — never as human
+ * or physiological benefits. Imagery is laboratory / analytical only.
+ */
 export const BENEFITS = [
-  { k: '01', t: 'Visible Radiance', d: 'Skin that looks lit from within — elasticity, hydration and even tone.', image: '/images/jupyter-labs/visible-radiance-benefit.webp' },
-  { k: '02', t: 'Sustained Energy', d: 'Clean vitality without the spike-and-crash of stimulants.', image: '/images/jupyter-labs/sustained-energy-benefit.webp' },
-  { k: '03', t: 'Deep Recovery', d: 'Calmer nights and sharper mornings through restorative sleep.', image: '/images/jupyter-labs/deep-recovery-benefit.webp' },
-  { k: '04', t: 'Resilient Immunity', d: 'A fortified daily baseline so you stay your strongest self.', image: '/images/jupyter-labs/resilient-immunity-benefit.webp' },
+  { k: '01', t: 'Verified Purity', d: 'Every batch characterized by HPLC — the milligrams on the label are exactly what arrives at your bench.', image: '/images/jupyter-labs/visible-radiance-benefit.webp' },
+  { k: '02', t: 'Independent Testing', d: 'Identity and content confirmed by an independent analytical lab (Janoshik) before any batch ships.', image: '/images/jupyter-labs/sustained-energy-benefit.webp' },
+  { k: '03', t: 'Full Documentation', d: 'A batch-specific Certificate of Analysis and MSDS accompany every order — traceable to the lot.', image: '/images/jupyter-labs/deep-recovery-benefit.webp' },
+  { k: '04', t: 'Stability-Grade Supply', d: 'Sealed, stability-grade packaging protects compound integrity through storage.', image: '/images/jupyter-labs/resilient-immunity-benefit.webp' },
 ] as const
 
+/**
+ * Reviews. COMPLIANCE: these describe only the purchasing and research
+ * experience — documentation, packaging, purity verification, accuracy and
+ * service. They must never reference personal results, health, physique or
+ * any human outcome. Roles are laboratory / procurement professionals.
+ */
 export const TESTIMONIALS = [
   {
     name: 'Amara N.',
-    role: 'Creative Director',
-    quote: 'Jupyter Labs replaced a shelf of supplements with two elegant rituals. My skin and focus have never been better.',
+    role: 'Lab Procurement Lead',
+    quote: 'The batch-specific COA arrives with every order and the Janoshik task IDs verify independently. Documentation this clean makes procurement sign-off effortless.',
     image: '/images/jupyter-labs/customer-stories/customer-testimonial-amara-creative-director.webp',
   },
   {
     name: 'Julien M.',
-    role: 'Endurance Athlete',
-    quote: 'The transparency is unreal — every active is dosed to the studies. I feel the difference by week three.',
+    role: 'Analytical Chemist',
+    quote: 'Purity matches the certificate on our own HPLC re-tests. As a reference material, the lot-to-lot consistency is exactly what method development needs.',
     image: '/images/jupyter-labs/customer-stories/customer-testimonial-julien-endurance-athlete.webp',
   },
   {
     name: 'Sofia R.',
-    role: 'Founder',
-    quote: 'It feels less like taking vitamins and more like a daily moment of luxury. Obsessed.',
+    role: 'Research Operations',
+    quote: 'Sealed, stability-grade packaging and exact fill volumes — and the documentation was all in order. Straightforward from purchase to paperwork.',
     image: '/images/jupyter-labs/customer-stories/customer-testimonial-sofia-founder.webp',
   },
   {
     name: 'Daniel K.',
-    role: 'Physician',
-    quote: 'Finally a brand I can recommend. Clinically-relevant doses, clean sourcing, zero marketing fluff.',
+    role: 'Laboratory Manager',
+    quote: 'Traceability to the lot and a published certificate for every batch. This is the transparency a research supplier should provide as standard.',
     image: '/images/jupyter-labs/customer-stories/customer-testimonial-daniel-physician.webp',
   },
   {
     name: 'Lina P.',
-    role: 'Yoga Teacher',
-    quote: 'Calm changed my sleep within a week. I wake up genuinely rested for the first time in years.',
+    role: 'Quality Assurance',
+    quote: 'Identity and content verified independently, MSDS included, storage guidance clear. Everything we need for compliant intake was in the box.',
     image: '/images/jupyter-labs/customer-stories/customer-testimonial-lina-yoga-teacher.webp',
   },
   {
     name: 'Marcus T.',
-    role: 'Investor',
-    quote: 'Performance you can feel and chemistry you can verify. Jupyter Labs is the new standard.',
+    role: 'Procurement Director',
+    quote: 'Accurate orders and certificates that verify against the lab portal. A supplier we can document and audit with confidence.',
     image: '/images/jupyter-labs/customer-stories/customer-testimonial-marcus-investor.webp',
   },
-] as const
-
-export const TRUST = [
-  'Third-Party Tested',
-  'cGMP Certified',
-  'Vegan & Non-GMO',
-  'Climate Neutral',
-  'No Fillers',
-  'Clinically Dosed',
-] as const
-
-export const TIMELINE = [
-  { year: '2019', t: 'The Question', d: 'Two scientists ask why wellness has to choose between efficacy and elegance.' },
-  { year: '2021', t: 'The Formulas', d: 'Three years of research distilled into clinically-dosed, traceable rituals.' },
-  { year: '2023', t: 'The Launch', d: 'Jupyter Labs debuts to a waitlist of 40,000 — sold out in nineteen hours.' },
-  { year: 'Today', t: 'The Standard', d: 'A new benchmark for what science-backed luxury wellness can be.' },
 ] as const
 
 export const NAV = [

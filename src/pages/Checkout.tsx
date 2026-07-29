@@ -230,7 +230,7 @@ export default function Checkout() {
               </section>
 
               <section>
-                <h2 className="font-display text-xl text-ink">Shipping address</h2>
+                <h2 className="font-display text-xl text-ink">Address</h2>
                 <div className="mt-5 grid gap-4">
                   <input className={inputCls} required maxLength={50} placeholder="Address line 1" value={form.address1} onChange={(e) => set('address1', e.target.value)} />
                   <input className={inputCls} maxLength={50} placeholder="Address line 2 (optional)" value={form.address2} onChange={(e) => set('address2', e.target.value)} />
@@ -250,9 +250,13 @@ export default function Checkout() {
                 </div>
               </section>
 
-              <p className="text-xs text-muted">
-                For laboratory R&D use only · Not for human or veterinary consumption.
-              </p>
+              <div className="rounded-2xl border border-line bg-section px-4 py-3 text-xs leading-relaxed text-muted">
+                <p>
+                  By proceeding with this purchase, you acknowledge that these products are intended solely for laboratory
+                  research purposes and are not intended for human or veterinary use.
+                </p>
+                <p className="mt-2">These products are not intended to diagnose, treat, cure, or prevent any disease.</p>
+              </div>
             </div>
 
             {/* Summary column */}
@@ -347,6 +351,10 @@ export default function Checkout() {
               >
                 {submitting ? 'Placing order…' : 'Place Order'}
               </button>
+              <p className="mt-3 text-center text-[0.7rem] leading-relaxed text-muted">
+                By placing this order you confirm these products are for laboratory research use only — not for human or
+                veterinary use.
+              </p>
               <Link to="/cart" className="mt-4 block text-center text-sm text-accent-dark hover:text-accent">
                 Back to cart
               </Link>

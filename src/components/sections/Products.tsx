@@ -120,7 +120,7 @@ export default function Products() {
           <Heading
             eyebrow="Featured Compounds"
             title={'Six peptides.\nOne standard.'}
-            intro="A focused catalogue of research-grade peptides — each one HPLC-verified, traceable to its lot, and shipped under stability-grade conditions."
+            intro="A focused catalogue of research-grade peptides — each one HPLC-verified, traceable to its lot, and sealed under stability-grade conditions."
           />
           {hasMore && !expanded && (
             <Magnetic>
