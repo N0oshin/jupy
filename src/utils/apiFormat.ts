@@ -17,7 +17,7 @@ export function moneyToNumber(v: Money | number | null | undefined): number {
   return Number.isFinite(n) ? n : 0
 }
 
-/** Format a string/number money value for display, e.g. "89.99" → "£89.99". */
-export function formatApiMoney(v: Money | number | null | undefined, currency = 'GBP'): string {
-  return new Intl.NumberFormat('en-GB', { style: 'currency', currency }).format(moneyToNumber(v))
+/** Format a string/number money value for display, e.g. "89.99" → "$89.99". */
+export function formatApiMoney(v: Money | number | null | undefined, currency = 'USD'): string {
+  return new Intl.NumberFormat('en-US', { style: 'currency', currency }).format(moneyToNumber(v))
 }

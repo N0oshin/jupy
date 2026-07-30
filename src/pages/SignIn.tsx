@@ -3,9 +3,7 @@ import { Link, useNavigate, useSearchParams } from 'react-router-dom'
 import { useAuth } from '../lib/AuthContext'
 import { useSeo } from '../lib/useSeo'
 import type { ApiError } from '../types/api'
-
-const inputCls =
-  'w-full rounded-2xl border border-line bg-bg px-4 py-3 text-sm text-ink placeholder:text-muted/60 transition-colors focus:border-accent-dark focus:outline-none'
+import AuthLayout, { authInputCls, Field, PasswordField } from '../components/AuthLayout'
 
 export default function SignIn() {
   const navigate = useNavigate()
@@ -54,98 +52,68 @@ export default function SignIn() {
   if (isAuthenticated) return null
 
   return (
-    <main id="main-content" className="relative z-10 min-h-screen bg-bg">
-      <div className="container-x flex min-h-screen items-center justify-center py-12 sm:py-16">
-        <div className="w-full max-w-md">
+    <AuthLayout
+      eyebrow="Researcher access"
+      title="Sign in"
+      subtitle="Welcome back. Sign in to review orders, certificates of analysis and account history."
+    >
+      <form onSubmit={onSubmit} className="flex flex-col gap-4">
+        <Field label="Email">
+          <input
+            className={authInputCls}
+            type="email"
+            required
+            autoComplete="email"
+            placeholder="you@lab.com"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            disabled={submitting}
+          />
+        </Field>
+
+        <PasswordField
+          label="Password"
+          value={password}
+          onChange={setPassword}
+          autoComplete="current-password"
+          minLength={6}
+          placeholder="••••••••"
+          disabled={submitting}
+        />
+
+        <div className="-mt-1 text-right">
           <Link
-            to="/"
-            className="mb-10 inline-flex items-center gap-2.5 font-display text-ink"
+            to="/forgot-password"
+            className="text-xs uppercase tracking-[0.22em] text-accent-dark hover:text-accent"
           >
-            <span className="text-2xl font-semibold lowercase tracking-[-0.05em]" style={{ fontFeatureSettings: '"ss01", "cv01"' }}>
-              <span className="italic text-accent-dark">j</span>upyter
-            </span>
-            <span className="h-5 w-px bg-accent-dark/40" />
-            <span className="text-[0.7rem] uppercase tracking-[0.34em] text-accent-dark">Labs</span>
+            Forgot password?
           </Link>
-
-          <div className="border-b border-line pb-6 text-center sm:pb-8">
-            <p className="text-[0.65rem] uppercase tracking-[0.28em] text-accent-dark">Researcher access</p>
-            <h1 className="mt-2 font-display text-3xl tracking-[-0.02em] text-ink sm:text-4xl lg:text-5xl">
-              Sign in
-            </h1>
-            <p className="mt-3 text-sm text-muted">
-              Welcome back. Sign in to review orders, COAs and shipments.
-            </p>
-          </div>
-
-          <form onSubmit={onSubmit} className="mt-8 flex flex-col gap-4 sm:mt-10">
-            <label className="flex flex-col gap-2">
-              <span className="text-xs uppercase tracking-[0.22em] text-muted">Email</span>
-              <input
-                className={inputCls}
-                type="email"
-                required
-                autoComplete="email"
-                placeholder="you@lab.com"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                disabled={submitting}
-              />
-            </label>
-
-            <label className="flex flex-col gap-2">
-              <span className="text-xs uppercase tracking-[0.22em] text-muted">Password</span>
-              <input
-                className={inputCls}
-                type="password"
-                required
-                autoComplete="current-password"
-                minLength={6}
-                placeholder="••••••••"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                disabled={submitting}
-              />
-            </label>
-
-            <div className="-mt-1 text-right">
-              <Link
-                to="/forgot-password"
-                className="text-xs uppercase tracking-[0.22em] text-accent-dark hover:text-accent"
-              >
-                Forgot password?
-              </Link>
-            </div>
-
-            {error && (
-              <p role="alert" className="text-sm text-red-600">
-                {error}
-              </p>
-            )}
-
-            <button
-              type="submit"
-              disabled={submitting}
-              className="mt-2 rounded-full bg-accent-dark px-7 py-3 text-sm text-bg transition-colors hover:bg-accent disabled:opacity-70"
-            >
-              {submitting ? 'Signing in…' : 'Sign in'}
-            </button>
-
-            <p className="mt-6 text-center text-sm text-muted">
-              New to Jupyter Labs?{' '}
-              <Link
-                to={`/register${returnTo !== '/' ? `?returnTo=${encodeURIComponent(returnTo)}` : ''}`}
-                className="text-accent-dark hover:text-accent"
-              >
-                Create an account
-              </Link>
-            </p>
-            <p className="text-center text-xs text-muted">
-              For laboratory R&D use only · Not for human or veterinary consumption.
-            </p>
-          </form>
         </div>
-      </div>
-    </main>
+
+        {error && (
+          <p role="alert" className="rounded-2xl border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700">
+            {error}
+          </p>
+        )}
+
+        <button
+          type="submit"
+          disabled={submitting}
+          className="mt-2 rounded-full bg-accent-dark px-7 py-3.5 text-sm font-medium text-bg transition-all hover:bg-accent hover:shadow-[0_20px_40px_-20px_rgba(15,118,110,0.6)] disabled:opacity-70"
+        >
+          {submitting ? 'Signing in…' : 'Sign in'}
+        </button>
+
+        <p className="mt-4 text-center text-sm text-muted">
+          New to Jupyter Labs?{' '}
+          <Link
+            to={`/register${returnTo !== '/' ? `?returnTo=${encodeURIComponent(returnTo)}` : ''}`}
+            className="font-medium text-accent-dark hover:text-accent"
+          >
+            Create an account
+          </Link>
+        </p>
+      </form>
+    </AuthLayout>
   )
 }

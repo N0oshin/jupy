@@ -3,9 +3,7 @@ import { Link, useNavigate, useSearchParams } from 'react-router-dom'
 import { useAuth } from '../lib/AuthContext'
 import { useSeo } from '../lib/useSeo'
 import type { ApiError, RegisterRequest } from '../types/api'
-
-const inputCls =
-  'w-full rounded-2xl border border-line bg-bg px-4 py-3 text-sm text-ink placeholder:text-muted/60 transition-colors focus:border-accent-dark focus:outline-none'
+import AuthLayout, { authInputCls, Field, PasswordField } from '../components/AuthLayout'
 
 const COUNTRIES = [
   'United Kingdom',
@@ -128,163 +126,124 @@ export default function Register() {
   const today = new Date().toISOString().split('T')[0]
 
   return (
-    <main id="main-content" className="relative z-10 min-h-screen bg-bg">
-      <div className="container-x flex min-h-screen items-center justify-center py-12 sm:py-16">
-        <div className="w-full max-w-lg">
-          <Link
-            to="/"
-            className="mb-10 inline-flex items-center gap-2.5 font-display text-ink"
-          >
-            <span className="text-2xl font-semibold lowercase tracking-[-0.05em]" style={{ fontFeatureSettings: '"ss01", "cv01"' }}>
-              <span className="italic text-accent-dark">j</span>upyter
-            </span>
-            <span className="h-5 w-px bg-accent-dark/40" />
-            <span className="text-[0.7rem] uppercase tracking-[0.34em] text-accent-dark">Labs</span>
-          </Link>
+    <AuthLayout
+      eyebrow="Researcher access"
+      title="Create your account"
+      subtitle="Join Jupyter Labs to access certificates of analysis, order history and members-only research notes."
+    >
+      <form onSubmit={onSubmit} className="flex flex-col gap-4">
+        <Field label="Full name">
+          <input
+            className={authInputCls}
+            required
+            maxLength={80}
+            autoComplete="name"
+            placeholder="Dr. Ada Lovelace"
+            value={form.name}
+            onChange={(e) => set('name', e.target.value)}
+            disabled={submitting}
+          />
+        </Field>
 
-          <div className="border-b border-line pb-6 text-center sm:pb-8">
-              <p className="text-[0.65rem] uppercase tracking-[0.28em] text-accent-dark">Researcher access</p>
-              <h1 className="mt-2 font-display text-3xl tracking-[-0.02em] text-ink sm:text-4xl lg:text-5xl">
-                Create your account
-              </h1>
-              <p className="mt-3 text-sm text-muted">
-                Join Jupyter Labs to access COAs, order history and members-only research notes.
-              </p>
-            </div>
+        <Field label="Email">
+          <input
+            className={authInputCls}
+            type="email"
+            required
+            autoComplete="email"
+            placeholder="you@lab.com"
+            value={form.email}
+            onChange={(e) => set('email', e.target.value)}
+            disabled={submitting}
+          />
+        </Field>
 
-            <form onSubmit={onSubmit} className="mt-8 flex flex-col gap-4 sm:mt-10">
-              <label className="flex flex-col gap-2">
-                <span className="text-xs uppercase tracking-[0.22em] text-muted">Full name</span>
-                <input
-                  className={inputCls}
-                  required
-                  maxLength={80}
-                  autoComplete="name"
-                  placeholder="Dr. Ada Lovelace"
-                  value={form.name}
-                  onChange={(e) => set('name', e.target.value)}
-                  disabled={submitting}
-                />
-              </label>
-
-              <label className="flex flex-col gap-2">
-                <span className="text-xs uppercase tracking-[0.22em] text-muted">Email</span>
-                <input
-                  className={inputCls}
-                  type="email"
-                  required
-                  autoComplete="email"
-                  placeholder="you@lab.com"
-                  value={form.email}
-                  onChange={(e) => set('email', e.target.value)}
-                  disabled={submitting}
-                />
-              </label>
-
-              <div className="grid gap-4 sm:grid-cols-2">
-                <label className="flex flex-col gap-2">
-                  <span className="text-xs uppercase tracking-[0.22em] text-muted">Password</span>
-                  <input
-                    className={inputCls}
-                    type="password"
-                    required
-                    minLength={8}
-                    autoComplete="new-password"
-                    placeholder="At least 8 characters"
-                    value={form.password}
-                    onChange={(e) => set('password', e.target.value)}
-                    disabled={submitting}
-                  />
-                </label>
-                <label className="flex flex-col gap-2">
-                  <span className="text-xs uppercase tracking-[0.22em] text-muted">Confirm password</span>
-                  <input
-                    className={inputCls}
-                    type="password"
-                    required
-                    minLength={8}
-                    autoComplete="new-password"
-                    placeholder="Repeat password"
-                    value={form.confirmPassword}
-                    onChange={(e) => set('confirmPassword', e.target.value)}
-                    disabled={submitting}
-                  />
-                </label>
-              </div>
-
-              <label className="flex flex-col gap-2">
-                <span className="text-xs uppercase tracking-[0.22em] text-muted">Date of birth</span>
-                <input
-                  className={inputCls}
-                  type="date"
-                  required
-                  max={today}
-                  value={form.date_of_birth}
-                  onChange={(e) => set('date_of_birth', e.target.value)}
-                  disabled={submitting}
-                />
-              </label>
-
-              <div className="grid gap-4 sm:grid-cols-2">
-                <label className="flex flex-col gap-2">
-                  <span className="text-xs uppercase tracking-[0.22em] text-muted">Nationality</span>
-                  <select
-                    className={inputCls}
-                    required
-                    value={form.nationality}
-                    onChange={(e) => set('nationality', e.target.value)}
-                    disabled={submitting}
-                  >
-                    {NATIONALITIES.map((n) => (
-                      <option key={n} value={n}>{n}</option>
-                    ))}
-                  </select>
-                </label>
-                <label className="flex flex-col gap-2">
-                  <span className="text-xs uppercase tracking-[0.22em] text-muted">Country of residence</span>
-                  <select
-                    className={inputCls}
-                    required
-                    value={form.country_of_residence}
-                    onChange={(e) => set('country_of_residence', e.target.value)}
-                    disabled={submitting}
-                  >
-                    {COUNTRIES.map((c) => (
-                      <option key={c} value={c}>{c}</option>
-                    ))}
-                  </select>
-                </label>
-              </div>
-
-              {error && (
-                <p role="alert" className="text-sm text-red-600">
-                  {error}
-                </p>
-              )}
-
-              <button
-                type="submit"
-                disabled={submitting}
-                className="mt-2 rounded-full bg-accent-dark px-7 py-3 text-sm text-bg transition-colors hover:bg-accent disabled:opacity-70"
-              >
-                {submitting ? 'Creating account…' : 'Create account'}
-              </button>
-
-              <p className="mt-6 text-center text-sm text-muted">
-                Already have an account?{' '}
-                <Link
-                  to={`/signin${returnTo !== '/' ? `?returnTo=${encodeURIComponent(returnTo)}` : ''}`}
-                  className="text-accent-dark hover:text-accent"
-                >
-                  Sign in
-                </Link>
-              </p>
-            <p className="text-center text-xs text-muted">
-              For laboratory R&D use only · Not for human or veterinary consumption.
-            </p>
-          </form>
+        <div className="grid gap-4 sm:grid-cols-2">
+          <PasswordField
+            label="Password"
+            value={form.password}
+            onChange={(v) => set('password', v)}
+            autoComplete="new-password"
+            minLength={8}
+            placeholder="At least 8 characters"
+            disabled={submitting}
+          />
+          <PasswordField
+            label="Confirm password"
+            value={form.confirmPassword}
+            onChange={(v) => set('confirmPassword', v)}
+            autoComplete="new-password"
+            minLength={8}
+            placeholder="Repeat password"
+            disabled={submitting}
+          />
         </div>
-      </div>
-    </main>
+
+        <Field label="Date of birth">
+          <input
+            className={authInputCls}
+            type="date"
+            required
+            max={today}
+            value={form.date_of_birth}
+            onChange={(e) => set('date_of_birth', e.target.value)}
+            disabled={submitting}
+          />
+        </Field>
+
+        <div className="grid gap-4 sm:grid-cols-2">
+          <Field label="Nationality">
+            <select
+              className={authInputCls}
+              required
+              value={form.nationality}
+              onChange={(e) => set('nationality', e.target.value)}
+              disabled={submitting}
+            >
+              {NATIONALITIES.map((n) => (
+                <option key={n} value={n}>{n}</option>
+              ))}
+            </select>
+          </Field>
+          <Field label="Country of residence">
+            <select
+              className={authInputCls}
+              required
+              value={form.country_of_residence}
+              onChange={(e) => set('country_of_residence', e.target.value)}
+              disabled={submitting}
+            >
+              {COUNTRIES.map((c) => (
+                <option key={c} value={c}>{c}</option>
+              ))}
+            </select>
+          </Field>
+        </div>
+
+        {error && (
+          <p role="alert" className="rounded-2xl border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700">
+            {error}
+          </p>
+        )}
+
+        <button
+          type="submit"
+          disabled={submitting}
+          className="mt-2 rounded-full bg-accent-dark px-7 py-3.5 text-sm font-medium text-bg transition-all hover:bg-accent hover:shadow-[0_20px_40px_-20px_rgba(15,118,110,0.6)] disabled:opacity-70"
+        >
+          {submitting ? 'Creating account…' : 'Create account'}
+        </button>
+
+        <p className="mt-4 text-center text-sm text-muted">
+          Already have an account?{' '}
+          <Link
+            to={`/signin${returnTo !== '/' ? `?returnTo=${encodeURIComponent(returnTo)}` : ''}`}
+            className="font-medium text-accent-dark hover:text-accent"
+          >
+            Sign in
+          </Link>
+        </p>
+      </form>
+    </AuthLayout>
   )
 }

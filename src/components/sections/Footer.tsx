@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import SplitReveal from '../ui/SplitReveal'
 import Magnetic from '../ui/Magnetic'
 import { newsletterService } from '../../services/newsletter.service'
@@ -39,10 +39,21 @@ const COLS: { h: string; links: FooterLink[] }[] = [
       { label: 'Create Account', to: '/register' },
     ],
   },
+  {
+    h: 'Legal',
+    links: [
+      { label: 'Privacy Policy', to: '/privacy-policy' },
+      { label: 'Terms of Service', to: '/terms-of-service' },
+      { label: 'Refund Policy', to: '/refund-policy' },
+      { label: 'Shipping Policy', to: '/shipping-policy' },
+      { label: 'Press Release', to: '/press-release' },
+    ],
+  },
 ]
 
 export default function Footer() {
   const { isAuthenticated, user, logout } = useAuth()
+  const navigate = useNavigate()
   const [email, setEmail] = useState('')
   const [website, setWebsite] = useState('') // honeypot
   const [busy, setBusy] = useState(false)
@@ -129,7 +140,7 @@ export default function Footer() {
         </div>
 
         {/* Links */}
-        <div className="grid gap-12 py-16 sm:grid-cols-2 lg:grid-cols-[1.4fr_repeat(3,1fr)]">
+        <div className="grid gap-12 py-16 sm:grid-cols-2 lg:grid-cols-[1.2fr_repeat(4,1fr)]">
           <div>
             <a
               href="#top"
@@ -200,7 +211,14 @@ export default function Footer() {
             {isAuthenticated ? (
               <>
                 <span className="text-ink">Hi, {user?.name?.split(' ')[0] || 'researcher'}</span>
-                <button type="button" onClick={logout} className="hover:text-accent-dark">
+                <button
+                  type="button"
+                  onClick={() => {
+                    logout()
+                    navigate('/signin')
+                  }}
+                  className="hover:text-accent-dark"
+                >
                   Sign out
                 </button>
               </>

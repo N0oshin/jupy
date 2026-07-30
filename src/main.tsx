@@ -8,6 +8,7 @@ import { AuthProvider } from './lib/AuthContext.tsx'
 
 // Code-split secondary routes so the landing page ships the smallest possible
 // initial bundle. The homepage (App) stays eager to protect its LCP.
+const Shop = lazy(() => import('./pages/Shop.tsx'))
 const ProductDetail = lazy(() => import('./pages/ProductDetail.tsx'))
 const Cart = lazy(() => import('./pages/Cart.tsx'))
 const Checkout = lazy(() => import('./pages/Checkout.tsx'))
@@ -15,6 +16,11 @@ const OrderTracking = lazy(() => import('./pages/OrderTracking.tsx'))
 const SignIn = lazy(() => import('./pages/SignIn.tsx'))
 const Register = lazy(() => import('./pages/Register.tsx'))
 const ForgotPassword = lazy(() => import('./pages/ForgotPassword.tsx'))
+const PressRelease = lazy(() => import('./pages/PressRelease.tsx'))
+const RefundPolicy = lazy(() => import('./pages/RefundPolicy.tsx'))
+const ShippingPolicy = lazy(() => import('./pages/ShippingPolicy.tsx'))
+const PrivacyPolicy = lazy(() => import('./pages/PrivacyPolicy.tsx'))
+const TermsOfService = lazy(() => import('./pages/TermsOfService.tsx'))
 
 function RouteFallback() {
   return (
@@ -43,6 +49,7 @@ createRoot(document.getElementById('root')!).render(
           <Suspense fallback={<RouteFallback />}>
             <Routes>
               <Route path="/" element={<App />} />
+              <Route path="/shop" element={<Shop />} />
               <Route path="/products/:slug" element={<ProductDetail />} />
               <Route path="/cart" element={<Cart />} />
               <Route path="/checkout" element={<Checkout />} />
@@ -51,6 +58,11 @@ createRoot(document.getElementById('root')!).render(
               <Route path="/signin" element={<SignIn />} />
               <Route path="/register" element={<Register />} />
               <Route path="/forgot-password" element={<ForgotPassword />} />
+              <Route path="/press-release" element={<PressRelease />} />
+              <Route path="/refund-policy" element={<RefundPolicy />} />
+              <Route path="/shipping-policy" element={<ShippingPolicy />} />
+              <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+              <Route path="/terms-of-service" element={<TermsOfService />} />
             </Routes>
           </Suspense>
         </CartProvider>

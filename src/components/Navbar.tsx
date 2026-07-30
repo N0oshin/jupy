@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
 import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { NAV } from '../lib/content'
@@ -11,6 +11,8 @@ const MENU_EASE = [0.16, 1, 0.3, 1] as const
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false)
   const [open, setOpen] = useState(false)
+  const [accountOpen, setAccountOpen] = useState(false)
+  const accountRef = useRef<HTMLDivElement>(null)
   const location = useLocation()
   const navigate = useNavigate()
   const { count } = useCart()
@@ -47,6 +49,28 @@ export default function Navbar() {
     window.addEventListener('keydown', onKey)
     return () => window.removeEventListener('keydown', onKey)
   }, [open])
+
+  // Close the desktop account dropdown on outside click or Escape.
+  useEffect(() => {
+    if (!accountOpen) return
+    const onPointerDown = (e: PointerEvent) => {
+      if (accountRef.current && !accountRef.current.contains(e.target as Node)) {
+        setAccountOpen(false)
+      }
+    }
+    const onKey = (e: KeyboardEvent) => e.key === 'Escape' && setAccountOpen(false)
+    window.addEventListener('pointerdown', onPointerDown)
+    window.addEventListener('keydown', onKey)
+    return () => {
+      window.removeEventListener('pointerdown', onPointerDown)
+      window.removeEventListener('keydown', onKey)
+    }
+  }, [accountOpen])
+
+  // Close the account dropdown whenever the route changes.
+  useEffect(() => {
+    setAccountOpen(false)
+  }, [location.pathname])
 
   // Scroll to the hash target after route changes (e.g. tapping "About" in the
   // mobile menu while on /cart navigates to /#about — without this, the page
@@ -126,23 +150,77 @@ export default function Navbar() {
         </nav>
 
         <div className="flex items-center gap-2 sm:gap-3">
-          <Link
-            to="/signin"
-            aria-label={isAuthenticated ? `Account — ${user?.name?.split(' ')[0] || 'researcher'}` : 'Sign in'}
-            title={isAuthenticated ? `Signed in as ${user?.name?.split(' ')[0] || 'researcher'}` : 'Sign in'}
-            className="relative grid h-10 w-10 place-items-center rounded-full border border-line bg-card text-ink transition-all hover:border-accent-dark/40 hover:text-accent-dark"
-          >
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round">
-              <circle cx="12" cy="8" r="4" />
-              <path d="M4 21c0-4 4-6 8-6s8 2 8 6" />
-            </svg>
-            {isAuthenticated && (
-              <span
-                aria-hidden="true"
-                className="absolute -right-0.5 -top-0.5 h-2.5 w-2.5 rounded-full bg-accent-dark ring-2 ring-bg"
-              />
+          <div ref={accountRef} className="relative">
+            {isAuthenticated ? (
+              <button
+                type="button"
+                aria-label={`Account — ${user?.name?.split(' ')[0] || 'researcher'}`}
+                title={`Signed in as ${user?.name?.split(' ')[0] || 'researcher'}`}
+                aria-haspopup="menu"
+                aria-expanded={accountOpen}
+                onClick={() => setAccountOpen((v) => !v)}
+                className="relative grid h-10 w-10 place-items-center rounded-full border border-line bg-card text-ink transition-all hover:border-accent-dark/40 hover:text-accent-dark"
+              >
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round">
+                  <circle cx="12" cy="8" r="4" />
+                  <path d="M4 21c0-4 4-6 8-6s8 2 8 6" />
+                </svg>
+                <span
+                  aria-hidden="true"
+                  className="absolute -right-0.5 -top-0.5 h-2.5 w-2.5 rounded-full bg-accent-dark ring-2 ring-bg"
+                />
+              </button>
+            ) : (
+              <Link
+                to="/signin"
+                aria-label="Sign in"
+                title="Sign in"
+                className="relative grid h-10 w-10 place-items-center rounded-full border border-line bg-card text-ink transition-all hover:border-accent-dark/40 hover:text-accent-dark"
+              >
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round">
+                  <circle cx="12" cy="8" r="4" />
+                  <path d="M4 21c0-4 4-6 8-6s8 2 8 6" />
+                </svg>
+              </Link>
             )}
-          </Link>
+
+            <AnimatePresence>
+              {accountOpen && isAuthenticated && (
+                <motion.div
+                  role="menu"
+                  initial={{ opacity: 0, y: -8, scale: 0.97 }}
+                  animate={{ opacity: 1, y: 0, scale: 1 }}
+                  exit={{ opacity: 0, y: -8, scale: 0.97 }}
+                  transition={{ duration: 0.18, ease: MENU_EASE }}
+                  className="glass absolute right-0 top-[calc(100%+0.6rem)] z-[90] w-56 overflow-hidden rounded-2xl border border-line py-1.5 shadow-lg"
+                >
+                  <div className="border-b border-line px-4 py-2.5 text-sm text-muted">
+                    Signed in as <span className="text-ink">{user?.name?.split(' ')[0] || 'researcher'}</span>
+                  </div>
+                  <Link
+                    to="/track"
+                    role="menuitem"
+                    onClick={() => setAccountOpen(false)}
+                    className="flex items-center gap-2.5 px-4 py-2.5 text-sm text-ink transition-colors hover:bg-card"
+                  >
+                    Track order
+                  </Link>
+                  <button
+                    type="button"
+                    role="menuitem"
+                    onClick={() => {
+                      setAccountOpen(false)
+                      logout()
+                      navigate('/signin')
+                    }}
+                    className="flex w-full items-center gap-2.5 px-4 py-2.5 text-left text-sm text-ink transition-colors hover:bg-card"
+                  >
+                    Sign out
+                  </button>
+                </motion.div>
+              )}
+            </AnimatePresence>
+          </div>
 
           <Link
             to="/cart"
@@ -161,13 +239,12 @@ export default function Navbar() {
             )}
           </Link>
 
-          <a
-            href="#products"
-            onClick={(e) => go(e, '#products')}
+          <Link
+            to="/shop"
             className="hidden rounded-full bg-accent-dark px-6 py-2.5 text-sm text-bg transition-colors hover:bg-accent md:inline-block"
           >
             Shop
-          </a>
+          </Link>
           <button
             aria-label="Menu"
             onClick={() => setOpen((v) => !v)}
@@ -223,16 +300,34 @@ export default function Navbar() {
                 </motion.a>
               ))}
 
+              <motion.div
+                initial={{ opacity: 0, y: 34 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: 0.14 + NAV.length * 0.07, ease: MENU_EASE }}
+              >
+                <Link
+                  to="/track"
+                  onClick={() => setOpen(false)}
+                  className="group flex items-center justify-between border-b border-line py-3.5 font-display text-[clamp(1.85rem,10vw,3rem)] font-light leading-[1.1] tracking-[-0.02em] text-ink"
+                >
+                  Track order
+                  <span className="text-2xl text-accent-dark opacity-0 transition-all duration-300 group-hover:translate-x-1 group-hover:opacity-100">
+                    →
+                  </span>
+                </Link>
+              </motion.div>
+
               {isAuthenticated ? (
                 <motion.button
                   type="button"
                   onClick={() => {
                     logout()
                     setOpen(false)
+                    navigate('/signin')
                   }}
                   initial={{ opacity: 0, y: 34 }}
                   animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.5, delay: 0.14 + NAV.length * 0.07, ease: MENU_EASE }}
+                  transition={{ duration: 0.5, delay: 0.14 + (NAV.length + 1) * 0.07, ease: MENU_EASE }}
                   className="group flex items-center justify-between border-b border-line py-3.5 text-left font-display text-[clamp(1.85rem,10vw,3rem)] font-light leading-[1.1] tracking-[-0.02em] text-ink"
                 >
                   <span>
@@ -250,7 +345,7 @@ export default function Navbar() {
                   <motion.div
                     initial={{ opacity: 0, y: 34 }}
                     animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.5, delay: 0.14 + NAV.length * 0.07, ease: MENU_EASE }}
+                    transition={{ duration: 0.5, delay: 0.14 + (NAV.length + 1) * 0.07, ease: MENU_EASE }}
                   >
                     <Link
                       to="/signin"
@@ -266,7 +361,7 @@ export default function Navbar() {
                   <motion.div
                     initial={{ opacity: 0, y: 34 }}
                     animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.5, delay: 0.14 + (NAV.length + 1) * 0.07, ease: MENU_EASE }}
+                    transition={{ duration: 0.5, delay: 0.14 + (NAV.length + 2) * 0.07, ease: MENU_EASE }}
                   >
                     <Link
                       to="/register"
@@ -282,16 +377,19 @@ export default function Navbar() {
                 </>
               )}
 
-              <motion.a
-                href="#products"
-                onClick={(e) => go(e, '#products')}
+              <motion.div
                 initial={{ opacity: 0, y: 34 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: 0.14 + (NAV.length + 2) * 0.07, ease: MENU_EASE }}
-                className="mt-8 inline-flex w-full items-center justify-center rounded-full bg-accent-dark py-4 text-base font-medium text-bg transition-colors hover:bg-accent"
+                transition={{ duration: 0.5, delay: 0.14 + (NAV.length + (isAuthenticated ? 2 : 3)) * 0.07, ease: MENU_EASE }}
               >
-                Shop Jupyter Labs
-              </motion.a>
+                <Link
+                  to="/shop"
+                  onClick={() => setOpen(false)}
+                  className="mt-8 inline-flex w-full items-center justify-center rounded-full bg-accent-dark py-4 text-base font-medium text-bg transition-colors hover:bg-accent"
+                >
+                  Shop Jupyter Labs
+                </Link>
+              </motion.div>
 
               <motion.p
                 initial={{ opacity: 0 }}
