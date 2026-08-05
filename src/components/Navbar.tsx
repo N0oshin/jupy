@@ -198,6 +198,14 @@ export default function Navbar() {
                     Signed in as <span className="text-ink">{user?.name?.split(' ')[0] || 'researcher'}</span>
                   </div>
                   <Link
+                    to="/orders"
+                    role="menuitem"
+                    onClick={() => setAccountOpen(false)}
+                    className="flex items-center gap-2.5 px-4 py-2.5 text-sm text-ink transition-colors hover:bg-card"
+                  >
+                    My orders
+                  </Link>
+                  <Link
                     to="/track"
                     role="menuitem"
                     onClick={() => setAccountOpen(false)}
@@ -317,6 +325,25 @@ export default function Navbar() {
                 </Link>
               </motion.div>
 
+              {isAuthenticated && (
+                <motion.div
+                  initial={{ opacity: 0, y: 34 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.5, delay: 0.14 + (NAV.length + 1) * 0.07, ease: MENU_EASE }}
+                >
+                  <Link
+                    to="/orders"
+                    onClick={() => setOpen(false)}
+                    className="group flex items-center justify-between border-b border-line py-3.5 font-display text-[clamp(1.85rem,10vw,3rem)] font-light leading-[1.1] tracking-[-0.02em] text-ink"
+                  >
+                    My orders
+                    <span className="text-2xl text-accent-dark opacity-0 transition-all duration-300 group-hover:translate-x-1 group-hover:opacity-100">
+                      →
+                    </span>
+                  </Link>
+                </motion.div>
+              )}
+
               {isAuthenticated ? (
                 <motion.button
                   type="button"
@@ -327,7 +354,7 @@ export default function Navbar() {
                   }}
                   initial={{ opacity: 0, y: 34 }}
                   animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.5, delay: 0.14 + (NAV.length + 1) * 0.07, ease: MENU_EASE }}
+                  transition={{ duration: 0.5, delay: 0.14 + (NAV.length + 2) * 0.07, ease: MENU_EASE }}
                   className="group flex items-center justify-between border-b border-line py-3.5 text-left font-display text-[clamp(1.85rem,10vw,3rem)] font-light leading-[1.1] tracking-[-0.02em] text-ink"
                 >
                   <span>
@@ -380,7 +407,7 @@ export default function Navbar() {
               <motion.div
                 initial={{ opacity: 0, y: 34 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: 0.14 + (NAV.length + (isAuthenticated ? 2 : 3)) * 0.07, ease: MENU_EASE }}
+                transition={{ duration: 0.5, delay: 0.14 + (NAV.length + 3) * 0.07, ease: MENU_EASE }}
               >
                 <Link
                   to="/shop"

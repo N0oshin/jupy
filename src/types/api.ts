@@ -179,6 +179,76 @@ export interface OrdersByEmailResponse {
   orders: Order[]
 }
 
+/* ─────────────── Payment screenshot verification result shape ───────────────
+ * Source: payment.md — payment-verification-service. This is the OCR verdict
+ * shape that service produces; it's embedded (as `verification`) inside the
+ * payment-capture upload response below, not returned directly to the
+ * frontend — POST /api/payment-verification/verify only accepts
+ * application/json and expects the screenshot to already be on disk, so the
+ * frontend never calls it directly (confirmed live: multipart requests to it
+ * never reach `order_number`). The actual upload path is § "Manual payment
+ * capture" below, which internally runs this same verification. */
+
+export interface PaymentVerificationVerdict {
+  decision: 'approved' | 'rejected'
+  probability: number
+  reasons: string[]
+  extracted: {
+    amount_candidates: number[]
+    best_amount: number | null
+    expected_total: number
+    payee_expected: string
+    sort_code_expected: string
+    account_number_expected: string
+    ocr_avg_conf: number
+  }
+}
+
+export interface PaymentVerificationResult {
+  order: { id: number; order_number: string; customer_email: string; total: number }
+  screenshot: { filename: string; path: string }
+  verdict: PaymentVerificationVerdict
+}
+
+/* ─────────────── Manual payment capture ───────────────
+ * Source: API_DOCUMENTATION (3).md § 8 — bank-transfer orders email the
+ * customer a link with an opaque token that authorizes these endpoints (no
+ * Authorization header). This is the live, working upload path: confirmed
+ * multipart-capable against the deployed backend. */
+
+export interface PaymentCaptureBank {
+  payeeName: string
+  sortCode: string
+  accountNumber: string
+  reference: string
+}
+
+export interface PaymentCaptureValidateResponse {
+  ok: true
+  order: Order
+  items: OrderItemRow[]
+  payments: PaymentRow[]
+  /** true only if no promo is applied yet and there's no bundle item. */
+  allowPromo: boolean
+  bank: PaymentCaptureBank
+}
+
+export interface PaymentCaptureUploadResponse {
+  ok: true
+  screenshotUrl: string
+  screenshotFilename: string
+  verification: PaymentVerificationResult | null
+  /** 'received' = approved, 'rejected' = OCR mismatch, 'pending' = verification unavailable. */
+  payment_status: 'received' | 'rejected' | 'pending'
+  verification_error?: string
+}
+
+/** Every payment-capture error response — 400/404 for bad/expired token, 500 otherwise. */
+export interface PaymentCaptureErrorResponse {
+  ok: false
+  error: string
+}
+
 /* ─────────────── Newsletter ─────────────── */
 
 export interface NewsletterRequest {

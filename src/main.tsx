@@ -13,6 +13,8 @@ const ProductDetail = lazy(() => import('./pages/ProductDetail.tsx'))
 const Cart = lazy(() => import('./pages/Cart.tsx'))
 const Checkout = lazy(() => import('./pages/Checkout.tsx'))
 const OrderTracking = lazy(() => import('./pages/OrderTracking.tsx'))
+const PaymentCapture = lazy(() => import('./pages/PaymentCapture.tsx'))
+const MyOrders = lazy(() => import('./pages/MyOrders.tsx'))
 const SignIn = lazy(() => import('./pages/SignIn.tsx'))
 const Register = lazy(() => import('./pages/Register.tsx'))
 const ForgotPassword = lazy(() => import('./pages/ForgotPassword.tsx'))
@@ -55,6 +57,8 @@ createRoot(document.getElementById('root')!).render(
               <Route path="/checkout" element={<Checkout />} />
               <Route path="/track" element={<OrderTracking />} />
               <Route path="/track/:orderNumber" element={<OrderTracking />} />
+              <Route path="/orders" element={<MyOrders />} />
+              <Route path="/payment-capture/:token" element={<PaymentCapture />} />
               <Route path="/signin" element={<SignIn />} />
               <Route path="/register" element={<Register />} />
               <Route path="/forgot-password" element={<ForgotPassword />} />

@@ -5,6 +5,7 @@ import Navbar from '../components/Navbar'
 import Footer from '../components/sections/Footer'
 import { PRODUCTS } from '../lib/content'
 import { useCart, formatPrice } from '../lib/CartContext'
+import { useAuth } from '../lib/AuthContext'
 import { orderService } from '../services/order.service'
 import { emailService } from '../services/email.service'
 import { promoService } from '../services/promo.service'
@@ -28,6 +29,7 @@ const COUNTRIES = ['United Kingdom', 'Ireland', 'France', 'Germany', 'Netherland
 export default function Checkout() {
   const navigate = useNavigate()
   const { items, subtotal, clear } = useCart()
+  const { user } = useAuth()
 
   useSeo({ title: 'Checkout — Jupyter Labs', path: '/checkout', noindex: true })
 
@@ -53,6 +55,21 @@ export default function Checkout() {
     postcode: '',
     country: 'United Kingdom',
   })
+
+  // Pre-fill from the signed-in account so a manual-payment order's
+  // customer_email matches the account email — otherwise it can never show
+  // up under My Orders, which looks orders up by email. Only fills fields
+  // still blank, so it never overwrites something the customer already typed.
+  useEffect(() => {
+    if (!user) return
+    setForm((f) => ({
+      ...f,
+      firstName: f.firstName || user.name?.split(' ')[0] || '',
+      lastName: f.lastName || user.name?.split(' ').slice(1).join(' ') || '',
+      email: f.email || user.email || '',
+      phone: f.phone || user.phone || '',
+    }))
+  }, [user])
 
   const [promoInput, setPromoInput] = useState('')
   const [promo, setPromo] = useState<{ code: string; percent: number } | null>(null)
