@@ -80,7 +80,7 @@ export default function OrderTracking() {
     <>
       <Navbar />
       <main id="main-content" className="relative z-10 bg-bg pt-28 lg:pt-32">
-        <div className="container-x pb-24">
+        <div className="container-x pb-16">
           {/* Header */}
           <div className="border-b border-line pb-8">
             <p className="text-[0.65rem] uppercase tracking-[0.28em] text-accent-dark">Order Tracking</p>

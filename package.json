@@ -7,7 +7,8 @@
     "dev": "vite",
     "dev:all": "node scripts/dev.mjs",
     "dev:email": "npm --prefix server start",
-    "build": "tsc -b && vite build",
+    "build": "node scripts/gen-seo-files.mjs && tsc -b && vite build",
+    "seo:files": "node scripts/gen-seo-files.mjs",
     "lint": "eslint .",
     "preview": "vite preview",
     "images:manifest": "node scripts/gen-image-manifest.mjs"

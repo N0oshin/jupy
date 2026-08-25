@@ -2,6 +2,8 @@ import { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import SplitReveal from '../ui/SplitReveal'
 import Magnetic from '../ui/Magnetic'
+import SocialLinks from '../ui/SocialLinks'
+import { SOCIALS_CONFIGURED } from '../../lib/social'
 import { newsletterService } from '../../services/newsletter.service'
 import { useAuth } from '../../lib/AuthContext'
 import type { ApiError } from '../../types/api'
@@ -24,10 +26,13 @@ const COLS: { h: string; links: FooterLink[] }[] = [
   {
     h: 'Company',
     links: [
-      { label: 'About', to: '#about', hash: true },
+      { label: 'About Us', to: '/about-us' },
       { label: 'Why Us', to: '#why', hash: true },
       { label: 'Testimonials', to: '#testimonials', hash: true },
-      { label: 'Contact', to: '#contact', hash: true },
+      // Was '#contact', which only scrolled to this footer. It now points at the
+      // real /contact page and its form.
+      { label: 'Contact', to: '/contact' },
+      { label: 'Shop All', to: '/products' },
     ],
   },
   {
@@ -43,10 +48,7 @@ const COLS: { h: string; links: FooterLink[] }[] = [
     h: 'Legal',
     links: [
       { label: 'Privacy Policy', to: '/privacy-policy' },
-      { label: 'Terms of Service', to: '/terms-of-service' },
-      { label: 'Refund Policy', to: '/refund-policy' },
-      { label: 'Shipping Policy', to: '/shipping-policy' },
-      { label: 'Press Release', to: '/press-release' },
+      { label: 'Terms & Conditions', to: '/terms-of-service' },
     ],
   },
 ]
@@ -87,7 +89,7 @@ export default function Footer() {
   }
 
   return (
-    <footer id="contact" className="relative overflow-hidden bg-bg pt-24">
+    <footer id="contact" className="relative overflow-hidden bg-bg pt-16">
       <div className="container-x">
         {/* Newsletter */}
         <div className="grid gap-10 border-b border-line pb-16 lg:grid-cols-2 lg:items-end">
@@ -142,8 +144,12 @@ export default function Footer() {
         {/* Links */}
         <div className="grid gap-12 py-16 sm:grid-cols-2 lg:grid-cols-[1.2fr_repeat(4,1fr)]">
           <div>
-            <a
-              href="#top"
+            {/* Was href="#top", which only exists on the homepage — on /contact,
+                /shop, a product page or any policy page it resolved to nothing.
+                Pointing it at "/" gives the brand mark the destination users
+                expect from a footer logo on every route. */}
+            <Link
+              to="/"
               className="inline-flex items-center gap-3 font-display text-ink"
             >
               <span className="text-3xl font-semibold lowercase tracking-[-0.05em]" style={{ fontFeatureSettings: '"ss01", "cv01"' }}>
@@ -151,14 +157,22 @@ export default function Footer() {
               </span>
               <span className="h-7 w-px bg-accent-dark/50" />
               <span className="text-[0.8rem] uppercase tracking-[0.34em] text-accent-dark">Labs</span>
-            </a>
+            </Link>
             <p className="mt-5 max-w-xs text-muted">
-              Research-grade peptides — HPLC-verified, traceable to the lot, documented to the milligram.
+              Research-grade peptides. HPLC-verified, traceable to the lot, documented to the milligram.
             </p>
-            <p className="mt-4 max-w-xs text-xs leading-relaxed text-muted/80">
-              Jupyter Labs does not operate on any social media platforms. Please beware of scam accounts claiming to
-              represent us.
-            </p>
+            {/* Social row and scam warning are mutually exclusive: the warning
+                is only true while no profile is configured in lib/social.ts, and
+                SocialLinks renders nothing until one is. Driving both from
+                SOCIALS_CONFIGURED means they can never contradict each other. */}
+            {SOCIALS_CONFIGURED ? (
+              <SocialLinks className="mt-6" label="Jupyter Labs on social media" />
+            ) : (
+              <p className="mt-4 max-w-xs text-xs leading-relaxed text-muted/80">
+                Jupyter Labs does not operate on any social media platforms. Please beware of scam accounts claiming to
+                represent us.
+              </p>
+            )}
           </div>
           {COLS.map((c) => (
             <div key={c.h}>

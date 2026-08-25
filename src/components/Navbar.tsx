@@ -86,6 +86,12 @@ export default function Navbar() {
     e.preventDefault()
     const wasOpen = open
     setOpen(false)
+    // NAV entries that aren't '#section' are real app routes (e.g. /contact) —
+    // navigate client-side rather than trying to scroll to a nonexistent anchor.
+    if (!href.startsWith('#')) {
+      navigate(href)
+      return
+    }
     if (location.pathname !== '/') {
       navigate('/' + href)
       return
@@ -248,7 +254,7 @@ export default function Navbar() {
           </Link>
 
           <Link
-            to="/shop"
+            to="/products"
             className="hidden rounded-full bg-accent-dark px-6 py-2.5 text-sm text-bg transition-colors hover:bg-accent md:inline-block"
           >
             Shop
@@ -410,7 +416,7 @@ export default function Navbar() {
                 transition={{ duration: 0.5, delay: 0.14 + (NAV.length + 3) * 0.07, ease: MENU_EASE }}
               >
                 <Link
-                  to="/shop"
+                  to="/products"
                   onClick={() => setOpen(false)}
                   className="mt-8 inline-flex w-full items-center justify-center rounded-full bg-accent-dark py-4 text-base font-medium text-bg transition-colors hover:bg-accent"
                 >

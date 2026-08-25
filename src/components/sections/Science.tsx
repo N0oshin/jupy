@@ -8,19 +8,19 @@ const STEPS = [
   {
     k: 'Discover',
     t: 'It starts with the evidence',
-    d: 'Every formula begins in the literature. Our scientists screen hundreds of studies to identify actives with real, replicated clinical outcomes.',
+    d: 'Every formulation starts with the science. Our team reviews extensive research and published literature to identify compounds supported by credible, reproducible findings.',
     img: '/images/jupyter-labs/peptide-research-discovery-phase.webp',
   },
   {
     k: 'Formulate',
     t: 'Dosed to the research',
-    d: 'We translate that evidence into precise, bioavailable doses — no proprietary blends, no under-dosing, no guesswork.',
+    d: 'We turn scientific evidence into clearly defined formulations and specified doses. No proprietary blends, no unnecessary fillers and no guesswork.',
     img: '/images/jupyter-labs/peptide-formulation-development.webp',
   },
   {
     k: 'Validate',
     t: 'Tested, then tested again',
-    d: 'Independent labs verify identity, potency and purity for every batch. If it does not pass, it does not leave the lab.',
+    d: 'Independent laboratories evaluate every batch for identity, potency, and purity. Only batches that meet our defined quality standards are cleared for release.',
     img: '/images/jupyter-labs/peptide-validation-quality-testing.webp',
   },
 ]

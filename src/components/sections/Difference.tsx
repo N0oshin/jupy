@@ -5,9 +5,9 @@ import Reveal from '../ui/Reveal'
 import Img from '../ui/Img'
 
 const PILLARS = [
-  { t: 'HPLC-Verified Purity', d: 'Every batch is characterized by high-performance liquid chromatography — the milligrams on the label are exactly what you receive, research-grade and lab-confirmed.' },
-  { t: 'Batch-to-Batch Consistency', d: 'Controlled manufacturing holds every unit to the same exact specification, giving researchers reliable, reproducible results from one study to the next.' },
-  { t: 'Sealed Stability-Grade Packaging', d: 'Sealed containers and stability-grade packaging shield every peptide from light, moisture and temperature drift — protecting structural integrity from synthesis to bench.' },
+  { t: 'HPLC-Verified Purity', d: 'Each peptide pen undergoes high-performance liquid chromatography (HPLC) analysis to verify its specified composition and purity. Every batch is documented with research-focused quality data for greater confidence in your laboratory work.' },
+  { t: 'Consistent Batch Quality', d: 'Our controlled production process is designed to maintain consistent specifications across batches and individual peptide pens, supporting dependable and reproducible laboratory research.' },
+  { t: 'Temperature Controlled Packaging', d: 'Each peptide pen is packaged with stability and storage requirements in mind, helping protect the research compound from environmental exposure during handling, storage, and transit from production to your laboratory bench.' },
 ]
 
 export default function Difference() {
@@ -34,7 +34,7 @@ export default function Difference() {
               className="glass absolute bottom-4 right-4 w-48 rounded-2xl px-5 py-4 sm:-bottom-6 sm:-right-4 sm:w-56 lg:-right-10"
             >
               <div className="font-display text-2xl font-light leading-[1.1] text-accent-dark">99%+ pure</div>
-              <p className="mt-1 text-xs leading-[1.4] text-muted">HPLC-certified — published purity report with every batch.</p>
+              <p className="mt-1 text-xs leading-[1.4] text-muted">HPLC-certified. Published purity report with every batch.</p>
             </motion.div>
           </div>
 
@@ -43,9 +43,9 @@ export default function Difference() {
               eyebrow="The Jupyter Labs Standard"
               eyebrowGap="mb-12"
               title={'Research-grade peptides,\nformulated for precision.'}
-              intro="Every Jupyter Labs peptide and research compound is engineered for the modern lab — purity verified by HPLC, consistency held to pharmaceutical tolerances, and stability protected from synthesis all the way to your bench."
+              intro="Every Jupyter Labs peptide pen is engineered for the modern research environment, combining HPLC-verified purity, stringent quality standards, and controlled stability from synthesis through formulation, filling, and delivery to your laboratory bench."
             />
-            <div className="mt-16 space-y-3">
+            <div className="mt-12 space-y-3">
               {PILLARS.map((p, i) => (
                 <Reveal key={p.t} delay={i * 0.08}>
                   <div className="group relative overflow-hidden rounded-2xl bg-card/40 p-6 backdrop-blur-sm transition-all duration-500 hover:-translate-y-0.5 hover:bg-card hover:shadow-[0_18px_40px_-22px_rgba(31,41,51,0.25)]">

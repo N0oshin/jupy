@@ -15,6 +15,12 @@ export const PRODUCTS = [
     id: 'bpc-157',
     slug: 'bpc-157-tb-500',
     name: 'BPC-157 & TB-500',
+    seo: {
+      title: 'BPC-157 & TB-500 Peptide | Complex Jupyter Labs',
+      description:
+        'Jupyter Labs provides BPC-157 & TB-500 40mg for muscle and connective tissue research, including bone repair, and body tissue repair studies.',
+      h1: 'best way to repair torn muscles',
+    },
     tagline: 'Peptide Blend · Reference Standard',
     category: 'Peptide Complex',
     desc: 'A synthetic research-peptide blend supplied as a laboratory reference material for in-vitro and pre-clinical study.',
@@ -84,6 +90,12 @@ export const PRODUCTS = [
     id: 'retatrutide-20',
     slug: 'retatrutide-20mg',
     name: 'Retatrutide 20mg',
+    seo: {
+      title: 'Retatrutide 20mg Triple Agonist | Jupyter Labs',
+      description:
+        'Explore Retatrutide 20 mg at Jupyter Labs for peptide research on metabolic pathways, growth hormone secretagogue activity, hormone receptors.',
+      h1: 'Growth hormone secretagogue',
+    },
     tagline: 'Triple Agonist · GIP/GLP-1/Glucagon',
     category: 'Triple Agonist',
     desc: 'A triple-receptor-agonist research peptide supplied as a laboratory reference material for in-vitro receptor and metabolic-pathway study.',
@@ -153,6 +165,12 @@ export const PRODUCTS = [
     id: 'retatrutide',
     slug: 'retatrutide-40mg',
     name: 'Retatrutide 40mg',
+    seo: {
+      title: 'Retatrutide 40mg Research Peptide | Jupyter Labs',
+      description:
+        'Jupyter Labs Retatrutide 40mg, a high-quality research peptide intended for laboratory and scientific research purposes only.',
+      h1: 'Longevity supplements',
+    },
     tagline: 'Triple Agonist · GIP/GLP-1/Glucagon',
     category: 'Triple Agonist',
     desc: 'A triple-receptor-agonist research peptide supplied as a laboratory reference material for in-vitro receptor and metabolic-pathway study.',
@@ -222,6 +240,12 @@ export const PRODUCTS = [
     id: 'tirzepatide',
     slug: 'tirzepatide-40mg',
     name: 'Tirzepatide 40mg',
+    seo: {
+      title: 'Tirzepatide 40mg GLP-1 / GIP | Jupyter Labs',
+      description:
+        'Learn how tirzepatide works, scientific studies, fat loss research, diabetes research, and laboratory applications.',
+      h1: 'Tirzepatide scientific studies',
+    },
     tagline: 'Dual Agonist · GLP-1/GIP',
     category: 'GLP-1 / GIP',
     desc: 'A dual GIP/GLP-1 receptor-agonist research peptide supplied as a laboratory reference material for in-vitro receptor and metabolic-pathway study.',
@@ -292,6 +316,12 @@ export const PRODUCTS = [
     id: 'glow',
     slug: 'glow-70mg',
     name: 'Glow 70mg (GHK-Cu)',
+    seo: {
+      title: 'Glow 70mg (GHK-Cu) Copper Peptide | Jupyter Labs',
+      description:
+        'GHK-Cu peptide research at Jupyter Labs. Learn what GHK-Cu copper peptide is, its research applications, benefits, hair growth studies.',
+      h1: 'GHK-Cu copper peptide for hair growth and Skin care',
+    },
     tagline: 'Copper Peptide · GHK-Cu',
     category: 'Copper Peptide',
     desc: 'A copper-tripeptide (GHK-Cu) research compound supplied as a laboratory reference material for in-vitro biochemical study.',
@@ -361,6 +391,12 @@ export const PRODUCTS = [
     id: 'nad-plus',
     slug: 'nad-plus-1000mg',
     name: 'NAD+ 1,000mg',
+    seo: {
+      title: 'NAD+ 1,000mg Coenzyme | Cellular Research Peptide',
+      description:
+        'Explore its role in cellular metabolism, energy production, NAD+ pathways, and advanced scientific cells research.',
+      h1: 'Jupyter Labs NAD+ 1,000mg Coenzyme',
+    },
     tagline: 'Coenzyme · NAD+ Reference',
     category: 'Coenzyme',
     desc: 'A Nicotinamide Adenine Dinucleotide (NAD+) research formulation supplied as a laboratory reference material for in-vitro cellular-energetics and redox study.',
@@ -481,11 +517,25 @@ export const TESTIMONIALS = [
   },
 ] as const
 
+/**
+ * Primary navigation.
+ *
+ * `href` starting with '#' is an in-page section on the homepage (smooth-scrolled,
+ * or navigated to as /#id from another route). Anything else is an app route and
+ * is rendered as a react-router <Link>. There are no placeholder entries — every
+ * href resolves to a real section or a real route.
+ */
 export const NAV = [
   { label: 'Home', href: '#top' },
-  { label: 'About', href: '#about' },
-  { label: 'Products', href: '#products' },
+  // Now a standalone page, not a scroll to the homepage's #about section. The
+  // section and its anchor still exist — this link just points at the page the
+  // SEO sheet specifies at /about-us.
+  { label: 'About', href: '/about-us' },
+  // The full catalogue page, not the homepage's 3-product teaser section. The
+  // #products section still exists and still links through to /products itself.
+  { label: 'Products', href: '/products' },
   { label: 'Why Us', href: '#why' },
   { label: 'Testimonials', href: '#testimonials' },
-  { label: 'Contact', href: '#contact' },
+  // Now a standalone page with a contact form, not a scroll to the footer.
+  { label: 'Contact', href: '/contact' },
 ] as const

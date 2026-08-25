@@ -3,6 +3,7 @@ import { motion, useScroll, useTransform, useMotionTemplate } from 'framer-motio
 import { useGSAP } from '@gsap/react'
 import { gsap } from '../../lib/gsap'
 import { useReducedMotion } from '../../lib/useReducedMotion'
+import CtaLink from '../ui/CtaLink'
 const HEADLINE = ['Smarter', 'Peptides', 'For', 'Modern', 'Research']
 
 // Kept in sync with the <link rel="preload" imagesrcset> in index.html — the two
@@ -41,15 +42,17 @@ export default function Hero() {
           { yPercent: 120, opacity: 0, filter: 'blur(14px)', rotateX: -40, duration: 1.2, stagger: 0.12 },
           '-=0.6',
         )
+        // CTAs settle in just behind the last headline word.
+        .from('.hero-cta', { y: 20, opacity: 0, duration: 0.7, stagger: 0.08 }, '-=0.5')
     },
     { scope: ref, dependencies: [reduced] },
   )
 
   return (
-    <section ref={ref} id="top" className="relative bg-white pb-0 pt-28 sm:pt-40 lg:pb-0 lg:pt-48">
+    <section ref={ref} id="top" className="relative bg-white pb-0 pt-32 sm:pt-44 lg:pb-0 lg:pt-52">
       <div className="container-x">
         {/* Top trust + tag strip */}
-        <div className="hero-top -mt-8 mb-16 flex flex-wrap items-center justify-between gap-4 lg:-mt-12 lg:mb-20">
+        <div className="hero-top -mt-8 mb-10 flex flex-wrap items-center justify-between gap-4 lg:-mt-12 lg:mb-14">
           <div className="flex items-center gap-4">
             <div className="flex -space-x-2.5">
               {[
@@ -86,7 +89,7 @@ export default function Hero() {
             src={HERO_IMG}
             srcSet={HERO_SRCSET}
             sizes="100vw"
-            alt=""
+            alt="Jupyter Labs research-grade peptide vials on a laboratory bench"
             fetchPriority="high"
             decoding="async"
             style={reduced ? undefined : { filter: imgFilter }}
@@ -101,7 +104,14 @@ export default function Hero() {
           {/* centered headline overlay */}
           <motion.div
             style={reduced ? undefined : { opacity: fade }}
-            className="relative flex min-h-[78svh] flex-col items-center justify-center px-6 py-20 text-center lg:min-h-[78svh] lg:py-32"
+            /* Reduced from a flat 78svh. Kept deliberately modest: the image is
+               an object-cover fill of this box, so shortening the box crops the
+               photograph rather than scaling it — take too much and the bench,
+               the product boxes and the researcher's head start leaving frame.
+               These values were checked against the actual composition at 1440,
+               768 and 375. min-height, not height, so a headline that wraps to
+               more lines grows the box instead of being clipped. */
+            className="relative flex min-h-[66svh] flex-col items-center justify-center px-6 py-16 text-center lg:min-h-[68svh] lg:py-24"
           >
             <h1 className="type-hero font-display text-balance font-light leading-[1.12] text-white drop-shadow-[0_6px_30px_rgba(0,0,0,0.6)]">
               {HEADLINE.map((w) => (
@@ -110,6 +120,15 @@ export default function Hero() {
                 </span>
               ))}
             </h1>
+
+            <div className="mt-8 flex flex-col items-center gap-3 sm:flex-row sm:justify-center sm:gap-4">
+              <CtaLink to="/products" variant="solid-light" arrow className="hero-cta">
+                Explore More
+              </CtaLink>
+              <CtaLink to="#about" variant="outline-light" className="hero-cta">
+                Learn More
+              </CtaLink>
+            </div>
           </motion.div>
         </div>
 

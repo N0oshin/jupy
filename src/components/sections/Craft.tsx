@@ -5,9 +5,9 @@ import Reveal from '../ui/Reveal'
 import Img from '../ui/Img'
 
 const PILLARS = [
-  { t: 'Sourced at Origin', d: 'We work directly with certified synthesis labs to bring traceable, research-grade compounds to your bench.' },
-  { t: 'Tested at Every Stage', d: 'Identity, potency, purity — verified before, during, and after manufacture by independent labs.' },
-  { t: 'Made in Small Batches', d: 'Limited runs mean fresher compounds and tighter quality control on every single kit we produce.' },
+  { t: 'Carefully Sourced Ingredients', d: 'We partner with qualified suppliers and trusted laboratories to source research compounds with documented origins and consistent quality standards.' },
+  { t: 'Independently Tested', d: 'Each research compound is evaluated for key quality attributes, including identity, purity, and potency, with analytical testing performed throughout the quality-control process.' },
+  { t: 'Precision-Focused Production', d: 'Controlled production runs allow us to maintain close oversight of every peptide pen, helping ensure consistent quality and reliable handling from manufacturing through shipment.' },
 ]
 
 export default function Craft() {
@@ -22,10 +22,10 @@ export default function Craft() {
           <div className="order-2 lg:order-1 lg:pt-8">
             <Heading
               eyebrow="How We Make It"
-              title={'Crafted with\nuncompromising care.'}
-              intro="From the raw compound to the seal on the research device, every step is held to a single rule — do it right, or don't do it at all."
+              title={'Crafted with\nuncompromising precision.'}
+              intro="From the active ingredient to the final seal on every peptide pen, each stage is guided by one uncompromising standard: quality at every step, without shortcuts."
             />
-            <div className="mt-16 space-y-3">
+            <div className="mt-12 space-y-3">
               {PILLARS.map((p, i) => (
                 <Reveal key={p.t} delay={i * 0.08}>
                   <div className="group relative overflow-hidden rounded-2xl bg-card/40 p-6 backdrop-blur-sm transition-all duration-500 hover:-translate-y-0.5 hover:bg-card hover:shadow-[0_18px_40px_-22px_rgba(31,41,51,0.25)]">
@@ -72,7 +72,7 @@ export default function Craft() {
               className="glass absolute bottom-4 left-4 w-48 rounded-3xl p-6 sm:-bottom-8 sm:-left-4 sm:w-56 lg:-left-10"
             >
               <div className="font-display text-3xl font-light leading-[1.2] text-accent-dark">12 checks</div>
-              <p className="mt-2 text-sm text-muted">per batch — from raw compound to the seal on every research device.</p>
+              <p className="mt-2 text-sm text-muted">Quality checks per batch. From the active compound to the final seal on every peptide pen.</p>
             </motion.div>
           </div>
         </div>

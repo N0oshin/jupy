@@ -10,10 +10,17 @@ interface Props {
   light?: boolean
   /** Tailwind margin-bottom class for the eyebrow → controls the gap before the title. */
   eyebrowGap?: string
+  /**
+   * Heading level to render. Defaults to h2, which is correct for the section
+   * headings this component was built for. Pages that use it as their single
+   * page title (e.g. /shop, /contact) pass "h1" so the document has exactly one
+   * top-level heading — the visual styling is identical either way.
+   */
+  as?: 'h1' | 'h2'
 }
 
 /** Reusable editorial section heading: eyebrow + split-reveal title + intro. */
-export default function Heading({ eyebrow, title, intro, align = 'left', className = '', light = false, eyebrowGap = 'mb-4' }: Props) {
+export default function Heading({ eyebrow, title, intro, align = 'left', className = '', light = false, eyebrowGap = 'mb-4', as = 'h2' }: Props) {
   const center = align === 'center'
   const right = align === 'right'
   return (
@@ -24,7 +31,7 @@ export default function Heading({ eyebrow, title, intro, align = 'left', classNa
         </Reveal>
       )}
       <SplitReveal
-        as="h2"
+        as={as}
         mode="lines"
         stagger={0.12}
         className={`type-section font-display font-medium leading-[1.08] tracking-[-0.015em] ${light ? 'text-bg' : 'text-ink'}`}

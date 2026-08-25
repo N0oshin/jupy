@@ -1,5 +1,15 @@
+# https://www.robotstxt.org/robotstxt.html
 User-agent: *
 Allow: /
 
-# Sitemap
-Sitemap: https://jupyterlabs.example.com/sitemap.xml
+# Private / transactional routes — per-user or checkout pages, never indexable.
+Disallow: /cart
+Disallow: /checkout
+Disallow: /orders
+Disallow: /track
+Disallow: /signin
+Disallow: /register
+Disallow: /forgot-password
+Disallow: /payment-capture/
+
+Sitemap: https://jupyterlabs.net/sitemap.xml

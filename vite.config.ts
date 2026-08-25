@@ -33,6 +33,13 @@ export default defineConfig(({ mode }) => {
           target: env.EMAIL_SERVER_URL || 'http://localhost:4001',
           changeOrigin: true,
         },
+        // Same arrangement for the contact form (see contact.service.ts): it
+        // posts to a relative /api/contact, which is same-origin in production
+        // via nginx and needs proxying to the companion server in dev.
+        '/api/contact': {
+          target: env.EMAIL_SERVER_URL || 'http://localhost:4001',
+          changeOrigin: true,
+        },
       },
     },
 

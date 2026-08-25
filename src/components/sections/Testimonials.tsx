@@ -37,7 +37,8 @@ function Quote({ t }: { t: T }) {
             src={t.image}
             alt=""
             aria-hidden="true"
-            className="absolute inset-0 h-full w-full object-cover opacity-0 transition-opacity duration-500 group-hover:opacity-100"
+            className="absolute inset-0 h-full w-full object-cover opacity-0 transition-op
+            acity duration-500 group-hover:opacity-100"
             loading="lazy"
             decoding="async"
           />
@@ -75,7 +76,7 @@ export default function Testimonials() {
   const reduced = useReducedMotion()
   return (
     <section id="testimonials" className="section-pad relative overflow-hidden bg-bg">
-      <div className="container-x mb-16">
+      <div className="container-x mb-12">
         <Heading
           eyebrow="From The Bench"
           title={'Trusted by labs that\nread the certificate.'}

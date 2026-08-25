@@ -22,9 +22,9 @@ function App() {
   const handleIntroDone = useCallback(() => setReady(true), [])
 
   useSeo({
-    title: 'Jupyter Labs — HPLC-Verified Research-Grade Peptides',
+    title: 'HPLC-Verified Research Peptides | Jupyter Labs',
     description:
-      'Research-grade peptides — HPLC-verified for purity, traceable to the lot, and documented to the milligram. For laboratory R&D use only.',
+      'Research-grade peptides HPLC-verified for purity, traceable to the lot, and documented to the milligram.',
     path: '/',
   })
 

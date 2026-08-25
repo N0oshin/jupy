@@ -17,7 +17,9 @@ export default function Marquee() {
     <section
       id="marquee"
       aria-label="Research-grade peptides. HPLC-verified purity. Pharmaceutical precision. Independently certified."
-      className="relative overflow-hidden py-24 sm:py-32 lg:py-72"
+      /* Was py-24 sm:py-32 lg:py-72 — 288px of padding per edge on desktop made
+         this decorative band taller than most real content sections. */
+      className="relative overflow-hidden py-16 sm:py-24 lg:py-40"
     >
       {/* Saved background image — heavily blurred */}
       <img

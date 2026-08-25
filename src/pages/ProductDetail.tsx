@@ -48,8 +48,12 @@ export default function ProductDetail() {
   useSeo(
     product
       ? {
-          title: `${product.name} — ${product.category} | Jupyter Labs`,
-          description: product.longDesc,
+          // Per-product title/description from the SEO sheet (content.ts →
+          // product.seo). Falls back to the previous generated values for any
+          // product that has no sheet entry, so adding a product without SEO
+          // copy still produces sane metadata.
+          title: product.seo?.title ?? `${product.name} — ${product.category} | Jupyter Labs`,
+          description: product.seo?.description ?? product.longDesc,
           path: `/products/${product.slug}`,
           image: SITE_URL + product.image,
           jsonLd: [
@@ -151,7 +155,11 @@ export default function ProductDetail() {
             {/* Scrolling info column */}
             <div>
               <p className="text-[0.65rem] uppercase tracking-[0.28em] text-accent-dark">Compound Analysis</p>
-              <h1 className="mt-3 font-display text-4xl tracking-[-0.02em] text-ink lg:text-5xl">{product.name}</h1>
+              {/* H1 text comes from the SEO sheet where one is defined; classes
+                  are unchanged, so the existing size/weight/tracking and
+                  responsive behaviour are untouched and longer strings simply
+                  wrap. Falls back to the product name when no sheet H1 exists. */}
+              <h1 className="mt-3 font-display text-4xl tracking-[-0.02em] text-ink lg:text-5xl">{product.seo?.h1 ?? product.name}</h1>
               <p className="mt-4 font-display text-3xl text-ink">{formatPrice(product.price, product.currency)}</p>
 
               <p className="mt-6 text-sm leading-relaxed text-muted">{product.longDesc}</p>
@@ -319,7 +327,7 @@ export default function ProductDetail() {
           </div>
 
           {/* Continue Your Research */}
-          <section className="mt-24 border-t border-line pt-16 lg:mt-32">
+          <section className="mt-16 border-t border-line pt-12 lg:mt-20">
             <div className="flex flex-col items-start justify-between gap-3 lg:flex-row lg:items-end">
               <div>
                 <h2 className="font-display text-2xl tracking-[-0.02em] text-ink lg:text-3xl">Continue Your Research</h2>
@@ -348,7 +356,7 @@ export default function ProductDetail() {
           </section>
 
           {/* Product-footer compliance band */}
-          <section className="mt-20 rounded-[var(--radius-xl2)] border border-line bg-section p-6 text-center lg:p-8">
+          <section className="mt-14 rounded-[var(--radius-xl2)] border border-line bg-section p-6 text-center lg:p-8">
             <p className="text-[0.6rem] uppercase tracking-[0.28em] text-accent-dark">Compliance Notice</p>
             <p className="mx-auto mt-3 max-w-3xl text-xs leading-relaxed text-muted">
               <span className="font-semibold text-ink">FOR RESEARCH PURPOSES ONLY.</span> Not intended for human or veterinary

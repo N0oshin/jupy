@@ -52,16 +52,23 @@ export default function About() {
               mode="lines"
               className="type-section-xl mt-7 font-display font-medium leading-[0.98] tracking-[-0.035em] text-ink"
             >
-              {'Pharmaceutical rigor,\nin every batch.'}
+              {/* Heading text from the SEO sheet's "#about" entry. Deliberately
+                  still an <h2>, not an <h1>: #about is an anchor on the
+                  homepage, not its own page, and the homepage's single primary
+                  H1 is the hero ("Smarter Peptides For Modern Research"), which
+                  the same sheet specifies. Promoting this to H1 would put two
+                  H1s on one document. Styling and the anchor are untouched. */}
+              {'Explore Jupyter Lab\nPeptides'}
             </SplitReveal>
           </div>
 
           <div className="lg:col-span-4">
             <Reveal delay={0.2}>
               <p className="text-[1.05rem] leading-[1.55] text-muted text-pretty">
-                Founded by two scientists fed up with opaque peptide supply chains. Jupyter Labs gives researchers
-                <em className="not-italic text-ink"> what the industry never has </em>— HPLC-verified actives,
-                lot-level traceability, and milligram-exact dosing on every batch.
+                Founded by two scientists frustrated by a lack of transparency in peptide sourcing, Jupyter Labs was
+                created to give researchers <em className="not-italic text-ink">greater confidence in every product</em>,
+                with HPLC-verified compounds, lot-level traceability and clearly specified dosing across every peptide
+                pen.
               </p>
               <Magnetic className="mt-7 inline-block">
                 <a
@@ -77,7 +84,7 @@ export default function About() {
         </div>
 
         {/* ───── COUNTER ROW ───── */}
-        <div className="mt-16 grid gap-px overflow-hidden rounded-[var(--radius-xl2)] bg-line sm:grid-cols-3">
+        <div className="mt-12 grid gap-px overflow-hidden rounded-[var(--radius-xl2)] bg-line sm:grid-cols-3">
           {STATS.map((s, i) => (
             <Reveal key={s.label} delay={i * 0.1} className="bg-bg p-7">
               <div className="flex items-baseline gap-1">
@@ -90,7 +97,7 @@ export default function About() {
         </div>
 
         {/* ───── BENTO ATLAS ───── */}
-        <div className="mt-20 lg:mt-28">
+        <div className="mt-14 lg:mt-20">
           <div className="mb-10 flex items-center gap-4">
             <span className="h-px w-10 bg-accent-dark/40" />
             <p className="text-xs uppercase tracking-[0.22em] text-muted">The Atlas — who, where, why</p>

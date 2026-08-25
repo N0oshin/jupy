@@ -1,27 +1,77 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://jupyterlabs.example.com/</loc>
+    <loc>https://jupyterlabs.net/</loc>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://jupyterlabs.example.com/products/bpc-157-tb-500</loc>
+    <loc>https://jupyterlabs.net/products</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://jupyterlabs.net/about-us</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://jupyterlabs.example.com/products/retatrutide-40mg</loc>
+    <loc>https://jupyterlabs.net/contact</loc>
+    <changefreq>yearly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://jupyterlabs.net/press-release</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://jupyterlabs.net/privacy-policy</loc>
+    <changefreq>yearly</changefreq>
+    <priority>0.3</priority>
+  </url>
+  <url>
+    <loc>https://jupyterlabs.net/terms-of-service</loc>
+    <changefreq>yearly</changefreq>
+    <priority>0.3</priority>
+  </url>
+  <url>
+    <loc>https://jupyterlabs.net/refund-policy</loc>
+    <changefreq>yearly</changefreq>
+    <priority>0.3</priority>
+  </url>
+  <url>
+    <loc>https://jupyterlabs.net/shipping-policy</loc>
+    <changefreq>yearly</changefreq>
+    <priority>0.3</priority>
+  </url>
+  <url>
+    <loc>https://jupyterlabs.net/products/bpc-157-tb-500</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://jupyterlabs.example.com/products/tirzepatide-40mg</loc>
+    <loc>https://jupyterlabs.net/products/retatrutide-20mg</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://jupyterlabs.example.com/products/glow-70mg</loc>
+    <loc>https://jupyterlabs.net/products/retatrutide-40mg</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://jupyterlabs.net/products/tirzepatide-40mg</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://jupyterlabs.net/products/glow-70mg</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://jupyterlabs.net/products/nad-plus-1000mg</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>

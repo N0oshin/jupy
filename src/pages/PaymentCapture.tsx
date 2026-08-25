@@ -101,7 +101,7 @@ export default function PaymentCapture() {
       <>
         <Navbar />
         <main id="main-content" className="relative z-10 bg-bg pt-28 lg:pt-32">
-          <div className="container-x flex min-h-[50vh] items-center justify-center py-24">
+          <div className="container-x flex min-h-[50vh] items-center justify-center py-16">
             <span className="h-8 w-8 animate-spin rounded-full border-2 border-line border-t-accent-dark" />
           </div>
         </main>
@@ -115,7 +115,7 @@ export default function PaymentCapture() {
       <>
         <Navbar />
         <main id="main-content" className="relative z-10 bg-bg pt-28 lg:pt-32">
-          <div className="container-x flex min-h-[50vh] flex-col items-center justify-center py-24 text-center">
+          <div className="container-x flex min-h-[50vh] flex-col items-center justify-center py-16 text-center">
             <div className="grid h-16 w-16 place-items-center rounded-full bg-red-50">
               <XIcon className="h-7 w-7 text-red-500" />
             </div>
@@ -141,7 +141,7 @@ export default function PaymentCapture() {
       <>
         <Navbar />
         <main id="main-content" className="relative z-10 bg-bg pt-28 lg:pt-32">
-          <div className="container-x flex min-h-[55vh] flex-col items-center justify-center py-24 text-center">
+          <div className="container-x flex min-h-[55vh] flex-col items-center justify-center py-16 text-center">
             <Reveal>
               <div className="mx-auto grid h-16 w-16 place-items-center rounded-full bg-accent-dark text-bg">
                 <CheckIcon className="h-7 w-7" />
@@ -189,7 +189,7 @@ export default function PaymentCapture() {
     <>
       <Navbar />
       <main id="main-content" className="relative z-10 bg-bg pt-28 lg:pt-32">
-        <div className="container-x pb-24">
+        <div className="container-x pb-16">
           <Reveal>
             <div className="border-b border-line pb-8">
               <p className="text-[0.65rem] uppercase tracking-[0.28em] text-accent-dark">Complete payment</p>

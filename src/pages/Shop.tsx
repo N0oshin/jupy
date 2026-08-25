@@ -10,7 +10,7 @@ export default function Shop() {
     title: 'Shop — Jupyter Labs',
     description:
       'Browse the full Jupyter Labs catalogue — HPLC-verified research peptides, each batch documented and traceable to the lot.',
-    path: '/shop',
+    path: '/products',
   })
 
   return (
@@ -19,13 +19,19 @@ export default function Shop() {
       <main id="main-content" className="relative z-10 bg-bg pt-28 lg:pt-32">
         <div className="container-x pb-10">
           <Heading
+            as="h1"
             eyebrow="Full Catalogue"
             title={'Every compound.\nOne standard.'}
             intro="HPLC-verified research peptides, each batch independently tested and documented to the lot. For laboratory R&D use only."
           />
         </div>
 
-        <div className="container-x pb-24">
+        <div className="container-x pb-16">
+          {/* The product cards are H3s. Without a section H2 the document jumps
+              H1 → H3, which screen-reader users navigating by heading level
+              experience as a missing level. The design has no visible subtitle
+              here, so the heading is present but not painted. */}
+          <h2 className="sr-only">Product catalogue</h2>
           <div className="mt-6 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {PRODUCTS.map((p, i) => (
               <ProductCard key={p.id} p={p} i={i} />
@@ -35,6 +41,7 @@ export default function Shop() {
 
         {/* Compliance / trust strip */}
         <div className="border-t border-line bg-section">
+          <h2 className="sr-only">Our quality standards</h2>
           <div className="container-x grid gap-8 py-14 sm:grid-cols-2 lg:grid-cols-4">
             {BENEFITS.map((b) => (
               <div key={b.k}>

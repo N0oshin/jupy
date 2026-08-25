@@ -13,10 +13,13 @@ import { useEffect } from 'react'
  * This MUST be the real production origin: a canonical pointing at the wrong
  * host tells Google the real pages are duplicates of a domain that does not
  * exist, which suppresses them from the index entirely. Set VITE_SITE_URL at
- * build time. The fallback is a placeholder and is not a valid production value.
+ * build time. The fallback below is the live brand domain (it matches
+ * BRAND_DOMAIN / ALLOWED_ORIGINS in server/.env.example), so a build that
+ * forgets the env var still emits correct canonicals rather than pointing every
+ * page at a domain that does not resolve.
  */
 export const SITE_URL = (
-  import.meta.env.VITE_SITE_URL ?? 'https://jupyterlabs.example.com'
+  import.meta.env.VITE_SITE_URL ?? 'https://jupyterlabs.net'
 ).replace(/\/$/, '')
 
 interface SeoOptions {

@@ -12,7 +12,7 @@ export default function Lifestyle() {
   return (
     <section id="lifestyle" ref={ref} className="section-pad relative overflow-hidden bg-section">
       <div className="container-x">
-        <div className="mb-16 text-center">
+        <div className="mb-12 text-center">
           <p className="eyebrow mb-5">Inside The Lab</p>
           <SplitReveal as="h2" mode="lines" className="display mx-auto max-w-3xl text-balance text-[clamp(1.85rem,1rem+3.4vw,4rem)] text-ink">
             Research-grade peptides for the serious bench.
@@ -49,7 +49,7 @@ export default function Lifestyle() {
           </div>
 
           <div className="flex flex-col justify-center rounded-[var(--radius-xl2)] bg-accent-dark p-8 text-bg sm:col-span-5">
-            <p className="font-display text-xl font-light leading-[1.35] sm:text-2xl lg:text-3xl">“The COA is right there with every batch. No guesswork, no chasing — the math just adds up.”</p>
+            <p className="font-display text-xl font-light leading-[1.35] sm:text-2xl lg:text-3xl">“The COA is provided with every peptide pen. Clear batch data, transparent testing and no guesswork.”</p>
             {/* /90 not /60: on the accent-dark panel, white at 60% resolves to
                 #9fc8c5 → 3.0:1, under the AA floor for text this size. */}
             <p className="mt-5 text-xs uppercase tracking-[0.25em] text-bg/90 sm:text-sm">A Jupyter Labs researcher</p>

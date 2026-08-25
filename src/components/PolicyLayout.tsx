@@ -15,7 +15,7 @@ export default function PolicyLayout({ eyebrow, title, intro, children }: Props)
     <>
       <Navbar />
       <main id="main-content" className="relative z-10 bg-bg pt-28 lg:pt-32">
-        <div className="container-x pb-24">
+        <div className="container-x pb-16">
           <div className="max-w-3xl border-b border-line pb-8">
             <p className="text-[0.65rem] uppercase tracking-[0.28em] text-accent-dark">{eyebrow}</p>
             <h1 className="mt-2 font-display text-4xl tracking-[-0.02em] text-ink lg:text-5xl">{title}</h1>

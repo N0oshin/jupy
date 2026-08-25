@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 import { motion } from 'framer-motion'
 import SplitReveal from '../ui/SplitReveal'
+import CtaLink from '../ui/CtaLink'
 import { useReducedMotion } from '../../lib/useReducedMotion'
 
 const EASE = [0.16, 1, 0.3, 1] as const
@@ -86,7 +87,7 @@ export default function CTA() {
               as="h2"
               mode="lines"
               stagger={0.18}
-              className="mt-6 font-display text-[clamp(2.3rem,1.3rem+4.2vw,5.25rem)] font-light leading-[1.04] tracking-[-0.025em] text-bg"
+              className="mt-6 font-display text-[clamp(2rem,1.15rem+3.5vw,4.1rem)] font-light leading-[1.06] tracking-[-0.025em] text-bg"
             >
               {'The science of certainty,\nin every molecule.'}
             </SplitReveal>
@@ -99,9 +100,24 @@ export default function CTA() {
               transition={{ duration: 0.95, delay: 0.55, ease: EASE }}
               className="mx-auto mt-7 max-w-xl text-base leading-[1.55] text-bg/75 lg:text-lg"
             >
-              Every peptide HPLC-verified. Every batch documented. Every milligram on the label — pharmaceutical
-              precision, traceable to the lot.
+              Every peptide HPLC-verified. Every batch documented. Every milligram clearly specified, uncompromising
+              quality in every peptide pen.
             </motion.p>
+
+            <motion.div
+              initial={{ opacity: 0, y: 40 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: '-8%' }}
+              transition={{ duration: 0.9, delay: 0.75, ease: EASE }}
+              className="mt-9 flex flex-col items-center gap-3 sm:flex-row sm:justify-center sm:gap-4"
+            >
+              <CtaLink to="/products" variant="solid-light" arrow>
+                Explore More
+              </CtaLink>
+              <CtaLink to="/contact" variant="outline-light">
+                Contact Us
+              </CtaLink>
+            </motion.div>
           </div>
         </div>
       </div>

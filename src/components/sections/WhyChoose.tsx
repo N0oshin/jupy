@@ -8,10 +8,10 @@ import Img from '../ui/Img'
 import Magnetic from '../ui/Magnetic'
 
 const PILLARS = [
-  { n: '01', t: 'Sourced', d: 'Single-origin peptides, traced from synthesis to bench — never anonymized.', image: '/images/jupyter-labs/ethically-sourced-research-peptides.webp' },
-  { n: '02', t: 'Dosed', d: 'Calibrated to the published clinical literature. Every milligram on the label.', image: '/images/jupyter-labs/precision-dosed-peptide-vials.webp' },
-  { n: '03', t: 'Tested', d: 'HPLC-verified by independent labs. Certificate published with every lot.', image: '/images/jupyter-labs/hplc-tested-peptide-purity.webp' },
-  { n: '04', t: 'Crafted', d: 'Sealed containers and stability-grade packaging — built to preserve peptide integrity from synthesis to bench.', image: '/images/jupyter-labs/expertly-crafted-research-peptides.webp' },
+  { n: '01', t: 'Sourced', d: 'Research compounds are sourced through qualified suppliers and tracked through documented production stages, providing greater visibility from synthesis to finished peptide pen.', image: '/images/jupyter-labs/ethically-sourced-research-peptides.webp' },
+  { n: '02', t: 'Dosed', d: 'Clearly specified milligram amounts on every peptide pen, with transparent product documentation for laboratory research.', image: '/images/jupyter-labs/precision-dosed-peptide-vials.webp' },
+  { n: '03', t: 'Tested', d: 'Independently HPLC-verified batches with supporting certificates of analysis for transparent quality documentation.', image: '/images/jupyter-labs/hplc-tested-peptide-purity.webp' },
+  { n: '04', t: 'Crafted', d: 'Carefully packaged peptide pens designed to support compound integrity throughout storage and transit.', image: '/images/jupyter-labs/expertly-crafted-research-peptides.webp' },
 ] as const
 
 export default function WhyChoose() {
@@ -53,15 +53,15 @@ export default function WhyChoose() {
           <div className="lg:col-span-4">
             <Reveal delay={0.2}>
               <p className="text-[1.05rem] leading-[1.55] text-muted text-pretty">
-                We don't market peptides. We document them. Every active begins in the clinical literature and ends on
-                the COA included with your kit.
+                We don’t just market peptides. We document them. Every compound is grounded in scientific literature and
+                supported by batch-specific COA documentation included with every peptide pen.
               </p>
             </Reveal>
           </div>
         </div>
 
         {/* ───── FULL-WIDTH EDITORIAL FEATURE ───── */}
-        <Reveal className="mt-16 lg:mt-20">
+        <Reveal className="mt-12 lg:mt-16">
           <article className="relative overflow-hidden rounded-[var(--radius-xl2)]">
             <div className="hero-img relative min-h-[30rem] sm:min-h-0 sm:aspect-[16/9] lg:aspect-[21/9]">
               <Img
@@ -91,11 +91,12 @@ export default function WhyChoose() {
               <div className="lg:col-span-8">
                 <p className="text-[0.7rem] uppercase tracking-[0.3em] text-bg/70">The hero principle</p>
                 <h3 className="mt-4 font-display text-[clamp(1.8rem,4vw,3.4rem)] font-medium leading-[1.02] tracking-[-0.03em] text-bg">
-                  Every milligram, on the label. No exceptions.
+                  Every milligram, clearly stated. No exceptions.
                 </h3>
                 <p className="mt-4 max-w-xl text-[0.95rem] leading-[1.55] text-bg/75">
-                  Calibrated to the published clinical literature, printed in milligrams, HPLC-verified before it
-                  ever leaves the lab. You read the math the same way our scientists do.
+                  Each peptide pen features clearly specified dosing, supported by batch-level HPLC verification and
+                  transparent documentation. The information is straightforward, so researchers can review the
+                  specifications with confidence.
                 </p>
               </div>
 
@@ -115,7 +116,7 @@ export default function WhyChoose() {
         </Reveal>
 
         {/* ───── PILLAR ROW WITH HOVER IMAGES ───── */}
-        <div className="mt-16 grid gap-px overflow-hidden rounded-[var(--radius-xl2)] border border-line bg-line sm:grid-cols-2 lg:grid-cols-4">
+        <div className="mt-12 grid gap-px overflow-hidden rounded-[var(--radius-xl2)] border border-line bg-line sm:grid-cols-2 lg:grid-cols-4">
           {PILLARS.map((p, i) => (
             <Reveal
               key={p.n}

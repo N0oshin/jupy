@@ -34,7 +34,7 @@ export default function Cart() {
     <>
       <Navbar />
       <main id="main-content" className="relative z-10 bg-bg pt-28 lg:pt-32">
-        <div className="container-x pb-24">
+        <div className="container-x pb-16">
           <div className="flex items-end justify-between border-b border-line pb-8">
             <div>
               <p className="text-[0.65rem] uppercase tracking-[0.28em] text-accent-dark">Your Cart</p>
@@ -48,7 +48,7 @@ export default function Cart() {
           </div>
 
           {lineItems.length === 0 ? (
-            <div className="mt-16 flex flex-col items-center justify-center rounded-[var(--radius-xl2)] border border-line bg-section py-20 text-center">
+            <div className="mt-12 flex flex-col items-center justify-center rounded-[var(--radius-xl2)] border border-line bg-section py-14 text-center">
               <div className="grid h-16 w-16 place-items-center rounded-full bg-bg text-accent-dark">
                 <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6">
                   <path d="M3 3h2l2.4 12.2a2 2 0 0 0 2 1.6h8.2a2 2 0 0 0 2-1.5L21 8H6" />

@@ -1,9 +1,11 @@
 import PolicyLayout, { PolicySection } from '../components/PolicyLayout'
-import { useSeo, SITE_URL } from '../lib/useSeo'
+import { useSeo } from '../lib/useSeo'
+
+const SUPPORT_EMAIL = 'support@jupyterlabs.com'
 
 export default function TermsOfService() {
   useSeo({
-    title: 'Terms of Service — Jupyter Labs',
+    title: 'Terms & Conditions — Jupyter Labs',
     description: 'The terms and conditions governing use of the Jupyter Labs website and products.',
     path: '/terms-of-service',
   })
@@ -11,105 +13,104 @@ export default function TermsOfService() {
   return (
     <PolicyLayout
       eyebrow="Legal"
-      title="Terms of Service"
-      intro='You are using the official website of Jupyter Labs ("we", "us", "our"). By using this site, you agree to comply with the following terms. Please read them carefully. If you do not agree with any part of these terms, please do not use our website or services.'
+      title="Terms & Conditions"
+      intro="By using the Jupyter Labs website or placing an order, you agree to these Terms & Conditions."
     >
-      <PolicySection title="General">
+      <PolicySection title="Research Use Only">
         <p>
-          These Terms govern your use of this website. We may update these Terms from time to time without notice.
-          Continued use of the website constitutes acceptance of the current Terms.
+          Jupyter Labs products are intended for legitimate laboratory research and R&amp;D purposes only, where
+          applicable. They are not intended for human or veterinary consumption, self-administration, diagnosis,
+          treatment, or prevention of disease.
+        </p>
+        <p>
+          Customers are responsible for ensuring that their purchase and intended research use comply with applicable
+          laws and regulations.
         </p>
       </PolicySection>
 
-      <PolicySection title="Age Requirement">
+      <PolicySection title="Products & Information">
         <p>
-          By accessing this site, you confirm that you are at least 18 years old and are legally able to enter into
-          contracts. Our products and services are intended only for individuals who meet this requirement.
+          We make reasonable efforts to keep product descriptions, specifications, availability, and pricing accurate.
+          Information may change without notice.
         </p>
-      </PolicySection>
-
-      <PolicySection title="Product Use">
         <p>
-          Products sold on this website are supplied strictly for research and development purposes under controlled
-          conditions. They are not to be used for diagnosis, treatment, or prevention of any disease or medical
-          condition.
+          Where provided, certificates of analysis (COAs) relate to specific batches and are supplied as analytical
+          documentation.
         </p>
       </PolicySection>
 
       <PolicySection title="Orders & Payment">
         <p>
-          All orders are subject to acceptance and availability. We reserve the right to refuse or cancel orders at
-          our discretion. Payment must be made in full before orders are dispatched.
+          We reserve the right to accept, limit, or cancel orders due to availability, payment issues, regulatory
+          restrictions, suspected fraud, or other legitimate reasons.
+        </p>
+        <p>Prices and availability may change without notice.</p>
+      </PolicySection>
+
+      <PolicySection title="Shipping">
+        <p>
+          Customers are responsible for providing accurate shipping information and ensuring that products can legally
+          be purchased, received, and used in their jurisdiction.
+        </p>
+        <p>
+          Delivery times are estimates and may be affected by carriers, customs, weather, or other circumstances beyond
+          our control.
         </p>
       </PolicySection>
 
-      <PolicySection title="Dispatch & Delivery">
+      <PolicySection title="Returns & Refunds">
         <p>
-          We aim to dispatch orders within a reasonable timeframe — as a standard, within 2 days, with next-day
-          delivery within the UK. Shipping timelines are not guaranteed and may be affected by external factors. We
-          are not liable for delays beyond our control. See our{' '}
-          <a href="/shipping-policy" className="text-accent-dark underline">
-            Shipping Policy
-          </a>{' '}
-          for details.
+          Returns and refunds are subject to our applicable return policy. Contact us before returning any product.
         </p>
+        {/* Verbatim from the Terms sheet (gid=1346852044, row 33), which supplies
+            the domain with no mailbox name. Deliberately NOT a mailto: link —
+            "mailto:@jupyterlabs.com" is not a valid address and would render as a
+            dead link. Restore the <a> once the sheet cell carries a full address. */}
+        <p>Email: @jupyterlabs.com</p>
       </PolicySection>
 
-      <PolicySection title="Refund Policy">
+      <PolicySection title="Product Handling">
         <p>
-          Due to the nature of our products, returns are only accepted for items that are unopened, unused, and in
-          their original condition. Opened or tampered-with items are non-refundable. See our{' '}
-          <a href="/refund-policy" className="text-accent-dark underline">
-            Refund Policy
-          </a>{' '}
-          for details.
-        </p>
-      </PolicySection>
-
-      <PolicySection title="Disclaimer">
-        <p>
-          All products are sold solely for laboratory R&D. Jupyter Labs does not accept or condone misuse, including
-          but not limited to human consumption, veterinary use, or resale.
-        </p>
-      </PolicySection>
-
-      <PolicySection title="Limitation of Liability">
-        <p>
-          By using this site, you agree to indemnify and hold harmless Jupyter Labs, its directors, and affiliates
-          from any claims, damages, or liabilities arising from product use or non-use under these Terms.
-        </p>
-      </PolicySection>
-
-      <PolicySection title="Account Responsibility">
-        <p>
-          If you create an account on our website, you are responsible for maintaining the confidentiality of your
-          log-in credentials. All activities conducted under your account are your responsibility.
+          Customers are responsible for following the storage and handling instructions provided with each product.
+          Jupyter Labs is not responsible for damage or degradation resulting from improper storage or handling.
         </p>
       </PolicySection>
 
       <PolicySection title="Intellectual Property">
         <p>
-          All trademarks, logos, and content displayed on this website are owned or licensed by Jupyter Labs. You may
-          not reproduce, distribute, or commercially exploit any content without prior written consent.
+          All website content, including text, images, branding, logos, and product information, belongs to or is
+          licensed by Jupyter Labs and may not be reproduced without permission.
         </p>
       </PolicySection>
 
-      <PolicySection title="Governing Law">
+      <PolicySection title="Disclaimer">
         <p>
-          These Terms are governed by and construed in accordance with the laws of England and Wales. Any disputes
-          arising will be subject to the exclusive jurisdiction of the UK courts.
+          Website content is provided for informational and research purposes and does not constitute medical, clinical,
+          or professional advice.
         </p>
       </PolicySection>
 
-      <PolicySection title="Contact Us">
-        <p>For any related queries, please contact:</p>
+      <PolicySection title="Changes to These Terms">
+        <p>
+          We may update these Terms from time to time. Continued use of the website after changes are posted constitutes
+          acceptance of the updated Terms where permitted by law.
+        </p>
+      </PolicySection>
+
+      <PolicySection title="Contact">
+        <p className="font-medium text-ink">Jupyter Labs</p>
         <p>
           Email:{' '}
-          <a href="mailto:support@jupyterlabs.example.com" className="text-accent-dark underline">
-            support@jupyterlabs.example.com
+          <a href={`mailto:${SUPPORT_EMAIL}`} className="text-accent-dark underline">
+            {SUPPORT_EMAIL}
           </a>
-          <br />
-          Website: {SITE_URL}
+        </p>
+      </PolicySection>
+
+      <PolicySection title="Research Notice">
+        <p>
+          Jupyter Labs products are supplied for laboratory research and R&amp;D use only, where applicable, and are not
+          intended for human or veterinary consumption.
         </p>
       </PolicySection>
     </PolicyLayout>
