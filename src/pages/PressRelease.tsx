@@ -27,8 +27,8 @@ export default function PressRelease() {
           Jupyter Labs does not operate on TikTok, Facebook, Instagram, WhatsApp, or similar platforms. Any page or
           individual claiming to represent Jupyter Labs on social media is unauthorised and may be an attempt to
           solicit fraudulent payments. Please verify any communication directly through{' '}
-          <a href="mailto:support@jupyterlabs.example.com" className="text-accent-dark underline">
-            support@jupyterlabs.example.com
+          <a href="mailto:support@voralabs.com" className="text-accent-dark underline">
+            support@voralabs.com
           </a>{' '}
           before making any payment.
         </p>
@@ -75,8 +75,8 @@ export default function PressRelease() {
         <p>For press or compliance-related enquiries, please contact:</p>
         <p>
           Email:{' '}
-          <a href="mailto:support@jupyterlabs.example.com" className="text-accent-dark underline">
-            support@jupyterlabs.example.com
+          <a href="mailto:support@voralabs.com" className="text-accent-dark underline">
+            support@voralabs.com
           </a>
           <br />
           Website: {SITE_URL}

@@ -70,8 +70,8 @@ export default function ShippingPolicy() {
       <PolicySection title="Delivery Issues">
         <p>
           If your parcel is delayed, lost, or arrives damaged, please contact us at{' '}
-          <a href="mailto:support@jupyterlabs.example.com" className="text-accent-dark underline">
-            support@jupyterlabs.example.com
+          <a href="mailto:support@voralabs.com" className="text-accent-dark underline">
+            support@voralabs.com
           </a>{' '}
           within 72 hours of the expected delivery date. Include your order number and tracking details.
         </p>
@@ -88,8 +88,8 @@ export default function ShippingPolicy() {
         <p>For any related queries, please contact:</p>
         <p>
           Email:{' '}
-          <a href="mailto:support@jupyterlabs.example.com" className="text-accent-dark underline">
-            support@jupyterlabs.example.com
+          <a href="mailto:support@voralabs.com" className="text-accent-dark underline">
+            support@voralabs.com
           </a>
           <br />
           Website: {SITE_URL}

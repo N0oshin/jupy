@@ -528,9 +528,8 @@ export const TESTIMONIALS = [
 export const NAV = [
   { label: 'Home', href: '#top' },
   // Now a standalone page, not a scroll to the homepage's #about section. The
-  // section and its anchor still exist — this link just points at the page the
-  // SEO sheet specifies at /about-us.
-  { label: 'About', href: '/about-us' },
+  // section and its anchor still exist — this link just points at the page.
+  { label: 'About', href: '/about' },
   // The full catalogue page, not the homepage's 3-product teaser section. The
   // #products section still exists and still links through to /products itself.
   { label: 'Products', href: '/products' },

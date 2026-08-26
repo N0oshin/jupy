@@ -60,7 +60,8 @@ if (slugs.length === 0) {
 const STATIC_ROUTES = [
   { path: '/', changefreq: 'weekly', priority: '1.0' },
   { path: '/products', changefreq: 'weekly', priority: '0.9' },
-  { path: '/about-us', changefreq: 'monthly', priority: '0.8' },
+  { path: '/about', changefreq: 'monthly', priority: '0.8' },
+  { path: '/wholesale', changefreq: 'monthly', priority: '0.8' },
   { path: '/contact', changefreq: 'yearly', priority: '0.7' },
   { path: '/press-release', changefreq: 'monthly', priority: '0.5' },
   { path: '/privacy-policy', changefreq: 'yearly', priority: '0.3' },

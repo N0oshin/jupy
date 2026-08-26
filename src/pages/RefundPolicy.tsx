@@ -49,8 +49,8 @@ export default function RefundPolicy() {
       <PolicySection title="Reporting Issues">
         <p>
           If your order arrives damaged, incorrect, or defective, please contact our support team at{' '}
-          <a href="mailto:support@jupyterlabs.example.com" className="text-accent-dark underline">
-            support@jupyterlabs.example.com
+          <a href="mailto:support@voralabs.com" className="text-accent-dark underline">
+            support@voralabs.com
           </a>{' '}
           within 48 hours of delivery. Include your order number, description of the issue, and supporting photos.
         </p>
@@ -76,8 +76,8 @@ export default function RefundPolicy() {
           <li>First, check your bank.</li>
           <li>
             Then contact us at{' '}
-            <a href="mailto:support@jupyterlabs.example.com" className="text-accent-dark underline">
-              support@jupyterlabs.example.com
+            <a href="mailto:support@voralabs.com" className="text-accent-dark underline">
+              support@voralabs.com
             </a>{' '}
             for assistance.
           </li>
@@ -88,8 +88,8 @@ export default function RefundPolicy() {
         <p>For any related queries, please contact:</p>
         <p>
           Email:{' '}
-          <a href="mailto:support@jupyterlabs.example.com" className="text-accent-dark underline">
-            support@jupyterlabs.example.com
+          <a href="mailto:support@voralabs.com" className="text-accent-dark underline">
+            support@voralabs.com
           </a>
           <br />
           Website: {SITE_URL}

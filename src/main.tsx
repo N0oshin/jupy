@@ -20,6 +20,7 @@ const Register = lazy(() => import('./pages/Register.tsx'))
 const ForgotPassword = lazy(() => import('./pages/ForgotPassword.tsx'))
 const Contact = lazy(() => import('./pages/Contact.tsx'))
 const AboutUs = lazy(() => import('./pages/AboutUs.tsx'))
+const Wholesale = lazy(() => import('./pages/Wholesale.tsx'))
 const PressRelease = lazy(() => import('./pages/PressRelease.tsx'))
 const RefundPolicy = lazy(() => import('./pages/RefundPolicy.tsx'))
 const ShippingPolicy = lazy(() => import('./pages/ShippingPolicy.tsx'))
@@ -88,7 +89,9 @@ createRoot(document.getElementById('root')!).render(
               <Route path="/register" element={<Register />} />
               <Route path="/forgot-password" element={<ForgotPassword />} />
               <Route path="/contact" element={<Contact />} />
-              <Route path="/about-us" element={<AboutUs />} />
+              <Route path="/about" element={<AboutUs />} />
+              <Route path="/about-us" element={<Navigate to="/about" replace />} />
+              <Route path="/wholesale" element={<Wholesale />} />
               <Route path="/press-release" element={<PressRelease />} />
               <Route path="/refund-policy" element={<RefundPolicy />} />
               <Route path="/shipping-policy" element={<ShippingPolicy />} />

@@ -26,7 +26,8 @@ const COLS: { h: string; links: FooterLink[] }[] = [
   {
     h: 'Company',
     links: [
-      { label: 'About Us', to: '/about-us' },
+      { label: 'About Us', to: '/about' },
+      { label: 'Wholesale', to: '/wholesale' },
       { label: 'Why Us', to: '#why', hash: true },
       { label: 'Testimonials', to: '#testimonials', hash: true },
       // Was '#contact', which only scrolled to this footer. It now points at the

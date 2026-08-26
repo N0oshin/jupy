@@ -1,0 +1,346 @@
+- generic [ref=e2]:
+  - status "Important notice" [ref=e3]:
+    - generic [ref=e4]:
+      - generic [ref=e5]: "SOCIAL MEDIA WARNING: Alluvi has never operated on any social media platforms. Please don't make any payments or fall victim to anything claiming to be Alluvi on social media platforms. | OFFICIAL SITE: Our official site is www.alluvi.org — we are only handling this site. Please Beware of other scam sites. | RESEARCH USE ONLY – NOT FOR HUMAN CONSUMPTION: All products are for laboratory research and in vitro studies only. Not for human or veterinary use."
+      - generic [ref=e6]: "SOCIAL MEDIA WARNING: Alluvi has never operated on any social media platforms. Please don't make any payments or fall victim to anything claiming to be Alluvi on social media platforms. | OFFICIAL SITE: Our official site is www.alluvi.org — we are only handling this site. Please Beware of other scam sites. | RESEARCH USE ONLY – NOT FOR HUMAN CONSUMPTION: All products are for laboratory research and in vitro studies only. Not for human or veterinary use."
+  - generic [ref=e7]:
+    - banner [ref=e8]:
+      - generic [ref=e10]:
+        - link [ref=e11] [cursor=pointer]:
+          - /url: /
+          - img "Alluvi" [ref=e12]
+        - link "Shop" [ref=e14] [cursor=pointer]:
+          - /url: /shop
+        - link "Track" [ref=e18] [cursor=pointer]:
+          - /url: /track-order
+        - link "Wholesale" [ref=e22] [cursor=pointer]:
+          - /url: /wholesale
+        - link "About Us" [ref=e26] [cursor=pointer]:
+          - /url: /about
+        - link "Verify" [ref=e30] [cursor=pointer]:
+          - /url: https://spotafakealluvi.com/
+        - link "Alluvi Brazil" [ref=e34] [cursor=pointer]:
+          - /url: https://alluvibrazil.org/
+    - main [ref=e37]:
+      - generic [ref=e39]:
+        - heading "Wholesale orders for Alluvi partners" [level=1] [ref=e40]
+        - paragraph [ref=e41]: If you're buying for customers and need reliable stock, this page gives you the overview. Order sizes below set expectations before you speak to Max for current pricing.
+        - generic [ref=e42]:
+          - generic [ref=e43]:
+            - generic [ref=e44]:
+              - generic [ref=e45]: Full Name
+              - textbox "Full Name" [ref=e46]:
+                - /placeholder: Your full name
+            - generic [ref=e47]:
+              - generic [ref=e48]: Email
+              - textbox "Email" [ref=e49]:
+                - /placeholder: you@example.com
+          - generic [ref=e50]:
+            - generic [ref=e51]:
+              - generic [ref=e52]: Contact Number
+              - textbox "Contact Number" [ref=e53]:
+                - /placeholder: +44 7700 000000
+            - generic [ref=e54]:
+              - generic [ref=e55]: Quantity
+              - combobox "Quantity" [ref=e56] [cursor=pointer]:
+                - option "Select quantity" [disabled] [selected]
+                - option "50 - 100 Pens"
+                - option "100 - 1,000 Pens"
+                - option "1,000+ Pens"
+          - generic [ref=e58]:
+            - generic [ref=e59]: Country
+            - combobox "Country" [ref=e60] [cursor=pointer]:
+              - option "Select country" [disabled] [selected]
+              - option "Afghanistan"
+              - option "Albania"
+              - option "Algeria"
+              - option "Andorra"
+              - option "Angola"
+              - option "Antigua and Barbuda"
+              - option "Argentina"
+              - option "Armenia"
+              - option "Australia"
+              - option "Austria"
+              - option "Azerbaijan"
+              - option "Bahamas"
+              - option "Bahrain"
+              - option "Bangladesh"
+              - option "Barbados"
+              - option "Belarus"
+              - option "Belgium"
+              - option "Belize"
+              - option "Benin"
+              - option "Bhutan"
+              - option "Bolivia"
+              - option "Bosnia and Herzegovina"
+              - option "Botswana"
+              - option "Brazil"
+              - option "Brunei"
+              - option "Bulgaria"
+              - option "Burkina Faso"
+              - option "Burundi"
+              - option "Cabo Verde"
+              - option "Cambodia"
+              - option "Cameroon"
+              - option "Canada"
+              - option "Central African Republic"
+              - option "Chad"
+              - option "Chile"
+              - option "China"
+              - option "Colombia"
+              - option "Comoros"
+              - option "Congo"
+              - option "Costa Rica"
+              - option "Croatia"
+              - option "Cuba"
+              - option "Cyprus"
+              - option "Czech Republic"
+              - option "Denmark"
+              - option "Djibouti"
+              - option "Dominica"
+              - option "Dominican Republic"
+              - option "Ecuador"
+              - option "Egypt"
+              - option "El Salvador"
+              - option "Equatorial Guinea"
+              - option "Eritrea"
+              - option "Estonia"
+              - option "Eswatini"
+              - option "Ethiopia"
+              - option "Fiji"
+              - option "Finland"
+              - option "France"
+              - option "Gabon"
+              - option "Gambia"
+              - option "Georgia"
+              - option "Germany"
+              - option "Ghana"
+              - option "Greece"
+              - option "Grenada"
+              - option "Guatemala"
+              - option "Guinea"
+              - option "Guinea-Bissau"
+              - option "Guyana"
+              - option "Haiti"
+              - option "Honduras"
+              - option "Hungary"
+              - option "Iceland"
+              - option "India"
+              - option "Indonesia"
+              - option "Iran"
+              - option "Iraq"
+              - option "Ireland"
+              - option "Israel"
+              - option "Italy"
+              - option "Jamaica"
+              - option "Japan"
+              - option "Jordan"
+              - option "Kazakhstan"
+              - option "Kenya"
+              - option "Kiribati"
+              - option "Kuwait"
+              - option "Kyrgyzstan"
+              - option "Laos"
+              - option "Latvia"
+              - option "Lebanon"
+              - option "Lesotho"
+              - option "Liberia"
+              - option "Libya"
+              - option "Liechtenstein"
+              - option "Lithuania"
+              - option "Luxembourg"
+              - option "Madagascar"
+              - option "Malawi"
+              - option "Malaysia"
+              - option "Maldives"
+              - option "Mali"
+              - option "Malta"
+              - option "Marshall Islands"
+              - option "Mauritania"
+              - option "Mauritius"
+              - option "Mexico"
+              - option "Micronesia"
+              - option "Moldova"
+              - option "Monaco"
+              - option "Mongolia"
+              - option "Montenegro"
+              - option "Morocco"
+              - option "Mozambique"
+              - option "Myanmar"
+              - option "Namibia"
+              - option "Nauru"
+              - option "Nepal"
+              - option "Netherlands"
+              - option "New Zealand"
+              - option "Nicaragua"
+              - option "Niger"
+              - option "Nigeria"
+              - option "North Korea"
+              - option "North Macedonia"
+              - option "Norway"
+              - option "Oman"
+              - option "Pakistan"
+              - option "Palau"
+              - option "Palestine"
+              - option "Panama"
+              - option "Papua New Guinea"
+              - option "Paraguay"
+              - option "Peru"
+              - option "Philippines"
+              - option "Poland"
+              - option "Portugal"
+              - option "Qatar"
+              - option "Romania"
+              - option "Russia"
+              - option "Rwanda"
+              - option "Saint Kitts and Nevis"
+              - option "Saint Lucia"
+              - option "Saint Vincent and the Grenadines"
+              - option "Samoa"
+              - option "San Marino"
+              - option "Sao Tome and Principe"
+              - option "Saudi Arabia"
+              - option "Senegal"
+              - option "Serbia"
+              - option "Seychelles"
+              - option "Sierra Leone"
+              - option "Singapore"
+              - option "Slovakia"
+              - option "Slovenia"
+              - option "Solomon Islands"
+              - option "Somalia"
+              - option "South Africa"
+              - option "South Korea"
+              - option "South Sudan"
+              - option "Spain"
+              - option "Sri Lanka"
+              - option "Sudan"
+              - option "Suriname"
+              - option "Sweden"
+              - option "Switzerland"
+              - option "Syria"
+              - option "Taiwan"
+              - option "Tajikistan"
+              - option "Tanzania"
+              - option "Thailand"
+              - option "Timor-Leste"
+              - option "Togo"
+              - option "Tonga"
+              - option "Trinidad and Tobago"
+              - option "Tunisia"
+              - option "Turkey"
+              - option "Turkmenistan"
+              - option "Tuvalu"
+              - option "Uganda"
+              - option "Ukraine"
+              - option "United Arab Emirates"
+              - option "United Kingdom"
+              - option "United States"
+              - option "Uruguay"
+              - option "Uzbekistan"
+              - option "Vanuatu"
+              - option "Vatican City"
+              - option "Venezuela"
+              - option "Vietnam"
+              - option "Yemen"
+              - option "Zambia"
+              - option "Zimbabwe"
+          - button "Submit Inquiry" [ref=e61] [cursor=pointer]
+      - generic [ref=e63]:
+        - generic [ref=e64]:
+          - heading "Order Tiers" [level=2] [ref=e65]
+          - paragraph [ref=e66]: Three tiers based on volume. Each unlocks better pricing and faster fulfilment.
+        - generic [ref=e67]:
+          - button "Small 50–100 pens For new partners testing the market — Standard pricing — Email support" [ref=e68] [cursor=pointer]:
+            - generic [ref=e69]:
+              - generic [ref=e70]: Small
+              - generic [ref=e71]: 50–100 pens
+            - paragraph [ref=e72]: For new partners testing the market
+            - list [ref=e73]:
+              - listitem [ref=e74]: — Standard pricing
+              - listitem [ref=e75]: — Email support
+          - button "Medium 100–1,000 pens For growing wholesale operations — Tiered pricing — Priority fulfilment — WhatsApp support" [ref=e76] [cursor=pointer]:
+            - generic [ref=e77]:
+              - generic [ref=e78]: Medium
+              - generic [ref=e79]: 100–1,000 pens
+            - paragraph [ref=e80]: For growing wholesale operations
+            - list [ref=e81]:
+              - listitem [ref=e82]: — Tiered pricing
+              - listitem [ref=e83]: — Priority fulfilment
+              - listitem [ref=e84]: — WhatsApp support
+          - button "Large 1,000+ pens For established distributors — Volume pricing — Scheduled delivery — Dedicated support" [ref=e85] [cursor=pointer]:
+            - generic [ref=e86]:
+              - generic [ref=e87]: Large
+              - generic [ref=e88]: 1,000+ pens
+            - paragraph [ref=e89]: For established distributors
+            - list [ref=e90]:
+              - listitem [ref=e91]: — Volume pricing
+              - listitem [ref=e92]: — Scheduled delivery
+              - listitem [ref=e93]: — Dedicated support
+      - generic [ref=e95]:
+        - generic [ref=e96]:
+          - heading "Why wholesale with Alluvi" [level=2] [ref=e97]
+          - paragraph [ref=e98]: We understand wholesale because we started as researchers. We know what your customers need.
+        - generic [ref=e99]:
+          - generic [ref=e100]:
+            - heading "Consistent Stock" [level=3] [ref=e101]
+            - paragraph [ref=e102]: We keep inventory ready so you never have to explain delays to your customers.
+          - generic [ref=e103]:
+            - heading "Research-Grade" [level=3] [ref=e104]
+            - paragraph [ref=e105]: Every batch comes with documentation. Your customers get what they expect.
+          - generic [ref=e106]:
+            - heading "Clear Pricing" [level=3] [ref=e107]
+            - paragraph [ref=e108]: No hidden fees. No surprises. What we quote is what you pay.
+          - generic [ref=e109]:
+            - heading "Reliable Delivery" [level=3] [ref=e110]
+            - paragraph [ref=e111]: Cold chain shipping. Tracked. Insured. Arrives when we say it will.
+      - generic [ref=e113]:
+        - generic [ref=e114]:
+          - heading "How to order" [level=2] [ref=e115]
+          - paragraph [ref=e116]: Simple process. No complicated forms. Just get in touch and we'll handle the rest.
+        - generic [ref=e117]:
+          - generic [ref=e118]:
+            - generic [ref=e119]: "01"
+            - heading "Choose your tier" [level=3] [ref=e120]
+            - paragraph [ref=e121]: Small, Medium, or Large. Pick what fits your current volume.
+          - generic [ref=e122]:
+            - generic [ref=e123]: "02"
+            - heading "Contact Max" [level=3] [ref=e124]
+            - paragraph [ref=e125]: WhatsApp or email. Tell us what you need and when you need it.
+          - generic [ref=e126]:
+            - generic [ref=e127]: "03"
+            - heading "Get your quote" [level=3] [ref=e128]
+            - paragraph [ref=e129]: We'll send pricing within 24 hours. No obligation.
+          - generic [ref=e130]:
+            - generic [ref=e131]: "04"
+            - heading "Place order" [level=3] [ref=e132]
+            - paragraph [ref=e133]: Confirm and pay. We dispatch within the agreed timeframe.
+    - contentinfo [ref=e134]:
+      - generic [ref=e136]:
+        - link [ref=e138] [cursor=pointer]:
+          - /url: /
+          - img "Alluvi" [ref=e139]
+        - generic [ref=e140]:
+          - link "Shop" [ref=e141] [cursor=pointer]:
+            - /url: /shop
+          - link "About Us" [ref=e142] [cursor=pointer]:
+            - /url: /about
+          - link "Wholesale" [ref=e143] [cursor=pointer]:
+            - /url: /wholesale
+          - link "Home" [ref=e144] [cursor=pointer]:
+            - /url: /
+          - link "Verify" [ref=e145] [cursor=pointer]:
+            - /url: https://spotafakealluvi.com/
+        - generic [ref=e146]:
+          - link "Press Release" [ref=e147] [cursor=pointer]:
+            - /url: /policies/press-release
+          - link "Refund Policy" [ref=e148] [cursor=pointer]:
+            - /url: /policies/refund-policy
+          - link "Shipping Policy" [ref=e149] [cursor=pointer]:
+            - /url: /policies/shipping-policy
+        - generic [ref=e150]:
+          - link "Privacy Policy" [ref=e151] [cursor=pointer]:
+            - /url: /policies/privacy-policy
+          - link "Terms Of Service" [ref=e152] [cursor=pointer]:
+            - /url: /policies/terms-of-service
+          - paragraph [ref=e153]: © 2026 Alluvi. All rights reserved.

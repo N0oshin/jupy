@@ -78,12 +78,12 @@ export default function AboutUs() {
     title: 'USA Research Peptide Supplier | About Jupyter Labs',
     description:
       'Jupyter Labs, a USA research peptide supplier providing innovative laboratory compounds, science-backed formulations, Janoshik-tested products',
-    path: '/about-us',
+    path: '/about',
     jsonLd: {
       '@context': 'https://schema.org',
       '@type': 'AboutPage',
-      '@id': `${SITE_URL}/about-us#aboutpage`,
-      url: `${SITE_URL}/about-us`,
+      '@id': `${SITE_URL}/about#aboutpage`,
+      url: `${SITE_URL}/about`,
       name: 'About Jupyter Labs',
       description:
         'Jupyter Labs was founded by two scientists frustrated by the lack of transparency in peptide sourcing.',
