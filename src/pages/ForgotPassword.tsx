@@ -53,7 +53,7 @@ export default function ForgotPassword() {
             to="/"
             className="mb-10 inline-flex items-center gap-2.5 font-display text-ink"
           >
-            <span className="text-2xl font-semibold lowercase tracking-[-0.05em]" style={{ fontFeatureSettings: '"ss01", "cv01"' }}>
+            <span className="text-2xl font-semibold lowercase tracking-[-0.015em]" style={{ fontFeatureSettings: '"ss01", "cv01"' }}>
               <span className="italic text-accent-dark">j</span>upyter
             </span>
             <span className="h-5 w-px bg-accent-dark/40" />

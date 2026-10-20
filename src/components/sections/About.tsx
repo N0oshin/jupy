@@ -50,12 +50,12 @@ export default function About() {
             <SplitReveal
               as="h2"
               mode="lines"
-              className="type-section-xl mt-7 font-display font-medium leading-[0.98] tracking-[-0.035em] text-ink"
+              className="type-section-xl mt-7 font-display font-medium leading-[0.98] tracking-[-0.015em] text-ink"
             >
               {/* Heading text from the SEO sheet's "#about" entry. Deliberately
                   still an <h2>, not an <h1>: #about is an anchor on the
                   homepage, not its own page, and the homepage's single primary
-                  H1 is the hero ("Smarter Peptides For Modern Research"), which
+                  H1 is the hero ("Research-grade peptides, verified in every pen."), which
                   the same sheet specifies. Promoting this to H1 would put two
                   H1s on one document. Styling and the anchor are untouched. */}
               {'Explore Jupyter Lab\nPeptides'}
@@ -107,7 +107,12 @@ export default function About() {
             {/* TILE A — Portrait */}
             <Reveal className="bento-tile relative overflow-hidden rounded-[var(--radius-xl2)] lg:col-span-7 lg:row-span-2">
               <div className="aspect-[4/5] lg:aspect-auto lg:h-full">
-                <Img src="/images/jupyter-labs/jupyter-labs-origin-copenhagen-2019.webp" alt="Jupyter Labs — the first synthesis, Copenhagen 2019" className="h-full w-full" />
+                <Img
+                  src="/images/ecom/08-tesamorelin-perspective-saffron.png"
+                  alt="Alluvi Tesamorelin 2mg pen held up to the camera by a smiling model against a saffron backdrop"
+                  objectPosition="50% 0%"
+                  className="h-full w-full"
+                />
               </div>
               <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-ink/85 via-ink/35 to-transparent p-7 lg:p-10">
                 <div className="flex items-center gap-3">
@@ -118,7 +123,7 @@ export default function About() {
                   The first synthesis. The whole question, answered.
                 </p>
               </div>
-              <span className="absolute right-5 top-5 rounded-full bg-bg/15 px-3 py-1 text-[0.65rem] uppercase tracking-[0.22em] text-bg backdrop-blur-md">
+              <span className="absolute left-5 top-5 rounded-full bg-bg/15 px-3 py-1 text-[0.65rem] uppercase tracking-[0.22em] text-bg backdrop-blur-md">
                 Origin
               </span>
             </Reveal>
@@ -144,7 +149,7 @@ export default function About() {
               className="bento-tile relative flex flex-col justify-between overflow-hidden rounded-[var(--radius-xl2)] bg-accent-dark p-8 text-bg lg:col-span-5"
             >
               <span className="text-[0.7rem] uppercase tracking-[0.25em] text-bg/70">Vintage</span>
-              <div className="font-display text-[clamp(5rem,11vw,9rem)] font-light leading-[0.85] tracking-[-0.05em] text-bg">
+              <div className="font-display text-[clamp(5rem,11vw,9rem)] font-light leading-[0.85] tracking-[-0.015em] text-bg">
                 2019
               </div>
               <div className="flex items-end justify-between gap-4">
@@ -199,7 +204,7 @@ function Counter({ to }: { to: number }) {
   }, [to, reduced])
 
   return (
-    <span ref={ref} className="font-display text-[clamp(2.6rem,4.5vw,4rem)] font-light leading-[0.9] tracking-[-0.04em] text-ink">
+    <span ref={ref} className="font-display text-[clamp(2.6rem,4.5vw,4rem)] font-light leading-[0.9] tracking-[-0.015em] text-ink">
       {val}
     </span>
   )

@@ -13,7 +13,7 @@ import { Link } from 'react-router-dom'
  */
 
 export const authInputCls =
-  'w-full rounded-2xl border border-line bg-bg px-4 py-3.5 text-sm text-ink placeholder:text-muted/50 shadow-[0_1px_2px_rgba(20,32,42,0.04)] transition-all duration-200 focus:border-accent-dark focus:outline-none focus:ring-4 focus:ring-accent/15 disabled:opacity-60'
+  'w-full rounded-2xl border border-line bg-bg px-4 py-3.5 text-sm text-ink placeholder:text-muted/50 shadow-[0_1px_2px_rgba(42,15,18,0.04)] transition-all duration-200 focus:border-accent-dark focus:outline-none focus:ring-4 focus:ring-accent/15 disabled:opacity-60'
 
 const TRUST = [
   'HPLC-verified purity on every batch',
@@ -28,7 +28,7 @@ function Wordmark({ tone = 'ink' }: { tone?: 'ink' | 'bg' }) {
   return (
     <span className={`inline-flex items-center gap-2.5 font-display ${primary}`}>
       <span
-        className="text-2xl font-semibold lowercase tracking-[-0.05em]"
+        className="text-2xl font-semibold lowercase tracking-[-0.015em]"
         style={{ fontFeatureSettings: '"ss01", "cv01"' }}
       >
         <span className={`italic ${accent}`}>j</span>upyter

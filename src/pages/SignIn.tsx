@@ -99,7 +99,7 @@ export default function SignIn() {
         <button
           type="submit"
           disabled={submitting}
-          className="mt-2 rounded-full bg-accent-dark px-7 py-3.5 text-sm font-medium text-bg transition-all hover:bg-accent hover:shadow-[0_20px_40px_-20px_rgba(15,118,110,0.6)] disabled:opacity-70"
+          className="mt-2 rounded-full bg-accent-dark px-7 py-3.5 text-sm font-medium text-bg transition-all hover:bg-accent hover:shadow-[0_20px_40px_-20px_rgba(121,13,22,0.6)] disabled:opacity-70"
         >
           {submitting ? 'Signing in…' : 'Sign in'}
         </button>

@@ -35,7 +35,7 @@ export default function ProductCard({ p, i }: { p: Product; i: number }) {
         onMouseMove={onMove}
         onMouseLeave={reset}
         style={reduced ? undefined : { rotateX: rx, rotateY: ry, transformPerspective: 1000 }}
-        className="group relative flex h-full flex-col overflow-hidden rounded-[var(--radius-xl2)] border border-line bg-card transition-all duration-500 hover:-translate-y-1 hover:border-accent-dark/30 hover:shadow-[0_40px_80px_-30px_rgba(15,118,110,0.35)]"
+        className="group relative flex h-full flex-col overflow-hidden rounded-[var(--radius-xl2)] border border-line bg-card transition-all duration-500 hover:-translate-y-1 hover:border-accent-dark/30 hover:shadow-[0_40px_80px_-30px_rgba(121,13,22,0.35)]"
       >
         {/* Image hero — fills top */}
         <div className="relative aspect-[5/4] w-full overflow-hidden">

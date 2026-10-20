@@ -200,10 +200,10 @@ export default function AboutUs() {
                 <Reveal
                   key={s.n}
                   delay={i * 0.08}
-                  className="group relative flex flex-col justify-between overflow-hidden rounded-[var(--radius-xl2)] border border-line bg-card p-7 transition-all duration-500 hover:-translate-y-1 hover:border-accent-dark/30 hover:shadow-[0_30px_60px_-30px_rgba(15,118,110,0.4)] lg:p-8"
+                  className="group relative flex flex-col justify-between overflow-hidden rounded-[var(--radius-xl2)] border border-line bg-card p-7 transition-all duration-500 hover:-translate-y-1 hover:border-accent-dark/30 hover:shadow-[0_30px_60px_-30px_rgba(121,13,22,0.4)] lg:p-8"
                 >
                   <div className="flex items-center justify-between">
-                    <span className="grid h-12 w-12 place-items-center rounded-full bg-gradient-to-br from-accent-dark to-accent text-bg shadow-[0_10px_24px_-12px_rgba(15,118,110,0.7)] transition-transform duration-500 group-hover:scale-110">
+                    <span className="grid h-12 w-12 place-items-center rounded-full bg-gradient-to-br from-accent-dark to-accent text-bg shadow-[0_10px_24px_-12px_rgba(121,13,22,0.7)] transition-transform duration-500 group-hover:scale-110">
                       <PillarIcon name={s.icon} />
                     </span>
                     <span className="font-display text-sm font-medium tracking-[0.1em] text-accent-dark/70 transition-colors duration-500 group-hover:text-accent-dark">

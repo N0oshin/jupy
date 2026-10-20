@@ -65,8 +65,8 @@ export default function WhyChoose() {
           <article className="relative overflow-hidden rounded-[var(--radius-xl2)]">
             <div className="hero-img relative min-h-[30rem] sm:min-h-0 sm:aspect-[16/9] lg:aspect-[21/9]">
               <Img
-                src="/images/jupyter-labs/inside-jupyter-labs-scientist.webp"
-                alt="A Jupyter Labs scientist running HPLC purity analysis inside the research facility"
+                src="/images/ecom/01-hero-nad-saffron.png"
+                alt="Alluvi NAD+ pen and box held by a model against a saffron backdrop"
                 className="h-full w-full"
                 sizes="(min-width: 1024px) 90vw, 100vw"
               />
@@ -90,7 +90,7 @@ export default function WhyChoose() {
             <div className="absolute inset-x-5 bottom-5 grid gap-5 sm:inset-x-6 sm:bottom-6 sm:gap-8 lg:inset-x-10 lg:bottom-10 lg:grid-cols-12 lg:items-end">
               <div className="lg:col-span-8">
                 <p className="text-[0.7rem] uppercase tracking-[0.3em] text-bg/70">The hero principle</p>
-                <h3 className="mt-4 font-display text-[clamp(1.8rem,4vw,3.4rem)] font-medium leading-[1.02] tracking-[-0.03em] text-bg">
+                <h3 className="mt-4 font-display text-[clamp(1.8rem,4vw,3.4rem)] font-medium leading-[1.02] tracking-[-0.015em] text-bg">
                   Every milligram, clearly stated. No exceptions.
                 </h3>
                 <p className="mt-4 max-w-xl text-[0.95rem] leading-[1.55] text-bg/75">

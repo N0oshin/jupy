@@ -10,8 +10,10 @@ const PHRASES = [
 
 export default function Marquee() {
   const reduced = useReducedMotion()
-  // Doubled so the -50% translate loops seamlessly.
-  const items = [...PHRASES, ...PHRASES]
+  // The track translates by -50% to loop, so each half must be wider than the
+  // viewport: four runs per half (~6000px at this type size) covers any monitor.
+  const half = Array.from({ length: 4 }, () => PHRASES).flat()
+  const items = [...half, ...half]
 
   return (
     <section
@@ -19,32 +21,27 @@ export default function Marquee() {
       aria-label="Research-grade peptides. HPLC-verified purity. Pharmaceutical precision. Independently certified."
       /* Was py-24 sm:py-32 lg:py-72 — 288px of padding per edge on desktop made
          this decorative band taller than most real content sections. */
-      className="relative overflow-hidden py-16 sm:py-24 lg:py-40"
+      className="relative isolate overflow-hidden py-5 sm:py-6 lg:py-8"
     >
-      {/* Saved background image — heavily blurred */}
-      <img
-        src="/images/jupyter-labs-blur-backdrop.webp"
-        alt=""
-        className="absolute inset-0 -z-20 h-full w-full scale-125 object-cover blur-[48px]"
-      />
-      <div className="absolute inset-0 -z-10 bg-accent-dark/25" />
-      <div className="absolute inset-0 -z-10 grain opacity-15" />
+      {/* Dusty-blue band with a soft grain; replaces the old blurred photo. */}
+      <div className="absolute inset-0 -z-10 bg-gradient-to-r from-blue via-[#c3d4df] to-blue" />
+      <div className="absolute inset-0 -z-10 grain opacity-10" />
 
       <div className="group flex overflow-hidden" data-cursor>
         <div
           className="flex shrink-0 animate-marquee items-center whitespace-nowrap"
           style={{
-            animationDuration: '34s',
+            animationDuration: '60s',
             animationPlayState: reduced ? 'paused' : 'running',
           }}
         >
           {items.map((p, i) => (
             <span
               key={i}
-              className="mx-8 font-display text-[clamp(2.25rem,7vw,5.5rem)] font-light leading-none text-white/90 drop-shadow-[0_2px_20px_rgba(0,0,0,0.22)] lg:mx-12"
+              className="mx-6 inline-flex items-center gap-6 font-sans text-[clamp(0.8rem,1.5vw,1.15rem)] font-medium uppercase leading-none tracking-[0.22em] text-accent-dark lg:mx-8 lg:gap-8"
             >
               {p}
-              <span className="text-gold">.</span>
+              <span aria-hidden="true" className="h-1.5 w-1.5 rounded-full bg-ink/60" />
             </span>
           ))}
         </div>

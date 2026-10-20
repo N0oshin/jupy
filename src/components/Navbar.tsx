@@ -124,14 +124,23 @@ export default function Navbar() {
 
       <div
         className={`container-x flex items-center justify-between transition-all duration-500 ${
-          scrolled ? 'py-3' : 'py-5'
+          scrolled ? 'py-1.5' : 'py-2'
         }`}
       >
         <Link
           to="/"
+          onClick={(e) => {
+            // Already on the homepage: a route navigation to "/" would be a
+            // no-op, so glide back to the top instead.
+            if (location.pathname === '/') {
+              e.preventDefault()
+              setOpen(false)
+              scrollToHash('#top')
+            }
+          }}
           className="group inline-flex items-center gap-2.5 font-display text-ink"
         >
-          <span className="relative text-2xl font-semibold lowercase tracking-[-0.05em]" style={{ fontFeatureSettings: '"ss01", "cv01"' }}>
+          <span className="relative text-2xl font-semibold lowercase tracking-[-0.015em]" style={{ fontFeatureSettings: '"ss01", "cv01"' }}>
             <span className="italic text-accent-dark transition-colors duration-500 group-hover:text-accent">j</span>upyter
             <span className="absolute -bottom-1 left-0 h-[2px] w-[0.45em] origin-left scale-x-0 bg-accent-dark transition-transform duration-500 group-hover:scale-x-100" />
           </span>
@@ -141,13 +150,13 @@ export default function Navbar() {
           </span>
         </Link>
 
-        <nav className="hidden items-center gap-9 md:flex">
+        <nav className="hidden items-center gap-6 md:flex">
           {NAV.map((n) => (
             <a
               key={n.href}
               href={n.href}
               onClick={(e) => go(e, n.href)}
-              className="group relative text-sm tracking-wide text-ink/75 transition-colors hover:text-ink"
+              className="group relative text-[0.8125rem] font-medium tracking-wide text-ink/80 transition-colors hover:text-ink"
             >
               {n.label}
               <span className="absolute -bottom-1 left-0 h-px w-0 bg-accent-dark transition-all duration-400 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:w-full" />
@@ -165,7 +174,7 @@ export default function Navbar() {
                 aria-haspopup="menu"
                 aria-expanded={accountOpen}
                 onClick={() => setAccountOpen((v) => !v)}
-                className="relative grid h-10 w-10 place-items-center rounded-full border border-line bg-card text-ink transition-all hover:border-accent-dark/40 hover:text-accent-dark"
+                className="relative grid h-9 w-9 place-items-center rounded-full border border-line bg-card text-ink transition-all hover:border-accent-dark/40 hover:text-accent-dark"
               >
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round">
                   <circle cx="12" cy="8" r="4" />
@@ -181,7 +190,7 @@ export default function Navbar() {
                 to="/signin"
                 aria-label="Sign in"
                 title="Sign in"
-                className="relative grid h-10 w-10 place-items-center rounded-full border border-line bg-card text-ink transition-all hover:border-accent-dark/40 hover:text-accent-dark"
+                className="relative grid h-9 w-9 place-items-center rounded-full border border-line bg-card text-ink transition-all hover:border-accent-dark/40 hover:text-accent-dark"
               >
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round">
                   <circle cx="12" cy="8" r="4" />
@@ -239,7 +248,7 @@ export default function Navbar() {
           <Link
             to="/cart"
             aria-label={`Cart (${count} items)`}
-            className="relative grid h-10 w-10 place-items-center rounded-full border border-line bg-card text-ink transition-all hover:border-accent-dark/40 hover:text-accent-dark"
+            className="relative grid h-9 w-9 place-items-center rounded-full border border-line bg-card text-ink transition-all hover:border-accent-dark/40 hover:text-accent-dark"
           >
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round">
               <path d="M3 3h2l2.4 12.2a2 2 0 0 0 2 1.6h8.2a2 2 0 0 0 2-1.5L21 8H6" />
@@ -253,16 +262,10 @@ export default function Navbar() {
             )}
           </Link>
 
-          <Link
-            to="/products"
-            className="hidden rounded-full bg-accent-dark px-6 py-2.5 text-sm text-bg transition-colors hover:bg-accent md:inline-block"
-          >
-            Shop
-          </Link>
           <button
             aria-label="Menu"
             onClick={() => setOpen((v) => !v)}
-            className="relative z-50 flex h-11 w-11 flex-col items-center justify-center gap-1.5 md:hidden"
+            className="relative z-50 flex h-10 w-10 flex-col items-center justify-center gap-1.5 md:hidden"
           >
             <span className={`h-px w-6 bg-ink transition-all ${open ? 'translate-y-[3px] rotate-45' : ''}`} />
             <span className={`h-px w-6 bg-ink transition-all ${open ? '-translate-y-[3px] -rotate-45' : ''}`} />
@@ -409,20 +412,6 @@ export default function Navbar() {
                   </motion.div>
                 </>
               )}
-
-              <motion.div
-                initial={{ opacity: 0, y: 34 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: 0.14 + (NAV.length + 3) * 0.07, ease: MENU_EASE }}
-              >
-                <Link
-                  to="/products"
-                  onClick={() => setOpen(false)}
-                  className="mt-8 inline-flex w-full items-center justify-center rounded-full bg-accent-dark py-4 text-base font-medium text-bg transition-colors hover:bg-accent"
-                >
-                  Shop Jupyter Labs
-                </Link>
-              </motion.div>
 
               <motion.p
                 initial={{ opacity: 0 }}

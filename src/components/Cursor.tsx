@@ -66,14 +66,14 @@ export default function Cursor() {
     <>
       <div
         ref={dot}
-        className="pointer-events-none fixed left-0 top-0 z-[90] -ml-1 -mt-1 h-2 w-2 rounded-full bg-accent-dark mix-blend-multiply"
+        className="pointer-events-none fixed left-0 top-0 z-[90] -ml-[3px] -mt-[3px] h-1.5 w-1.5 rounded-full bg-accent-dark mix-blend-multiply"
       />
       <div
         ref={ring}
         className={`pointer-events-none fixed left-0 top-0 z-[90] grid place-items-center rounded-full border border-accent-dark/40 transition-[width,height,opacity] duration-300 ${
-          hover ? 'h-16 w-16 bg-accent-dark/5' : 'h-9 w-9'
+          hover ? 'h-11 w-11 bg-accent-dark/5' : 'h-6 w-6'
         }`}
-        style={{ marginLeft: hover ? -32 : -18, marginTop: hover ? -32 : -18 }}
+        style={{ marginLeft: hover ? -22 : -12, marginTop: hover ? -22 : -12 }}
       />
     </>
   )

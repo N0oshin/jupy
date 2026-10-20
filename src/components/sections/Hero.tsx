@@ -4,16 +4,14 @@ import { useGSAP } from '@gsap/react'
 import { gsap } from '../../lib/gsap'
 import { useReducedMotion } from '../../lib/useReducedMotion'
 import CtaLink from '../ui/CtaLink'
-const HEADLINE = ['Smarter', 'Peptides', 'For', 'Modern', 'Research']
+const HEADLINE = [
+  ['Research-grade', 'peptides,'],
+  ['verified', 'in', 'every', 'pen.'],
+]
 
-// Kept in sync with the <link rel="preload" imagesrcset> in index.html — the two
-// must resolve to the same candidate or the preload is wasted and fetched twice.
-const HERO_BASE = '/images/jupyter-labs/jupyter-labs-research-grade-peptides-hero'
-const HERO_IMG = `${HERO_BASE}.webp`
-const HERO_SRCSET = [640, 1024, 1536]
-  .map((w) => `${HERO_BASE}-${w}.webp ${w}w`)
-  .concat(`${HERO_IMG} 2048w`)
-  .join(', ')
+// Kept in sync with the <link rel="preload"> in index.html — the two must resolve
+// to the same file or the preload is wasted and fetched twice.
+const HERO_IMG = '/images/ecom/hero-nad-pen.webp'
 
 export default function Hero() {
   const ref = useRef<HTMLElement>(null)
@@ -30,13 +28,6 @@ export default function Hero() {
       // Starts as the preloader curtain lifts.
       const tl = gsap.timeline({ delay: 0.65, defaults: { ease: 'power4.out' } })
       tl.from('.hero-top', { y: 18, opacity: 0, duration: 0.8 })
-        // Deliberately no opacity here. .hero-card wraps the hero image, which is
-        // the LCP element, and gsap.from applies its start state immediately — so
-        // fading the card in from opacity:0 held the LCP image unpainted through
-        // the delay and most of this tween, costing well over a second of LCP.
-        // The rise-and-settle is carried by y + scale, which look identical but
-        // leave the image painted from the first frame.
-        .from('.hero-card', { y: 40, scale: 0.985, duration: 1.2 }, '-=0.3')
         .from(
           '.hero-word',
           { yPercent: 120, opacity: 0, filter: 'blur(14px)', rotateX: -40, duration: 1.2, stagger: 0.12 },
@@ -49,90 +40,51 @@ export default function Hero() {
   )
 
   return (
-    <section ref={ref} id="top" className="relative bg-white pb-0 pt-32 sm:pt-44 lg:pb-0 lg:pt-52">
-      <div className="container-x">
-        {/* Top trust + tag strip */}
-        <div className="hero-top -mt-8 mb-10 flex flex-wrap items-center justify-between gap-4 lg:-mt-12 lg:mb-14">
-          <div className="flex items-center gap-4">
-            <div className="flex -space-x-2.5">
-              {[
-                '/images/jupyter-labs/customer-stories/jupyter-labs-researcher-avatar-1.webp',
-                '/images/jupyter-labs/customer-stories/jupyter-labs-researcher-avatar-2.webp',
-                '/images/jupyter-labs/customer-stories/jupyter-labs-researcher-avatar-3.webp',
-              ].map((src, i) => (
-                <img
-                  key={i}
-                  src={src}
-                  alt=""
-                  loading="lazy"
-                  decoding="async"
-                  className="h-10 w-10 rounded-full border-2 border-bg object-cover"
-                />
-              ))}
-            </div>
-            <span className="flex items-center gap-2.5 text-sm uppercase tracking-[0.22em] text-muted">
-              <span className="h-2 w-2 rounded-full bg-accent-dark" />
-              Trusted by 40,000+ researchers
-            </span>
-          </div>
-          <div className="hidden rounded-full border border-line bg-card px-5 py-2 text-sm uppercase tracking-[0.22em] text-accent-dark sm:block">
-            Research-Grade Peptides
+    <section ref={ref} id="top" className="relative min-h-[100svh] w-full overflow-hidden bg-bg">
+      {/* Full-bleed background image — blurs as you scroll.
+          This is the LCP element: it is preloaded in index.html and fetched at
+          high priority. object-cover fills the whole viewport edge to edge. */}
+      <motion.img
+        src={HERO_IMG}
+        alt="Smiling woman in a powder-blue t-shirt holding an Alluvi NAD+ pen toward the camera"
+        fetchPriority="high"
+        decoding="async"
+        style={reduced ? undefined : { filter: imgFilter }}
+        className="absolute inset-0 h-full w-full object-cover object-[72%_50%] lg:object-[32%_50%] lg:[@media(min-aspect-ratio:1.7)]:object-[12%_50%]"
+      />
+
+      {/* Light scrim for headline legibility: left-to-right on desktop, bottom-up on mobile */}
+      <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-bg/45 via-bg/10 to-transparent lg:bg-gradient-to-r lg:from-bg/35 lg:via-bg/10 lg:to-transparent" />
+
+      <motion.div
+        style={reduced ? undefined : { opacity: fade }}
+        className="container-x relative flex min-h-[100svh] flex-col pb-14 pt-28 sm:pt-32 lg:pb-20"
+      >
+      
+        {/* Headline block — left on desktop, bottom on mobile */}
+        <div className="mt-auto lg:my-auto lg:max-w-[44rem]">
+          <h1 className="font-display text-[clamp(1.6rem,0.8rem+3vw,3rem)] font-light leading-[1.15] text-ink">
+            {HEADLINE.map((line) => (
+              <span key={line.join(' ')} className="block whitespace-nowrap">
+                {line.map((w) => (
+                  <span key={w} className="mr-[0.22em] inline-block overflow-hidden align-bottom">
+                    <span className="hero-word inline-block">{w}</span>
+                  </span>
+                ))}
+              </span>
+            ))}
+          </h1>
+
+          <div className="mt-8 flex flex-col items-start gap-3 sm:flex-row sm:gap-4">
+            <CtaLink to="/products" variant="solid" className="hero-cta !px-4 !py-2 !text-xs">
+              Explore More
+            </CtaLink>
+            <CtaLink to="#about" variant="outline" className="hero-cta !px-4 !py-2 !text-xs">
+              Learn More
+            </CtaLink>
           </div>
         </div>
-
-        {/* Hero card with image background */}
-        <div className="hero-card relative overflow-hidden rounded-[28px] shadow-[0_30px_80px_-30px_rgba(31,41,51,0.35)] lg:rounded-[40px]">
-          {/* background image — blurs as you scroll.
-              This is the LCP element: it is preloaded in index.html, fetched at high
-              priority, and served at the narrowest width that covers the viewport. */}
-          <motion.img
-            src={HERO_IMG}
-            srcSet={HERO_SRCSET}
-            sizes="100vw"
-            alt="Jupyter Labs research-grade peptide vials on a laboratory bench"
-            fetchPriority="high"
-            decoding="async"
-            style={reduced ? undefined : { filter: imgFilter }}
-            className="absolute inset-0 -z-10 h-full w-full object-cover"
-          />
-
-          {/* Darkening overlays for headline legibility */}
-          <div className="pointer-events-none absolute inset-0 -z-[5] bg-ink/8" />
-          <div className="pointer-events-none absolute inset-0 -z-[5] bg-gradient-to-b from-ink/12 via-ink/5 to-ink/18" />
-          <div className="pointer-events-none absolute inset-0 -z-[5] bg-[radial-gradient(ellipse_at_center,rgba(20,32,42,0.18)_0%,transparent_65%)]" />
-
-          {/* centered headline overlay */}
-          <motion.div
-            style={reduced ? undefined : { opacity: fade }}
-            /* Reduced from a flat 78svh. Kept deliberately modest: the image is
-               an object-cover fill of this box, so shortening the box crops the
-               photograph rather than scaling it — take too much and the bench,
-               the product boxes and the researcher's head start leaving frame.
-               These values were checked against the actual composition at 1440,
-               768 and 375. min-height, not height, so a headline that wraps to
-               more lines grows the box instead of being clipped. */
-            className="relative flex min-h-[66svh] flex-col items-center justify-center px-6 py-16 text-center lg:min-h-[68svh] lg:py-24"
-          >
-            <h1 className="type-hero font-display text-balance font-light leading-[1.12] text-white drop-shadow-[0_6px_30px_rgba(0,0,0,0.6)]">
-              {HEADLINE.map((w) => (
-                <span key={w} className="mr-[0.22em] inline-block overflow-hidden align-bottom">
-                  <span className="hero-word inline-block">{w}</span>
-                </span>
-              ))}
-            </h1>
-
-            <div className="mt-8 flex flex-col items-center gap-3 sm:flex-row sm:justify-center sm:gap-4">
-              <CtaLink to="/products" variant="solid-light" arrow className="hero-cta">
-                Explore More
-              </CtaLink>
-              <CtaLink to="#about" variant="outline-light" className="hero-cta">
-                Learn More
-              </CtaLink>
-            </div>
-          </motion.div>
-        </div>
-
-      </div>
+      </motion.div>
     </section>
   )
 }

@@ -153,7 +153,7 @@ export default function Footer() {
               to="/"
               className="inline-flex items-center gap-3 font-display text-ink"
             >
-              <span className="text-3xl font-semibold lowercase tracking-[-0.05em]" style={{ fontFeatureSettings: '"ss01", "cv01"' }}>
+              <span className="text-3xl font-semibold lowercase tracking-[-0.015em]" style={{ fontFeatureSettings: '"ss01", "cv01"' }}>
                 <span className="italic text-accent-dark">j</span>upyter
               </span>
               <span className="h-7 w-px bg-accent-dark/50" />
@@ -211,7 +211,7 @@ export default function Footer() {
             intentionally below text-contrast thresholds. Hidden from assistive tech
             rather than recoloured, so the design is preserved. */}
         <div className="select-none overflow-hidden" aria-hidden="true">
-          <div className="flex items-center gap-[2vw] font-display leading-[0.8] tracking-[-0.05em] text-accent-dark/10">
+          <div className="flex items-center gap-[2vw] font-display leading-[0.8] tracking-[-0.015em] text-accent-dark/10">
             <span className="text-[20vw] font-medium lowercase" style={{ fontFeatureSettings: '"ss01", "cv01"' }}>
               <span className="italic">j</span>upyter
             </span>

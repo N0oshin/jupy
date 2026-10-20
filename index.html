@@ -33,32 +33,20 @@
 
     <!-- LCP image. This is an SPA: without an explicit preload the hero is not
          discoverable until React has parsed, executed and rendered, which idles
-         the network through the entire critical path. imagesrcset mirrors the
+         the network through the entire critical path. the href matches the
          <img> in Hero.tsx so the preload and the render resolve to one file. -->
     <link
       rel="preload"
       as="image"
       fetchpriority="high"
-      href="/images/jupyter-labs/jupyter-labs-research-grade-peptides-hero.webp"
-      imagesrcset="
-        /images/jupyter-labs/jupyter-labs-research-grade-peptides-hero-640.webp   640w,
-        /images/jupyter-labs/jupyter-labs-research-grade-peptides-hero-1024.webp 1024w,
-        /images/jupyter-labs/jupyter-labs-research-grade-peptides-hero-1536.webp 1536w,
-        /images/jupyter-labs/jupyter-labs-research-grade-peptides-hero.webp      2048w"
-      imagesizes="100vw"
+      href="/images/ecom/hero-nad-pen.webp"
     />
 
-    <!-- Font: Space Grotesk, self-hosted (see @font-face in src/index.css).
-         Preloaded so the fetch starts with the HTML rather than waiting for the
-         stylesheet to parse. Only the latin subset is preloaded — it is the one
-         English content actually resolves to. -->
-    <link
-      rel="preload"
-      as="font"
-      type="font/woff2"
-      href="/fonts/space-grotesk-latin.woff2"
-      crossorigin
-    />
+    <!-- Fonts: Playfair Display, Cormorant Garamond and Montserrat, self-hosted (see
+         @font-face in src/index.css). Only the two faces used above the fold are
+         preloaded, and only the latin subset, which is what English text resolves to. -->
+    <link rel="preload" as="font" type="font/woff2" href="/fonts/montserrat-latin-normal-300-600.woff2" crossorigin />
+    <link rel="preload" as="font" type="font/woff2" href="/fonts/playfair-display-latin-normal-400-700.woff2" crossorigin />
 
     <script type="application/ld+json">
       {

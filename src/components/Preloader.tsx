@@ -80,7 +80,7 @@ export default function Preloader({ onDone }: { onDone: () => void }) {
           >
             <span className="inline-flex items-center gap-4 font-display leading-none">
               <span
-                className="text-[14vw] font-medium lowercase tracking-[-0.05em] sm:text-[7rem]"
+                className="text-[14vw] font-medium lowercase tracking-[-0.015em] sm:text-[7rem]"
                 style={{ fontFeatureSettings: '"ss01", "cv01"' }}
               >
                 <span className="italic text-bg/85">j</span>upyter

@@ -2,7 +2,7 @@ import { motion } from 'framer-motion'
 import { useReducedMotion } from '../lib/useReducedMotion'
 
 /** A single editorial botanical leaf drawn as SVG. */
-function Leaf({ className = '', color = '#6B7F78' }: { className?: string; color?: string }) {
+function Leaf({ className = '', color = '#AEC4D4' }: { className?: string; color?: string }) {
   return (
     <svg viewBox="0 0 100 160" className={className} fill="none" aria-hidden>
       <path
@@ -27,11 +27,11 @@ interface Float {
 }
 
 const FLOATS: Float[] = [
-  { top: '12%', left: '6%', size: 90, rotate: -18, dur: 13, color: '#6B7F78' },
-  { top: '64%', left: '88%', size: 130, rotate: 24, dur: 17, color: '#445852', blur: 1 },
-  { top: '38%', left: '92%', size: 70, rotate: 60, dur: 15, color: '#B9A37E' },
-  { top: '82%', left: '10%', size: 110, rotate: -40, dur: 19, color: '#6B7F78', blur: 2 },
-  { top: '50%', left: '50%', size: 60, rotate: 10, dur: 14, color: '#445852' },
+  { top: '12%', left: '6%', size: 90, rotate: -18, dur: 13, color: '#AEC4D4' },
+  { top: '64%', left: '88%', size: 130, rotate: 24, dur: 17, color: '#790D16', blur: 1 },
+  { top: '38%', left: '92%', size: 70, rotate: 60, dur: 15, color: '#E5D3AF' },
+  { top: '82%', left: '10%', size: 110, rotate: -40, dur: 19, color: '#AEC4D4', blur: 2 },
+  { top: '50%', left: '50%', size: 60, rotate: 10, dur: 14, color: '#790D16' },
 ]
 
 /**

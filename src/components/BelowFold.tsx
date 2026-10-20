@@ -1,6 +1,7 @@
 import { useEffect } from 'react'
 import { ScrollTrigger } from '../lib/gsap'
 
+import ProductShowcase from './sections/ProductShowcase'
 import Difference from './sections/Difference'
 import Craft from './sections/Craft'
 import Marquee from './sections/Marquee'
@@ -66,6 +67,7 @@ export default function BelowFold() {
 
   return (
     <>
+      <ProductShowcase />
       <Difference />
       <Craft />
       <Marquee />

@@ -6,7 +6,7 @@ type T = (typeof TESTIMONIALS)[number]
 
 function Quote({ t }: { t: T }) {
   return (
-    <figure className="group relative mx-3 flex w-[22rem] shrink-0 flex-col justify-between overflow-hidden rounded-[var(--radius-xl2)] border border-line bg-card p-8 transition-all duration-500 hover:-translate-y-1 hover:border-accent-dark/30 hover:shadow-[0_20px_60px_-30px_rgba(15,118,110,0.45)] sm:w-[26rem]">
+    <figure className="group relative mx-3 flex w-[22rem] shrink-0 flex-col justify-between overflow-hidden rounded-[var(--radius-xl2)] border border-line bg-card p-8 transition-all duration-500 hover:-translate-y-1 hover:border-accent-dark/30 hover:shadow-[0_20px_60px_-30px_rgba(121,13,22,0.45)] sm:w-[26rem]">
       {/* Background portrait — fades in on hover. Lazy: these sit in an offscreen
           marquee and are invisible until hover, so eager-loading six 600px
           portraits only stole bandwidth from the hero. */}

@@ -28,7 +28,7 @@ export const PRODUCTS = [
       'A research blend of BPC-157 (a synthetic pentadecapeptide) and TB-500 (a fragment of Thymosin Beta-4, an actin-binding peptide). Supplied pre-filled into an Alluvi research device (4 × 10mg) as a characterized reference material for laboratory analysis, method development and in-vitro study. Supplied strictly for laboratory research use — not for human or veterinary use.',
     price: 130,
     currency: 'USD',
-    accent: '#0f766e',
+    accent: '#790D16',
     tint: '#E6F1EF',
     image: '/images/products/bpc-front.webp',
     gallery: [
@@ -103,7 +103,7 @@ export const PRODUCTS = [
       'A 20mg Retatrutide research formulation supplied in a pre-filled research device, provided exclusively for controlled laboratory R&D. Retatrutide is characterized as a triple receptor agonist (GIP, GLP-1 and glucagon receptors). Supplied in sealed format to support compound-stability analysis, formulation studies and delivery-mechanism evaluation. For laboratory research use only — not for human or veterinary use.',
     price: 100,
     currency: 'USD',
-    accent: '#7A8F87',
+    accent: '#AEC4D4',
     tint: '#EAF0EC',
     image: '/images/products/retatrutide-20-front.jpg',
     gallery: [
@@ -178,7 +178,7 @@ export const PRODUCTS = [
       'Retatrutide 40mg pre-filled into an Alluvi research device (4 × 10mg). Characterized as a triple receptor agonist (GLP-1, GIP and glucagon receptors) and independently Janoshik-verified across a 56-day stability window. Supplied as a reference material for in-vitro receptor-signalling and metabolic-pathway R&D. For laboratory research use only — not for human or veterinary use.',
     price: 180,
     currency: 'USD',
-    accent: '#6B7F78',
+    accent: '#9A2530',
     tint: '#E7EDE9',
     image: '/images/products/retatrutide-front.webp',
     gallery: [
@@ -253,7 +253,7 @@ export const PRODUCTS = [
       'Tirzepatide 40mg (4 × 10mg) pre-filled into an Alluvi research device. Characterized as a dual receptor agonist of GLP-1 (glucagon-like peptide-1) and GIP (glucose-dependent insulinotropic polypeptide), and widely used as a reference compound in in-vitro metabolic-pharmacology and receptor-signalling models. For laboratory research use only — not for human or veterinary use.',
     price: 100,
     currency: 'USD',
-    accent: '#7E8FA6',
+    accent: '#E5D3AF',
     tint: '#E6EAF0',
     image: '/images/products/tirzepatide-front.webp',
     gallery: [
@@ -329,7 +329,7 @@ export const PRODUCTS = [
       'Glow 70mg GHK-Cu pre-filled into an Alluvi research device. GHK-Cu (glycyl-L-histidyl-L-lysine copper) is a naturally-occurring tripeptide-copper complex. Supplied as a characterized reference material for in-vitro investigation of copper-peptide chemistry, collagen-related assay development and comparative peptide analysis. For laboratory research use only — not for human or veterinary use.',
     price: 100,
     currency: 'USD',
-    accent: '#B9A37E',
+    accent: '#6E8FA8',
     tint: '#F3EEE2',
     image: '/images/products/glow-front.webp',
     gallery: [
@@ -404,7 +404,7 @@ export const PRODUCTS = [
       'NAD+ (Nicotinamide Adenine Dinucleotide) supplied as two pre-filled 500mg devices (1,000mg total) for laboratory analysis and in-vitro study. NAD+ is a coenzyme central to cellular metabolic biochemistry — including mitochondrial electron transport, sirtuin/PARP enzyme activity and redox balance — making it a widely used reference molecule in in-vitro cellular-energetics research. For laboratory research use only — not for human or veterinary use.',
     price: 140,
     currency: 'USD',
-    accent: '#7A6FA8',
+    accent: '#B8863B',
     tint: '#ECE9F3',
     image: '/images/products/nad-front.jpg',
     gallery: [
@@ -457,6 +457,70 @@ export const PRODUCTS = [
       concentrationLabel: '208.33 mg/mL',
       totalContent: '1,000 mg',
     },
+  },
+] as const
+
+/**
+ * Homepage "Our products" showcase — the tabbed, horizontally scrolling box
+ * gallery directly under the hero (components/sections/ProductShowcase).
+ *
+ * Items reference PRODUCTS by id so name, price and route stay single-sourced.
+ * `product: null` is a box we have a render for but no catalogue entry yet; it
+ * is shown as "coming soon" with no link, and becomes live by adding the
+ * product to PRODUCTS and pointing `product` at its id.
+ *
+ * `accent` is the colour of the spiral lines on that box's artwork. The section
+ * mixes it into the cream page background (--color-bg) for a light band behind
+ * the centred box, and into the darker tan (--color-bg-deep) for the nested
+ * arches, so both read as nude tints of the box, never the raw colour.
+ *
+ * COMPLIANCE: family copy describes research scope only — see file header.
+ */
+export const SHOWCASE = [
+  {
+    id: 'metabolic',
+    label: 'Metabolic',
+    items: [
+      { product: 'retatrutide-20', box: '/images/products/boxes/retatrutide-20.webp', accent: '#f08a1c' },
+      { product: 'retatrutide', box: '/images/products/boxes/retatrutide-40.webp', accent: '#f5a82a' },
+      { product: 'tirzepatide', box: '/images/products/boxes/tirzepatide.webp', accent: '#2f9fe6' },
+      {
+        product: null,
+        name: 'Tesamorelin 20mg',
+        tagline: 'GHRH Analogue · Reference Standard',
+        box: '/images/products/boxes/tesamorelin.webp',
+        accent: '#e6262c',
+      },
+    ],
+  },
+  {
+    id: 'cellular',
+    label: 'Cellular',
+    items: [
+      { product: 'nad-plus', box: '/images/products/boxes/nad-plus.webp', accent: '#f2a900' },
+      {
+        product: null,
+        name: 'MOTS-c 40mg',
+        tagline: 'Mitochondrial Peptide · Reference Standard',
+        box: '/images/products/boxes/mots-c.webp',
+        accent: '#9a3bb5',
+      },
+    ],
+  },
+  {
+    id: 'signalling',
+    label: 'Signalling',
+    items: [
+      { product: 'bpc-157', box: '/images/products/boxes/bpc-157.webp', accent: '#2fa84f' },
+      { product: 'glow', box: '/images/products/boxes/glow.webp', accent: '#ec2f94' },
+      {
+        product: null,
+        name: 'CJC-1295 10mg',
+        tagline: 'GHRH Analogue · Without DAC',
+        box: '/images/products/boxes/cjc-1295.webp',
+        accent: '#f08a6a',
+      },
+    ],
   },
 ] as const
 
@@ -526,13 +590,13 @@ export const TESTIMONIALS = [
  * href resolves to a real section or a real route.
  */
 export const NAV = [
-  { label: 'Home', href: '#top' },
+  // No "Home" entry — the Jupyter Labs logo in the Navbar is the home link.
   // Now a standalone page, not a scroll to the homepage's #about section. The
   // section and its anchor still exist — this link just points at the page.
   { label: 'About', href: '/about' },
   // The full catalogue page, not the homepage's 3-product teaser section. The
   // #products section still exists and still links through to /products itself.
-  { label: 'Products', href: '/products' },
+  { label: 'Shop', href: '/products' },
   { label: 'Why Us', href: '#why' },
   { label: 'Testimonials', href: '#testimonials' },
   // Now a standalone page with a contact form, not a scroll to the footer.

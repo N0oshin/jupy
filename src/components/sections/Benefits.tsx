@@ -52,7 +52,7 @@ export default function Benefits() {
             {BENEFITS.map((b) => (
               <div
                 key={b.k}
-                className="group relative flex w-full flex-col overflow-hidden rounded-[var(--radius-xl2)] border border-line bg-card transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] hover:border-accent-dark/30 hover:shadow-[0_30px_60px_-30px_rgba(15,118,110,0.45)] lg:h-[58vh] lg:w-[24rem] lg:shrink-0"
+                className="group relative flex w-full flex-col overflow-hidden rounded-[var(--radius-xl2)] border border-line bg-card transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] hover:border-accent-dark/30 hover:shadow-[0_30px_60px_-30px_rgba(121,13,22,0.45)] lg:h-[58vh] lg:w-[24rem] lg:shrink-0"
               >
                 {/* Full-bleed image */}
                 <img

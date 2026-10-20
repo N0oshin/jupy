@@ -153,7 +153,7 @@ export default function Cart() {
                 <button
                   type="button"
                   onClick={checkout}
-                  className="mt-7 w-full rounded-full bg-accent-dark py-3.5 text-sm font-medium text-bg transition-all hover:bg-accent hover:shadow-[0_20px_40px_-20px_rgba(15,118,110,0.6)]"
+                  className="mt-7 w-full rounded-full bg-accent-dark py-3.5 text-sm font-medium text-bg transition-all hover:bg-accent hover:shadow-[0_20px_40px_-20px_rgba(121,13,22,0.6)]"
                 >
                   Checkout
                 </button>

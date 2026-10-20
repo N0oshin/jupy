@@ -364,7 +364,7 @@ export default function Checkout() {
               <button
                 type="submit"
                 disabled={submitting}
-                className="mt-7 w-full rounded-full bg-accent-dark py-3.5 text-sm font-medium text-bg transition-all hover:bg-accent hover:shadow-[0_20px_40px_-20px_rgba(15,118,110,0.6)] disabled:opacity-70"
+                className="mt-7 w-full rounded-full bg-accent-dark py-3.5 text-sm font-medium text-bg transition-all hover:bg-accent hover:shadow-[0_20px_40px_-20px_rgba(121,13,22,0.6)] disabled:opacity-70"
               >
                 {submitting ? 'Placing order…' : 'Place Order'}
               </button>
@@ -398,7 +398,7 @@ export default function Checkout() {
               exit={{ opacity: 0, scale: 0.95, y: 10 }}
               transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
               onClick={(e) => e.stopPropagation()}
-              className="relative w-full max-w-md overflow-hidden rounded-[var(--radius-xl2)] bg-bg p-8 text-center shadow-[0_40px_80px_-20px_rgba(15,118,110,0.35)]"
+              className="relative w-full max-w-md overflow-hidden rounded-[var(--radius-xl2)] bg-bg p-8 text-center shadow-[0_40px_80px_-20px_rgba(121,13,22,0.35)]"
             >
               <div className="mx-auto grid h-16 w-16 place-items-center rounded-full bg-accent-dark text-bg">
                 <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">

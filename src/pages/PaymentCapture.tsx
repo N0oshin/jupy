@@ -166,7 +166,7 @@ export default function PaymentCapture() {
               <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
                 <Link
                   to={`/track/${order.order_number}`}
-                  className="rounded-full bg-accent-dark px-8 py-3.5 text-sm font-medium text-bg transition-all hover:bg-accent hover:shadow-[0_20px_40px_-20px_rgba(15,118,110,0.6)]"
+                  className="rounded-full bg-accent-dark px-8 py-3.5 text-sm font-medium text-bg transition-all hover:bg-accent hover:shadow-[0_20px_40px_-20px_rgba(121,13,22,0.6)]"
                 >
                   Track order
                 </Link>
@@ -354,7 +354,7 @@ export default function PaymentCapture() {
                 type="button"
                 onClick={submitScreenshot}
                 disabled={!file || uploadStatus === 'uploading'}
-                className="mt-6 flex w-full items-center justify-center gap-2 rounded-full bg-accent-dark py-4 text-sm font-medium text-bg transition-all hover:bg-accent hover:shadow-[0_20px_40px_-20px_rgba(15,118,110,0.6)] disabled:cursor-not-allowed disabled:opacity-70 disabled:shadow-none"
+                className="mt-6 flex w-full items-center justify-center gap-2 rounded-full bg-accent-dark py-4 text-sm font-medium text-bg transition-all hover:bg-accent hover:shadow-[0_20px_40px_-20px_rgba(121,13,22,0.6)] disabled:cursor-not-allowed disabled:opacity-70 disabled:shadow-none"
               >
                 {uploadStatus === 'uploading' ? (
                   <>

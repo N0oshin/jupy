@@ -7,7 +7,7 @@ export default function Lifestyle() {
   const { scrollYProgress } = useScroll({ target: ref, offset: ['start end', 'end start'] })
   const y1 = useTransform(scrollYProgress, [0, 1], ['-12%', '12%'])
   const y2 = useTransform(scrollYProgress, [0, 1], ['10%', '-10%'])
-  const scale = useTransform(scrollYProgress, [0, 1], [1.2, 1])
+  const scale = useTransform(scrollYProgress, [0, 1], [1.00, 1])
 
   return (
     <section id="lifestyle" ref={ref} className="section-pad relative overflow-hidden bg-section">
@@ -21,10 +21,10 @@ export default function Lifestyle() {
 
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-12 sm:gap-6">
           <div className="overflow-hidden rounded-[var(--radius-xl2)] sm:col-span-7">
-            <div className="relative aspect-[16/11] overflow-hidden">
+            <div className="relative aspect-[16/10] overflow-hidden">
               <motion.div style={{ y: y1, scale }} className="absolute -inset-y-[15%] inset-x-0">
                 <img
-                  src="/images/jupyter-labs/inside-jupyter-labs-research-facility-1.webp"
+                  src="/images/ecom/Gemini_Generated_Image_38kvj38kvj38kvj3.webp"
                   alt="Peptide liquid in laboratory glassware — Jupyter Labs workflow"
                   className="h-full w-full object-cover"
                   loading="lazy"
@@ -35,7 +35,7 @@ export default function Lifestyle() {
           </div>
 
           <div className="overflow-hidden rounded-[var(--radius-xl2)] sm:col-span-5">
-            <div className="relative aspect-[4/3] overflow-hidden sm:aspect-auto sm:h-full">
+            <div className="relative aspect-[16/10] overflow-hidden sm:aspect-auto sm:h-full">
               <motion.div style={{ y: y2 }} className="absolute -inset-y-[15%] inset-x-0">
                 <img
                   src="/images/jupyter-labs/inside-jupyter-labs-research-facility-2.webp"
@@ -60,7 +60,7 @@ export default function Lifestyle() {
               <motion.div style={{ y: y1 }} className="absolute -inset-y-[15%] inset-x-0">
                 <img
                   src="/images/jupyter-labs/inside-jupyter-labs-research-facility-3.webp"
-                  alt="DNA double helix — Jupyter Labs peptide research"
+                  alt="Model holding an Alluvi peptide pen against a golden backdrop"
                   className="h-full w-full object-cover"
                   loading="lazy"
                   decoding="async"

@@ -5,6 +5,8 @@
  * Regenerate with: npm run images:manifest
  */
 export const IMAGE_WIDTHS: Record<string, number[]> = {
+  '/images/ecom/craft-retatrutide.webp': [640, 1024],
+  '/images/ecom/standard-tirzepatide.webp': [640, 1024],
   '/images/hero-imgnew.webp': [640],
   '/images/jupyter-labs-blur-backdrop.webp': [640, 1024],
   '/images/jupyter-labs/deep-recovery-benefit.webp': [640, 1024, 1536],
@@ -24,6 +26,15 @@ export const IMAGE_WIDTHS: Record<string, number[]> = {
   '/images/jupyter-labs/resilient-immunity-benefit.webp': [640, 1024, 1536],
   '/images/jupyter-labs/sustained-energy-benefit.webp': [640, 1024, 1536],
   '/images/jupyter-labs/visible-radiance-benefit.webp': [640, 1024, 1536],
+  '/images/products/boxes/bpc-157.webp': [640, 1024],
+  '/images/products/boxes/cjc-1295.webp': [640, 1024],
+  '/images/products/boxes/glow.webp': [640, 1024],
+  '/images/products/boxes/mots-c.webp': [640, 1024],
+  '/images/products/boxes/nad-plus.webp': [640, 1024],
+  '/images/products/boxes/retatrutide-20.webp': [640, 1024],
+  '/images/products/boxes/retatrutide-40.webp': [640, 1024],
+  '/images/products/boxes/tesamorelin.webp': [640, 1024],
+  '/images/products/boxes/tirzepatide.webp': [640, 1024],
   '/images/products/bpc-front.webp': [640, 1024],
   '/images/products/bpc-open.webp': [640, 1024],
   '/images/products/bpc-pen.webp': [640, 1024],

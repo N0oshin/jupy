@@ -310,7 +310,7 @@ export default function ProductDetail() {
                 <button
                   type="button"
                   onClick={addToCart}
-                  className="min-h-12 flex-1 whitespace-nowrap rounded-full bg-accent-dark px-6 py-3 text-sm font-medium text-bg transition-all hover:bg-accent hover:shadow-[0_20px_40px_-20px_rgba(15,118,110,0.6)]"
+                  className="min-h-12 flex-1 whitespace-nowrap rounded-full bg-accent-dark px-6 py-3 text-sm font-medium text-bg transition-all hover:bg-accent hover:shadow-[0_20px_40px_-20px_rgba(121,13,22,0.6)]"
                 >
                   Add to Cart
                 </button>
@@ -450,7 +450,7 @@ export default function ProductDetail() {
                   setIntroOpen(false)
                   setCoaOpen(true)
                 }}
-                className="mt-6 flex w-full items-center justify-center rounded-full bg-accent-dark px-6 py-3.5 text-sm font-medium text-bg transition-all hover:bg-accent hover:shadow-[0_20px_40px_-20px_rgba(15,118,110,0.6)]"
+                className="mt-6 flex w-full items-center justify-center rounded-full bg-accent-dark px-6 py-3.5 text-sm font-medium text-bg transition-all hover:bg-accent hover:shadow-[0_20px_40px_-20px_rgba(121,13,22,0.6)]"
               >
                 View Full Janoshik Report
               </button>
@@ -507,7 +507,7 @@ export default function ProductDetail() {
               <img
                 src={product.coa.image}
                 alt={`Janoshik Certificate of Analysis — ${product.name}`}
-                className="mx-auto block w-full max-w-2xl rounded-[var(--radius-xl2)] bg-bg shadow-[0_20px_60px_-30px_rgba(15,118,110,0.35)]"
+                className="mx-auto block w-full max-w-2xl rounded-[var(--radius-xl2)] bg-bg shadow-[0_20px_60px_-30px_rgba(121,13,22,0.35)]"
               />
 
               {'sampleImages' in product.coa &&
@@ -524,7 +524,7 @@ export default function ProductDetail() {
                           href={src}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="block overflow-hidden rounded-[var(--radius-xl2)] bg-bg shadow-[0_20px_60px_-30px_rgba(15,118,110,0.35)] transition-transform hover:-translate-y-0.5"
+                          className="block overflow-hidden rounded-[var(--radius-xl2)] bg-bg shadow-[0_20px_60px_-30px_rgba(121,13,22,0.35)] transition-transform hover:-translate-y-0.5"
                           aria-label={`Open Janoshik sample photo ${i + 1}`}
                         >
                           <img
