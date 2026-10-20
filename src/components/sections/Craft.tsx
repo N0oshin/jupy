@@ -2,6 +2,7 @@ import { motion } from 'framer-motion'
 import Heading from '../ui/Heading'
 import Reveal from '../ui/Reveal'
 import Img from '../ui/Img'
+import CardBackdrop from '../ui/CardBackdrop'
 
 const PILLARS = [
   { t: 'Carefully Sourced Ingredients', d: 'We partner with qualified suppliers and trusted laboratories to source research compounds with documented origins and consistent quality standards.' },
@@ -54,12 +55,13 @@ export default function Craft() {
             </div>
           </div>
 
-          <div className="relative order-1 mx-auto w-full max-w-[28rem] lg:order-2 lg:mx-0 lg:mt-2 lg:self-start">
+          <div className="relative isolate order-1 mx-auto w-full max-w-[28rem] lg:order-2 lg:mx-0 lg:mt-2 lg:self-start">
+            <CardBackdrop flip />
             <div className="relative aspect-[4/5] overflow-hidden rounded-[var(--radius-xl2)]">
               <div className="absolute inset-0">
                 <Img
-                  src="/images/ecom/craft-retatrutide.webp"
-                  alt="Smiling woman in a green suit holding an Alluvi Retatrutide 40mg box against a warm beige backdrop"
+                  src="/images/ecom/craft-tesamorelin.webp"
+                  alt="Woman in a coral t-shirt holding an Alluvi Tesamorelin pen toward the camera against a warm beige backdrop"
                   sizes="(min-width: 1024px) 700px, 90vw"
                   className="h-full w-full"
                 />

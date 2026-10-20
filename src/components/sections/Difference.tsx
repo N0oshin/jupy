@@ -2,6 +2,7 @@ import { motion } from 'framer-motion'
 import Heading from '../ui/Heading'
 import Reveal from '../ui/Reveal'
 import Img from '../ui/Img'
+import CardBackdrop from '../ui/CardBackdrop'
 
 const PILLARS = [
   { t: 'HPLC-Verified Purity', d: 'Each peptide pen undergoes high-performance liquid chromatography (HPLC) analysis to verify its specified composition and purity. Every batch is documented with research-focused quality data for greater confidence in your laboratory work.' },
@@ -14,7 +15,8 @@ export default function Difference() {
     <section id="difference" className="relative bg-[#fdfcf8] py-10 lg:py-14">
       <div className="container-x">
         <div className="grid items-start gap-8 lg:grid-cols-[minmax(0,28rem)_minmax(0,1fr)] lg:items-stretch lg:gap-12">
-          <div className="relative mx-auto w-full max-w-[28rem] lg:mx-0 lg:mt-2 lg:self-start">
+          <div className="relative isolate mx-auto w-full max-w-[28rem] lg:mx-0 lg:mt-2 lg:self-start">
+            <CardBackdrop />
             <div className="relative aspect-[4/5] overflow-hidden rounded-[var(--radius-xl2)]">
               <div className="absolute inset-0">
                 <Img

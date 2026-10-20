@@ -5,7 +5,10 @@
  * Regenerate with: npm run images:manifest
  */
 export const IMAGE_WIDTHS: Record<string, number[]> = {
+  '/images/ecom/atlas-natural.webp': [640, 1024],
+  '/images/ecom/atlas-retatrutide.webp': [640, 1024],
   '/images/ecom/craft-retatrutide.webp': [640, 1024],
+  '/images/ecom/craft-tesamorelin.webp': [640, 1024],
   '/images/ecom/standard-tirzepatide.webp': [640, 1024],
   '/images/hero-imgnew.webp': [640],
   '/images/jupyter-labs-blur-backdrop.webp': [640, 1024],
