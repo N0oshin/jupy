@@ -17,10 +17,12 @@ interface Props {
    * top-level heading — the visual styling is identical either way.
    */
   as?: 'h1' | 'h2'
+  /** Extra classes for the intro paragraph, e.g. to restyle it for one page. */
+  introClassName?: string
 }
 
 /** Reusable editorial section heading: eyebrow + split-reveal title + intro. */
-export default function Heading({ eyebrow, title, intro, align = 'left', className = '', light = false, eyebrowGap = 'mb-4', as = 'h2' }: Props) {
+export default function Heading({ eyebrow, title, intro, align = 'left', className = '', light = false, eyebrowGap = 'mb-4', as = 'h2', introClassName = '' }: Props) {
   const center = align === 'center'
   const right = align === 'right'
   return (
@@ -40,7 +42,7 @@ export default function Heading({ eyebrow, title, intro, align = 'left', classNa
       </SplitReveal>
       {intro && (
         <Reveal delay={0.15}>
-          <p className={`type-sub mt-5 max-w-xl text-pretty ${light ? 'text-bg/70' : 'text-muted'} ${center ? 'mx-auto' : right ? 'ml-auto' : ''}`}>
+          <p className={`type-sub mt-5 max-w-xl text-pretty ${light ? 'text-bg/70' : 'text-muted'} ${center ? 'mx-auto' : right ? 'ml-auto' : ''} ${introClassName}`}>
             {intro}
           </p>
         </Reveal>

@@ -1,7 +1,6 @@
 import { useId, useRef, useState } from 'react'
 import Navbar from '../components/Navbar'
 import Footer from '../components/sections/Footer'
-import Heading from '../components/ui/Heading'
 import Reveal from '../components/ui/Reveal'
 import { COUNTRIES } from '../lib/countries'
 import { useSeo, SITE_URL } from '../lib/useSeo'
@@ -42,9 +41,9 @@ function validate(v: typeof EMPTY): Errors {
 }
 
 const inputCls =
-  'w-full rounded-2xl border border-line bg-bg px-4 py-3 text-sm text-ink placeholder:text-muted/60 transition-colors focus:border-accent-dark disabled:opacity-60'
+  'w-full rounded-lg border border-line bg-transparent px-4 py-2.5 text-[0.8rem] text-ink placeholder:text-muted/60 transition-colors focus:border-ink focus:outline-none focus-visible:outline-none disabled:opacity-60'
 const invalidCls = 'border-red-500/70 focus:border-red-500'
-const labelCls = 'block text-xs uppercase tracking-[0.18em] text-muted'
+const labelCls = 'block text-[0.68rem] uppercase tracking-[0.18em] text-muted'
 
 /* ───────────────────────── page ───────────────────────── */
 
@@ -134,25 +133,22 @@ export default function Wholesale() {
   return (
     <>
       <Navbar />
-      <main id="main-content" className="relative z-10 bg-bg pt-32 lg:pt-36">
+      <main id="main-content" className="relative z-10 bg-[#fdfcf8] pt-40 lg:pt-52">
         {/* ───── HERO + ENQUIRY FORM ───── */}
-        <section className="container-x pb-20 lg:pb-28">
+        <section className="container-x pb-20 sm:px-8 md:px-16 lg:px-28 lg:pb-28 xl:px-40">
           <div className="flex items-center justify-center gap-4">
-            <span className="h-px w-12 bg-accent-dark" />
+
             <p className="eyebrow">Wholesale</p>
           </div>
 
-          {/* Heading, then the form stacked beneath — the form is not a sidebar.
-              Matches the reference layout's single-column flow. */}
-          <div className="mt-8 max-w-3xl lg:mt-10 mx-auto">
-            <Heading as="h1" align="center" title={'Wholesale supply for\nresearch partners.'} />
-          </div>
+          {/* Visible title removed by design; kept for screen readers and SEO (one h1 per page). */}
+          <h1 className="sr-only">Wholesale supply for research partners.</h1>
 
           <Reveal delay={0.1} className="mt-10 max-w-3xl mx-auto">
-            <div className="rounded-[var(--radius-xl2)] border border-line bg-section p-7 sm:p-9">
+            <div className="rounded-xl border border-line p-7 sm:p-9">
                 {status === 'sent' ? (
                   <div role="status" aria-live="polite">
-                    <span aria-hidden="true" className="grid h-12 w-12 place-items-center rounded-full bg-accent-dark text-bg">
+                    <span aria-hidden="true" className="grid h-12 w-12 place-items-center rounded-full bg-ink text-bg">
                       <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                         <path d="m4 12.5 5 5L20 6.5" />
                       </svg>
@@ -165,7 +161,7 @@ export default function Wholesale() {
                     <button
                       type="button"
                       onClick={() => setStatus('idle')}
-                      className="mt-7 rounded-full border border-accent-dark px-6 py-3 text-sm tracking-wide text-accent-dark transition-colors hover:bg-accent-dark hover:text-bg"
+                      className="mt-7 rounded-lg border border-ink px-6 py-2.5 text-[0.8rem] tracking-wide text-ink transition-colors hover:bg-ink hover:text-bg"
                     >
                       Send another enquiry
                     </button>
@@ -262,7 +258,7 @@ export default function Wholesale() {
                     </div>
 
                     {formError && (
-                      <p role="alert" className="rounded-2xl border border-red-300 bg-red-50 px-4 py-3 text-sm text-red-700">
+                      <p role="alert" className="rounded-lg border border-red-300 bg-red-50 px-4 py-3 text-sm text-red-700">
                         {formError}
                       </p>
                     )}
@@ -270,7 +266,7 @@ export default function Wholesale() {
                     <button
                       type="submit"
                       disabled={busy}
-                      className="mt-1 inline-flex items-center justify-center gap-2 rounded-full bg-accent-dark px-7 py-3.5 text-sm tracking-wide text-bg transition-colors hover:bg-accent disabled:opacity-60"
+                      className="mt-1 inline-flex items-center justify-center gap-2 rounded-lg bg-ink px-6 py-2.5 text-[0.8rem] tracking-wide text-bg transition-colors hover:bg-ink/80 disabled:opacity-60"
                     >
                       {busy ? 'Sending…' : 'Submit Inquiry'}
                     </button>
@@ -299,7 +295,7 @@ function FieldError({ id, message }: { id: string; message?: string }) {
 function FieldLabel({ htmlFor, label, required, optional }: { htmlFor: string; label: string; required?: boolean; optional?: boolean }) {
   return (
     <label htmlFor={htmlFor} className={labelCls}>
-      {label} {required && <span className="text-accent-dark">*</span>}
+      {label} {required && <span className="text-ink">*</span>}
       {optional && <span className="normal-case tracking-normal text-muted/70">(optional)</span>}
     </label>
   )

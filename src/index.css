@@ -2,6 +2,8 @@
 
 /* ─────────────────────────  SELF-HOSTED TYPEFACES  ─────────────────────────
    Playfair Display  — logo and display headings (variable 400–700, upright + italic)
+   Bodoni Moda        — the home hero's main heading only (variable 400–900 + optical size)
+   Jost               — the FAQ questions (variable 100–900, upright)
    Cormorant Garamond — subheadings, eyebrows, all-caps tags (400–600)
    Montserrat         — navigation, body copy, buttons and form inputs (300–600)
 
@@ -9,6 +11,54 @@
    render-blocking and costs a DNS + TLS + CSS round trip on a third-party origin
    before any text can paint. Only the latin and latin-ext subsets are included;
    the unicode-range descriptors mean English text downloads just the latin files. */
+@font-face {
+  font-family: 'Jost';
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: swap;
+  src: url('/fonts/jost-latin-ext-normal-100-900.woff2') format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C4, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+@font-face {
+  font-family: 'Jost';
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: swap;
+  src: url('/fonts/jost-latin-normal-100-900.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: 'Bodoni Moda';
+  font-style: italic;
+  font-weight: 400 900;
+  font-display: swap;
+  src: url('/fonts/bodoni-moda-latin-ext-italic-400-900.woff2') format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C4, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+@font-face {
+  font-family: 'Bodoni Moda';
+  font-style: italic;
+  font-weight: 400 900;
+  font-display: swap;
+  src: url('/fonts/bodoni-moda-latin-italic-400-900.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: 'Bodoni Moda';
+  font-style: normal;
+  font-weight: 400 900;
+  font-display: swap;
+  src: url('/fonts/bodoni-moda-latin-ext-normal-400-900.woff2') format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C4, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+@font-face {
+  font-family: 'Bodoni Moda';
+  font-style: normal;
+  font-weight: 400 900;
+  font-display: swap;
+  src: url('/fonts/bodoni-moda-latin-normal-400-900.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
 @font-face {
   font-family: 'Playfair Display';
   font-style: italic;
@@ -101,6 +151,10 @@
 
   /* Type — unified modern stack */
   --font-display: 'Playfair Display', Georgia, 'Times New Roman', serif;
+  /* Bodoni Moda is reserved for the home hero's main heading. */
+  --font-bodoni: 'Bodoni Moda', Georgia, 'Times New Roman', serif;
+  /* Jost is used for the FAQ questions. */
+  --font-jost: 'Jost', Arial, sans-serif;
   --font-serif: 'Cormorant Garamond', Georgia, 'Times New Roman', serif;
   --font-sans: 'Montserrat', Arial, sans-serif;
 
@@ -124,6 +178,13 @@
   * {
     -webkit-font-smoothing: antialiased;
     text-rendering: optimizeLegibility;
+  }
+
+  button:not(:disabled),
+  [role='button']:not([aria-disabled='true']),
+  summary,
+  select {
+    cursor: pointer;
   }
 
   html {
@@ -332,6 +393,57 @@
     border: 1px solid color-mix(in srgb, #ffffff 70%, transparent);
   }
 
+  /* "Our products" box lift. --focus (0..1) is written per frame by the
+     scroller: 1 for the centred box, 0 one card away. The box's drop shadow
+     grows a little longer, softer and darker with focus and the box nudges
+     up, so the centred product reads as raised off the band. */
+  .box-lift {
+    --lift-y: calc(8px + 10px * var(--focus, 0));
+    --lift-blur: calc(16px + 16px * var(--focus, 0));
+    --lift-a: calc(0.14 + 0.18 * var(--focus, 0));
+    filter: drop-shadow(0 var(--lift-y) var(--lift-blur) rgba(42, 15, 18, var(--lift-a)))
+      drop-shadow(0 2px 6px rgba(42, 15, 18, 0.12));
+    transform: translateY(calc(10% - 3% * var(--focus, 0)));
+    transition: filter 120ms linear;
+  }
+  /* Cream veil over the box artwork, masked to the box's silhouette (the mask
+     is the same render, contained and centred like the image under it), so
+     the product sits a little softer and less vivid on the cream section. */
+  .box-veil {
+    background: #fdfcf8;
+    opacity: 0.1;
+    -webkit-mask-size: contain;
+    mask-size: contain;
+    -webkit-mask-position: center;
+    mask-position: center;
+    -webkit-mask-repeat: no-repeat;
+    mask-repeat: no-repeat;
+  }
+
+  /* Amoeba tile: an uneven, organic outline that slowly drifts between a few
+     asymmetric shapes. Used on the "Our Mission" portrait. */
+  .blob {
+    border-radius: 58% 42% 63% 37% / 46% 55% 45% 54%;
+    animation: blob-drift 18s ease-in-out infinite;
+  }
+  @keyframes blob-drift {
+    0%,
+    100% {
+      border-radius: 58% 42% 63% 37% / 46% 55% 45% 54%;
+    }
+    33% {
+      border-radius: 42% 58% 38% 62% / 58% 40% 60% 42%;
+    }
+    66% {
+      border-radius: 63% 37% 52% 48% / 38% 61% 39% 62%;
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .blob {
+      animation: none;
+    }
+  }
+
   .grain {
     position: relative;
   }
@@ -404,4 +516,19 @@
   textarea {
     font-size: 16px;
   }
+}
+
+/* Why Us — typing caret on call-outs while the section timeline types them in */
+.why-type.is-typing::after {
+  content: '';
+  display: inline-block;
+  width: 1px;
+  height: 0.9em;
+  margin-left: 2px;
+  vertical-align: -0.1em;
+  background: currentColor;
+  animation: why-caret 0.8s steps(1) infinite;
+}
+@keyframes why-caret {
+  50% { opacity: 0; }
 }

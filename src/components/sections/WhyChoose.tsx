@@ -2,17 +2,55 @@ import { useRef } from 'react'
 import { useGSAP } from '@gsap/react'
 import { gsap } from '../../lib/gsap'
 import { useReducedMotion } from '../../lib/useReducedMotion'
-import SplitReveal from '../ui/SplitReveal'
-import Reveal from '../ui/Reveal'
-import Img from '../ui/Img'
-import Magnetic from '../ui/Magnetic'
 
-const PILLARS = [
-  { n: '01', t: 'Sourced', d: 'Research compounds are sourced through qualified suppliers and tracked through documented production stages, providing greater visibility from synthesis to finished peptide pen.', image: '/images/jupyter-labs/ethically-sourced-research-peptides.webp' },
-  { n: '02', t: 'Dosed', d: 'Clearly specified milligram amounts on every peptide pen, with transparent product documentation for laboratory research.', image: '/images/jupyter-labs/precision-dosed-peptide-vials.webp' },
-  { n: '03', t: 'Tested', d: 'Independently HPLC-verified batches with supporting certificates of analysis for transparent quality documentation.', image: '/images/jupyter-labs/hplc-tested-peptide-purity.webp' },
-  { n: '04', t: 'Crafted', d: 'Carefully packaged peptide pens designed to support compound integrity throughout storage and transit.', image: '/images/jupyter-labs/expertly-crafted-research-peptides.webp' },
-] as const
+/**
+ * Why Us — the four things the supplier does that the Difference and Craft
+ * sections above do not already cover (the origin story itself now lives on
+ * /about),
+ * laid out like a product call-out diagram: one pen standing in the centre,
+ * leader lines running out to each standard. On scroll the lines draw and the
+ * copy types in, one call-out after another.
+ */
+
+
+type Side = 'left' | 'right'
+
+interface Callout {
+  n: string
+  t: string
+  d: string
+  side: Side
+  /** leader line length on desktop, as a tailwind width class */
+  line: string
+}
+
+/** Desktop grid slots for CALLOUTS, by index: left/right of the pen, top/bottom rows. */
+const PLACEMENT = [
+  'lg:col-span-5 lg:col-start-1 lg:row-start-1 lg:self-start lg:mt-[3.25rem] xl:translate-x-6',
+  'lg:col-span-5 lg:col-start-8 lg:row-start-1 lg:self-start lg:mt-[7rem] xl:-translate-x-6',
+  'lg:col-span-5 lg:col-start-1 lg:row-start-2 lg:self-end lg:mb-[4.5rem] xl:translate-x-6',
+  'lg:col-span-5 lg:col-start-8 lg:row-start-2 lg:self-end lg:mb-3 xl:-translate-x-6',
+]
+
+const CALLOUTS: Callout[] = [
+  { n: '01', t: 'A batch you can look up', d: 'Every pen is tied to a lot number, and the certificate for that lot is yours on request.', side: 'left', line: 'lg:w-20 xl:w-24' },
+  { n: '02', t: 'A person who answers', d: 'A real reply, from someone who knows which batch is on the shelf today.', side: 'right', line: 'lg:w-24 xl:w-36' },
+  { n: '03', t: 'Cold from fill to courier', d: 'Held at 2–8 °C and tamper-sealed from the moment a pen is filled until it is scanned out.', side: 'left', line: 'lg:w-28 xl:w-40' },
+  { n: '04', t: 'Six compounds, not sixty', d: 'A deliberately short range, stocked in the doses researchers actually ask for.', side: 'right', line: 'lg:w-16 xl:w-24' },
+]
+
+/** Text that is typed in by the section timeline. A ghost copy reserves the layout. */
+function Typed({ text, className = '', reduced }: { text: string; className?: string; reduced: boolean }) {
+  if (reduced) return <span className={className}>{text}</span>
+  return (
+    <span className={`relative block ${className}`}>
+      <span aria-hidden="true" className="invisible">
+        {text}
+      </span>
+      <span className="why-type absolute inset-0" data-full={text} aria-label={text} />
+    </span>
+  )
+}
 
 export default function WhyChoose() {
   const ref = useRef<HTMLDivElement>(null)
@@ -21,146 +59,156 @@ export default function WhyChoose() {
   useGSAP(
     () => {
       if (reduced) return
-      gsap.to('.hero-img', {
-        yPercent: -8,
+
+      // Pen: slow float + a touch of scroll parallax.
+      gsap.to('.why-pen', { y: -10, duration: 3.2, ease: 'sine.inOut', yoyo: true, repeat: -1 })
+      gsap.to('.why-pen-wrap', {
+        yPercent: -6,
         ease: 'none',
-        scrollTrigger: { trigger: '.hero-img', start: 'top bottom', end: 'bottom top', scrub: true },
+        scrollTrigger: { trigger: '.why-diagram', start: 'top bottom', end: 'bottom top', scrub: true },
+      })
+
+      // Call-outs: dot pops, line draws, then the copy types — one after another.
+      const items = gsap.utils
+        .toArray<HTMLElement>('.why-callout')
+        .sort((a, b) => Number(a.dataset.n) - Number(b.dataset.n))
+      gsap.set('.why-dot', { scale: 0 })
+      gsap.set('.why-line', { scaleX: 0 })
+      gsap.set('.why-ring', { scale: 0.4, opacity: 0 })
+
+      const tl = gsap.timeline({
+        defaults: { ease: 'power2.out' },
+        scrollTrigger: { trigger: '.why-diagram', start: 'top 72%', once: true },
+      })
+
+      items.forEach((item) => {
+        const dot = item.querySelector('.why-dot')
+        const ring = item.querySelector('.why-ring')
+        const line = item.querySelector('.why-line')
+        const typed = Array.from(item.querySelectorAll<HTMLElement>('.why-type'))
+
+        tl.to(dot, { scale: 1, duration: 0.3, ease: 'back.out(3)' })
+          .to(ring, { scale: 1.6, opacity: 0, duration: 0.8, ease: 'power1.out' }, '<')
+          .to(line, { scaleX: 1, duration: 0.4, ease: 'power3.inOut' }, '<0.1')
+
+        typed.forEach((el) => {
+          const full = el.dataset.full ?? ''
+          const state = { n: 0 }
+          tl.to(state, {
+            n: full.length,
+            duration: Math.min(0.9, 0.2 + full.length * 0.008),
+            ease: 'none',
+            snap: { n: 1 },
+            onStart: () => el.classList.add('is-typing'),
+            onUpdate: () => {
+              el.textContent = full.slice(0, state.n)
+            },
+            onComplete: () => {
+              el.textContent = full
+              el.classList.remove('is-typing')
+            },
+          })
+        })
+
+        tl.to({}, { duration: 0.08 })
       })
     },
     { scope: ref, dependencies: [reduced] },
   )
 
   return (
-    <section id="why" ref={ref} className="section-pad-lg relative overflow-hidden bg-bg">
+    <section id="why" ref={ref} className="relative overflow-hidden">
+      {/* ───── DIAGRAM + FOOTNOTE — dark field ───── */}
+      <div className="section-pad relative bg-ink text-bg">
+      {/* Warm tonal field — deep brown / red shades already in the palette */}
+      <div
+        className="pointer-events-none absolute inset-0"
+        style={{
+          background:
+            'radial-gradient(60% 55% at 50% 50%, rgba(121,13,22,0.42) 0%, rgba(121,13,22,0) 70%), radial-gradient(45% 40% at 12% 8%, rgba(154,37,48,0.22) 0%, rgba(154,37,48,0) 70%), linear-gradient(180deg, #2a0f12 0%, #341314 50%, #2a0f12 100%)',
+        }}
+      />
+      {/* faint grain for depth */}
+      <div
+        className="pointer-events-none absolute inset-0 opacity-[0.07] mix-blend-overlay"
+        style={{
+          backgroundImage:
+            "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E\")",
+        }}
+      />
+
       <div className="container-x relative">
-        {/* ───── EDITORIAL HEADER ───── */}
-        <div className="grid items-end gap-10 lg:grid-cols-12 lg:gap-16">
-          <div className="lg:col-span-8">
-            <div className="flex items-center gap-4">
-              <span className="h-px w-12 bg-ink/30" />
-              <p className="text-[0.7rem] uppercase tracking-[0.3em] text-muted">Why Jupyter Labs</p>
-            </div>
-
-            <SplitReveal
-              as="h2"
-              mode="lines"
-              className="type-section mt-5 font-display font-medium leading-[1.08] tracking-[-0.015em] text-ink"
-            >
-              {'Proof, in writing.\nPeptides, in your hand.'}
-            </SplitReveal>
+        {/* ───── DIAGRAM: pen + call-outs ───── */}
+        <div className="why-diagram">
+          <div className="mx-auto max-w-2xl text-center">
+            <p className="text-[0.56rem] uppercase tracking-[0.3em] text-bg/55">What we don't skip</p>
+            <h3 className="mt-2.5 font-display text-[clamp(1.4rem,1rem+1.9vw,2.3rem)] font-medium leading-[1.05] tracking-[-0.015em] text-bg">
+              The parts most suppliers leave out.
+            </h3>
           </div>
 
-          <div className="lg:col-span-4">
-            <Reveal delay={0.2}>
-              <p className="text-[1.05rem] leading-[1.55] text-muted text-pretty">
-                We don’t just market peptides. We document them. Every compound is grounded in scientific literature and
-                supported by batch-specific COA documentation included with every peptide pen.
-              </p>
-            </Reveal>
+          <div className="relative mt-10 grid items-center gap-8 lg:mt-12 lg:grid-cols-12 lg:grid-rows-2 lg:gap-0">
+            {/* Pen — first in DOM on mobile, centre column on desktop */}
+            <div className="why-pen-wrap relative order-first mx-auto pt-4 lg:order-none lg:pt-10 lg:col-span-2 lg:col-start-6 lg:row-span-2 lg:row-start-1">
+              <div
+                className="pointer-events-none absolute left-1/2 top-1/2 h-[21rem] w-[21rem] -translate-x-1/2 -translate-y-1/2 rounded-full lg:h-[29rem] lg:w-[29rem]"
+                style={{ background: 'radial-gradient(closest-side, rgba(229,211,175,0.22), rgba(229,211,175,0) 70%)' }}
+              />
+              <div className="why-pen relative mx-auto h-[18rem] w-[3.6rem] sm:h-[21rem] lg:h-[27rem] lg:w-[4.8rem]">
+                <img
+                  src="/images/products/pens/tirzepatide.webp"
+                  alt="Alluvi Tirzepatide pen, standing upright"
+                  width={900}
+                  height={148}
+                  loading="lazy"
+                  decoding="async"
+                  className="absolute left-1/2 top-1/2 h-auto w-[18rem] max-w-none -translate-x-1/2 -translate-y-1/2 rotate-90 drop-shadow-[0_24px_32px_rgba(0,0,0,0.55)] sm:w-[21rem] lg:w-[27rem]"
+                />
+              </div>
+            </div>
+
+            {/* Call-outs, in reading order on mobile; pinned around the pen on desktop */}
+            {CALLOUTS.map((c, i) => (
+              <CalloutItem key={c.n} c={c} reduced={reduced} className={PLACEMENT[i]} />
+            ))}
           </div>
         </div>
 
-        {/* ───── FULL-WIDTH EDITORIAL FEATURE ───── */}
-        <Reveal className="mt-12 lg:mt-16">
-          <article className="relative overflow-hidden rounded-[var(--radius-xl2)]">
-            <div className="hero-img relative min-h-[30rem] sm:min-h-0 sm:aspect-[16/9] lg:aspect-[21/9]">
-              <Img
-                src="/images/ecom/01-hero-nad-saffron.png"
-                alt="Alluvi NAD+ pen and box held by a model against a saffron backdrop"
-                className="h-full w-full"
-                sizes="(min-width: 1024px) 90vw, 100vw"
-              />
-            </div>
-
-            {/* Gradient overlay */}
-            <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-ink via-ink/40 to-transparent" />
-            <div className="pointer-events-none absolute inset-0 bg-gradient-to-r from-ink/55 via-transparent to-transparent" />
-
-            {/* Top metadata */}
-            <div className="absolute inset-x-6 top-6 flex items-center justify-between text-bg lg:inset-x-10 lg:top-10">
-              <span className="inline-flex items-center gap-2 rounded-full border border-bg/20 bg-bg/10 px-3 py-1.5 text-[0.65rem] uppercase tracking-[0.25em] backdrop-blur-md">
-                <span className="text-accent">★</span> Feature
-              </span>
-              <span className="hidden text-[0.65rem] uppercase tracking-[0.25em] text-bg/70 sm:block">
-                Pillar 01 · Methodology
-              </span>
-            </div>
-
-            {/* Bottom caption */}
-            <div className="absolute inset-x-5 bottom-5 grid gap-5 sm:inset-x-6 sm:bottom-6 sm:gap-8 lg:inset-x-10 lg:bottom-10 lg:grid-cols-12 lg:items-end">
-              <div className="lg:col-span-8">
-                <p className="text-[0.7rem] uppercase tracking-[0.3em] text-bg/70">The hero principle</p>
-                <h3 className="mt-4 font-display text-[clamp(1.8rem,4vw,3.4rem)] font-medium leading-[1.02] tracking-[-0.015em] text-bg">
-                  Every milligram, clearly stated. No exceptions.
-                </h3>
-                <p className="mt-4 max-w-xl text-[0.95rem] leading-[1.55] text-bg/75">
-                  Each peptide pen features clearly specified dosing, supported by batch-level HPLC verification and
-                  transparent documentation. The information is straightforward, so researchers can review the
-                  specifications with confidence.
-                </p>
-              </div>
-
-              <div className="flex items-center justify-between gap-4 lg:col-span-4 lg:justify-end">
-                <Magnetic className="inline-block">
-                  <a
-                    href="#science"
-                    className="group inline-flex items-center gap-3 rounded-full bg-bg px-6 py-3 text-sm text-ink transition-colors hover:bg-accent hover:text-bg"
-                  >
-                    Read methodology
-                    <span className="transition-transform group-hover:translate-x-1">→</span>
-                  </a>
-                </Magnetic>
-              </div>
-            </div>
-          </article>
-        </Reveal>
-
-        {/* ───── PILLAR ROW WITH HOVER IMAGES ───── */}
-        <div className="mt-12 grid gap-px overflow-hidden rounded-[var(--radius-xl2)] border border-line bg-line sm:grid-cols-2 lg:grid-cols-4">
-          {PILLARS.map((p, i) => (
-            <Reveal
-              key={p.n}
-              delay={i * 0.08}
-              className="group relative flex flex-col gap-10 overflow-hidden bg-bg p-8 transition-colors duration-500 lg:p-10"
-            >
-              {/* Hover image — fills card, fades in */}
-              <img
-                src={p.image}
-                alt={p.t}
-                className="pointer-events-none absolute inset-0 h-full w-full object-cover opacity-0 transition-opacity duration-700 group-hover:opacity-100"
-                loading="lazy"
-                decoding="async"
-              />
-              {/* Dark gradient for legibility on hover */}
-              <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-ink/90 via-ink/55 to-ink/20 opacity-0 transition-opacity duration-700 group-hover:opacity-100" />
-
-              <div className="relative flex items-baseline justify-between">
-                <span className="font-display text-sm font-medium text-accent-dark transition-colors duration-500 group-hover:text-gold">{p.n}</span>
-                <span className="h-px w-10 bg-line transition-all duration-500 group-hover:w-16 group-hover:bg-gold" />
-              </div>
-
-              <div className="relative">
-                <h4 className="font-display text-[clamp(1.6rem,2.2vw,2rem)] font-medium leading-[1.05] tracking-[-0.02em] text-ink transition-colors duration-500 group-hover:text-bg">
-                  {p.t}.
-                </h4>
-                <p className="mt-3 text-[0.95rem] leading-[1.5] text-muted transition-colors duration-500 group-hover:text-bg/85">{p.d}</p>
-              </div>
-
-              <span className="pointer-events-none absolute inset-x-0 bottom-0 h-[2px] origin-left scale-x-0 bg-gold transition-transform duration-700 group-hover:scale-x-100" />
-            </Reveal>
-          ))}
-        </div>
-
-        {/* ───── TRUST FOOTNOTE ───── */}
-        <div className="mt-12 flex flex-wrap items-center justify-between gap-4 border-t border-line pt-8 text-sm">
-          <p className="text-muted">
-            <span className="text-ink">All claims verifiable.</span> All certificates available on request.
-          </p>
-          <p className="text-[0.7rem] uppercase tracking-[0.28em] text-muted">
-            cGMP · HPLC-verified · COA published · Lot-traceable
-          </p>
-        </div>
+      </div>
       </div>
     </section>
+  )
+}
+
+function CalloutItem({ c, reduced, className = '' }: { c: Callout; reduced: boolean; className?: string }) {
+  const left = c.side === 'left'
+  return (
+    <div
+      data-n={c.n}
+      className={`why-callout flex items-start gap-3.5 ${left ? 'lg:flex-row-reverse lg:text-right' : ''} ${className}`}
+    >
+      {/* leader: dot at the pen end, line running out to the copy */}
+      <div className={`relative mt-2 flex shrink-0 items-center ${left ? 'lg:flex-row-reverse' : ''}`}>
+        <span className="relative block h-2.5 w-2.5">
+          <span className="why-ring absolute inset-0 rounded-full border border-sand/70" />
+          <span className="why-dot absolute inset-0 rounded-full bg-sand shadow-[0_0_12px_rgba(229,211,175,0.8)]" />
+        </span>
+        <span
+          className={`why-line block h-px w-10 bg-gradient-to-r from-sand/80 to-sand/30 ${c.line} ${
+            left ? 'origin-right lg:bg-gradient-to-l' : 'origin-left'
+          }`}
+        />
+      </div>
+
+      <div className="min-w-0 flex-1 lg:flex-none lg:max-w-[16rem]">
+        <p className="font-display text-[0.7rem] font-medium text-sand">{c.n}</p>
+        <h4 className="mt-1 font-display text-[clamp(1rem,0.88rem+0.5vw,1.2rem)] font-medium leading-[1.1] tracking-[-0.015em] text-bg">
+          <Typed text={c.t} reduced={reduced} />
+        </h4>
+        <p className="mt-1.5 text-[0.8rem] leading-[1.5] text-bg/70">
+          <Typed text={c.d} reduced={reduced} />
+        </p>
+      </div>
+    </div>
   )
 }

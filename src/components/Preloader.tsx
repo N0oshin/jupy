@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
+import Botanicals from './Botanicals'
 
 const EASE = [0.16, 1, 0.3, 1] as const
 
@@ -65,28 +66,29 @@ export default function Preloader({ onDone }: { onDone: () => void }) {
     <AnimatePresence onExitComplete={() => doneRef.current()}>
       {open && (
         <motion.div
-          className="fixed inset-0 z-[100] flex flex-col items-center justify-center bg-accent-dark text-bg grain"
+          className="fixed inset-0 z-[100] flex flex-col items-center justify-center bg-bg text-accent-dark"
           exit={{ y: '-100%' }}
           transition={{ duration: EXIT_S, ease: EASE }}
           role="status"
           aria-live="polite"
           aria-label="Loading Jupyter Labs"
         >
+          <Botanicals />
           <motion.div
             initial={{ opacity: 0, y: 20, filter: 'blur(12px)' }}
             animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
             transition={{ duration: 0.45, ease: EASE }}
-            className="overflow-hidden"
+            className="relative z-10 overflow-hidden"
           >
             <span className="inline-flex items-center gap-4 font-display leading-none">
               <span
                 className="text-[14vw] font-medium lowercase tracking-[-0.015em] sm:text-[7rem]"
                 style={{ fontFeatureSettings: '"ss01", "cv01"' }}
               >
-                <span className="italic text-bg/85">j</span>upyter
+                <span className="italic text-accent-dark">j</span>upyter
               </span>
-              <span className="h-[7vw] w-px bg-bg/40 sm:h-[3.5rem]" />
-              <span className="text-[1.4vw] font-medium uppercase tracking-[0.34em] text-bg/85 sm:text-[0.7rem]">
+              <span className="h-[7vw] w-px bg-accent-dark/50 sm:h-[3.5rem]" />
+              <span className="text-[1.4vw] font-medium uppercase tracking-[0.34em] text-accent-dark sm:text-[0.7rem]">
                 Labs
               </span>
             </span>
@@ -96,7 +98,7 @@ export default function Preloader({ onDone }: { onDone: () => void }) {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.12, duration: 0.3 }}
-            className="mt-6 flex w-[min(78vw,420px)] items-center justify-between text-xs uppercase tracking-[0.3em] text-bg/60"
+            className="relative z-10 mt-6 flex w-[min(78vw,420px)] items-center justify-between text-xs uppercase tracking-[0.3em] text-accent-dark/70"
           >
             <span>Elevate Daily Wellness</span>
             <span ref={pctRef} className="tabular-nums">
@@ -104,8 +106,8 @@ export default function Preloader({ onDone }: { onDone: () => void }) {
             </span>
           </motion.div>
 
-          <div className="mt-3 h-px w-[min(78vw,420px)] overflow-hidden bg-bg/15">
-            <div ref={barRef} className="h-full w-0 bg-bg/80" />
+          <div className="relative z-10 mt-3 h-px w-[min(78vw,420px)] overflow-hidden bg-accent-dark/15">
+            <div ref={barRef} className="h-full w-0 bg-accent-dark" />
           </div>
         </motion.div>
       )}

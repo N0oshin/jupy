@@ -12,7 +12,7 @@ const PILLARS = [
 
 export default function Difference() {
   return (
-    <section id="difference" className="relative bg-[#fdfcf8] py-10 lg:py-14">
+    <section id="difference" className="relative bg-[#fdfcf8] py-20 lg:py-24 ">
       <div className="container-x">
         <div className="grid items-start gap-8 lg:grid-cols-[minmax(0,28rem)_minmax(0,1fr)] lg:items-stretch lg:gap-12">
           <div className="relative isolate mx-auto w-full max-w-[28rem] lg:mx-0 lg:mt-2 lg:self-start">
@@ -46,9 +46,9 @@ export default function Difference() {
               eyebrowGap="mb-5"
               className="[&_h2]:text-balance [&_h2]:text-[clamp(1.35rem,0.9rem+1.7vw,2.1rem)] [&_.eyebrow]:text-[0.8rem] [&_p.type-sub]:text-[0.9rem] [&_p.type-sub]:!mt-3"
               title={'Research-grade peptides,\nformulated for precision.'}
-              intro="Every Jupyter Labs peptide pen is engineered for the modern research environment, combining HPLC-verified purity, stringent quality standards, and controlled stability from synthesis through formulation, filling, and delivery to your laboratory bench."
+             
             />
-            <div className="mt-6 space-y-2">
+            <div className="mt-10 space-y-2">
               {PILLARS.map((p, i) => (
                 <Reveal key={p.t} delay={i * 0.08}>
                   <div className="group relative overflow-hidden rounded-2xl bg-bg/60 p-4 backdrop-blur-sm transition-all duration-500 hover:-translate-y-0.5 hover:bg-bg hover:shadow-[0_18px_40px_-22px_rgba(42,15,18,0.25)]">

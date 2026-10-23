@@ -218,17 +218,17 @@ export default function Checkout() {
   }
 
   const inputCls =
-    'w-full rounded-2xl border border-line bg-bg px-4 py-3 text-sm text-ink placeholder:text-muted/60 transition-colors focus:border-accent-dark focus:outline-none'
+    'w-full rounded-2xl border border-line bg-transparent px-4 py-3 text-[0.8125rem] text-ink placeholder:text-muted/60 transition-colors focus:border-accent-dark focus:outline-none'
 
   return (
     <>
       <Navbar />
-      <main id="main-content" className="relative z-10 bg-bg pt-28 lg:pt-32">
+      <main id="main-content" className="relative z-10 bg-[#fdfcf8] pt-28 lg:pt-32">
         <div className="container-x pb-16">
           <div className="border-b border-line pb-8">
             <p className="text-[0.65rem] uppercase tracking-[0.28em] text-accent-dark">Checkout</p>
             <h1 className="mt-2 font-display text-4xl tracking-[-0.02em] text-ink lg:text-5xl">Complete your order</h1>
-            <Link to="/cart" className="mt-3 inline-block text-sm text-accent-dark hover:text-accent">
+            <Link to="/cart" className="mt-3 inline-block text-[0.8125rem] text-[#3b1f14] hover:text-[#5a3220]">
               ← Back to cart
             </Link>
           </div>
@@ -267,7 +267,7 @@ export default function Checkout() {
                 </div>
               </section>
 
-              <div className="rounded-2xl border border-line bg-section px-4 py-3 text-xs leading-relaxed text-muted">
+              <div className="rounded-2xl bg-bg px-4 py-3 text-xs leading-relaxed text-muted">
                 <p>
                   By proceeding with this purchase, you acknowledge that these products are intended solely for laboratory
                   research purposes and are not intended for human or veterinary use.
@@ -277,7 +277,7 @@ export default function Checkout() {
             </div>
 
             {/* Summary column */}
-            <aside className="h-fit rounded-[var(--radius-xl2)] border border-line bg-section p-7 lg:sticky lg:top-28">
+            <aside className="h-fit rounded-[var(--radius-xl2)] bg-bg p-7 lg:sticky lg:top-28">
               <h2 className="font-display text-xl text-ink">Order summary</h2>
 
               <ul className="mt-6 flex flex-col gap-4 border-b border-line pb-6">
@@ -292,17 +292,17 @@ export default function Checkout() {
                       </span>
                     </div>
                     <div className="flex-1">
-                      <p className="font-display text-sm text-ink">{product.name}</p>
+                      <p className="font-display text-[0.8125rem] text-ink">{product.name}</p>
                       <p className="text-xs text-muted">{product.category}</p>
                     </div>
-                    <p className="text-sm text-ink">{formatPrice(product.price * qty, product.currency)}</p>
+                    <p className="text-[0.8125rem] text-ink">{formatPrice(product.price * qty, product.currency)}</p>
                   </li>
                 ))}
               </ul>
 
               <div className="mt-5">
                 {promo ? (
-                  <div className="flex items-center justify-between rounded-2xl border border-accent-dark/30 bg-bg px-4 py-3 text-sm">
+                  <div className="flex items-center justify-between rounded-2xl border border-accent-dark/30 bg-bg px-4 py-3 text-[0.8125rem]">
                     <span className="text-ink">
                       <span className="font-medium">{promo.code}</span>{' '}
                       <span className="text-muted">· {promo.percent}% off</span>
@@ -324,7 +324,7 @@ export default function Checkout() {
                       type="button"
                       onClick={applyPromo}
                       disabled={promoBusy}
-                      className="rounded-2xl border border-line bg-bg px-5 text-sm text-ink transition-colors hover:border-accent-dark/40 disabled:opacity-60"
+                      className="rounded-2xl border border-line bg-bg px-5 text-[0.8125rem] text-ink transition-colors hover:border-accent-dark/40 disabled:opacity-60"
                     >
                       {promoBusy ? '…' : 'Apply'}
                     </button>
@@ -337,7 +337,7 @@ export default function Checkout() {
                 )}
               </div>
 
-              <dl className="mt-6 space-y-3 text-sm">
+              <dl className="mt-6 space-y-3 text-[0.8125rem]">
                 <div className="flex justify-between">
                   <dt className="text-muted">Subtotal</dt>
                   <dd className="text-ink">{formatPrice(subtotal)}</dd>
@@ -364,7 +364,7 @@ export default function Checkout() {
               <button
                 type="submit"
                 disabled={submitting}
-                className="mt-7 w-full rounded-full bg-accent-dark py-3.5 text-sm font-medium text-bg transition-all hover:bg-accent hover:shadow-[0_20px_40px_-20px_rgba(121,13,22,0.6)] disabled:opacity-70"
+                className="mt-7 w-full rounded-full bg-[#3b1f14] py-3.5 text-[0.8125rem] font-medium text-bg transition-all hover:bg-[#5a3220] hover:shadow-[0_20px_40px_-20px_rgba(59,31,20,0.6)] disabled:opacity-70"
               >
                 {submitting ? 'Placing order…' : 'Place Order'}
               </button>
@@ -372,7 +372,7 @@ export default function Checkout() {
                 By placing this order you confirm these products are for laboratory research use only — not for human or
                 veterinary use.
               </p>
-              <Link to="/cart" className="mt-4 block text-center text-sm text-accent-dark hover:text-accent">
+              <Link to="/cart" className="mt-4 block text-center text-[0.8125rem] text-[#3b1f14] hover:text-[#5a3220]">
                 Back to cart
               </Link>
             </aside>
@@ -406,7 +406,7 @@ export default function Checkout() {
                 </svg>
               </div>
               <h3 className="mt-6 font-display text-2xl tracking-[-0.02em] text-ink">Order placed</h3>
-              <p className="mt-2 text-sm text-muted">
+              <p className="mt-2 text-[0.8125rem] text-muted">
                 Thanks {form.firstName || 'researcher'} — we've received your order.{' '}
                 {confirmedOrder.emailStatus === 'sending' && (
                   <>
@@ -462,7 +462,7 @@ export default function Checkout() {
               <button
                 type="button"
                 onClick={closeAndGoHome}
-                className="mt-7 w-full rounded-full bg-accent-dark py-3.5 text-sm font-medium text-bg transition-colors hover:bg-accent"
+                className="mt-7 w-full rounded-full bg-[#3b1f14] py-3.5 text-[0.8125rem] font-medium text-bg transition-colors hover:bg-[#5a3220]"
               >
                 Continue shopping
               </button>

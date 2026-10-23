@@ -1,6 +1,6 @@
 import { useRef } from 'react'
 import { motion, useScroll, useTransform } from 'framer-motion'
-import SplitReveal from '../ui/SplitReveal'
+import Heading from '../ui/Heading'
 
 export default function Lifestyle() {
   const ref = useRef<HTMLDivElement>(null)
@@ -12,11 +12,15 @@ export default function Lifestyle() {
   return (
     <section id="lifestyle" ref={ref} className="section-pad relative overflow-hidden bg-section">
       <div className="container-x">
-        <div className="mb-12 text-center">
-          <p className="eyebrow mb-5">Inside The Lab</p>
-          <SplitReveal as="h2" mode="lines" className="display mx-auto max-w-3xl text-balance text-[clamp(1.85rem,1rem+3.4vw,4rem)] text-ink">
-            Research-grade peptides for the serious bench.
-          </SplitReveal>
+        <div className="mb-10">
+          {/* Same eyebrow / title scale as the Difference, Craft and Research
+              Standard sections, left-aligned like them. */}
+          <Heading
+            eyebrow="Inside The Lab"
+            eyebrowGap="mb-5"
+            className="[&_h2]:text-balance [&_h2]:text-[clamp(1.35rem,0.9rem+1.7vw,2.1rem)] [&_.eyebrow]:text-[0.8rem]"
+            title={'Research-grade peptides\nfor the serious bench.'}
+          />
         </div>
 
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-12 sm:gap-6">
@@ -31,6 +35,7 @@ export default function Lifestyle() {
                   decoding="async"
                 />
               </motion.div>
+              <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-accent-dark/10 via-transparent to-transparent" />
             </div>
           </div>
 
@@ -45,14 +50,15 @@ export default function Lifestyle() {
                   decoding="async"
                 />
               </motion.div>
+              <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-accent-dark/10 via-transparent to-transparent" />
             </div>
           </div>
 
           <div className="flex flex-col justify-center rounded-[var(--radius-xl2)] bg-accent-dark p-8 text-bg sm:col-span-5">
-            <p className="font-display text-xl font-light leading-[1.35] sm:text-2xl lg:text-3xl">“The COA is provided with every peptide pen. Clear batch data, transparent testing and no guesswork.”</p>
+            <p className="font-display text-lg font-light leading-[1.35] sm:text-xl lg:text-2xl">“The COA is provided with every peptide pen. Clear batch data, transparent testing and no guesswork.”</p>
             {/* /90 not /60: on the accent-dark panel, white at 60% resolves to
                 #9fc8c5 → 3.0:1, under the AA floor for text this size. */}
-            <p className="mt-5 text-xs uppercase tracking-[0.25em] text-bg/90 sm:text-sm">A Jupyter Labs researcher</p>
+            <p className="mt-5 text-[0.62rem] uppercase tracking-[0.22em] text-bg/90">A Jupyter Labs researcher</p>
           </div>
 
           <div className="overflow-hidden rounded-[var(--radius-xl2)] sm:col-span-7">
@@ -66,6 +72,7 @@ export default function Lifestyle() {
                   decoding="async"
                 />
               </motion.div>
+              <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-accent-dark/10 via-transparent to-transparent" />
             </div>
           </div>
         </div>

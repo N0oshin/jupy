@@ -23,6 +23,8 @@ const OUT = join(ROOT, 'public', 'images', 'products', 'pens')
 // designer filename → product slug. Retatrutide 20mg ships as 4 × 5mg and 40mg as
 // 4 × 10mg, so each takes the pen carrying its per-pen dose.
 const PENS = {
+  'Alluvi Glow pen, perfectly isolated-7.png': 'glow',
+  'ALLUVI Tirzepatide Pen Cutout-5.png': 'tirzepatide',
   'Retouched Alluvi BPC-157&TB-500 injection pen-8.png': 'bpc-157',
   'ALLUVI retatrutide pen, isolated-3.png': 'retatrutide-20',
   'ALLUVI Retatrutide 10 mg pen.png': 'retatrutide-40',

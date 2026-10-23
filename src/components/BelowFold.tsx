@@ -2,17 +2,22 @@ import { useEffect } from 'react'
 import { ScrollTrigger } from '../lib/gsap'
 
 import ProductShowcase from './sections/ProductShowcase'
-import Difference from './sections/Difference'
+// Difference ("The Jupyter Labs Standard") is hidden for now; re-add the import and the <Difference /> below to bring it back.
+// import Difference from './sections/Difference'
 import Craft from './sections/Craft'
 import Marquee from './sections/Marquee'
 import Products from './sections/Products'
-import Science from './sections/Science'
-import Benefits from './sections/Benefits'
-import Lifestyle from './sections/Lifestyle'
+// Science is hidden for now; re-add the import and the <Science /> below to bring it back.
+// import Science from './sections/Science'
+// Lifestyle ("Inside The Lab") is hidden for now; re-add the import and the <Lifestyle /> below to bring it back.
+// import Lifestyle from './sections/Lifestyle'
 import Testimonials from './sections/Testimonials'
 import WhyChoose from './sections/WhyChoose'
 import About from './sections/About'
-import CTA from './sections/CTA'
+import FAQ from './sections/FAQ'
+import Newsletter from './sections/Newsletter'
+// CTA ("Research-Grade Peptides" closing banner) is hidden for now; re-add the import and the <CTA /> below to bring it back.
+// import CTA from './sections/CTA'
 
 /**
  * Every section below the hero, in one lazily-loaded chunk.
@@ -68,17 +73,18 @@ export default function BelowFold() {
   return (
     <>
       <ProductShowcase />
-      <Difference />
-      <Craft />
       <Marquee />
       <About />
+      {/* <Difference /> */}
+      <Craft />
       <Products />
-      <Science />
-      <Benefits />
-      <Lifestyle />
+      <Newsletter />
+      {/* <Science /> */}
+      {/* <Lifestyle /> */}
       <Testimonials />
       <WhyChoose />
-      <CTA />
+      <FAQ />
+      {/* <CTA /> */}
     </>
   )
 }

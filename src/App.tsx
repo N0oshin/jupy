@@ -1,6 +1,7 @@
 import { Suspense, lazy, useCallback, useEffect, useState } from 'react'
 import { ScrollTrigger } from './lib/gsap'
 import { useSeo } from './lib/useSeo'
+import { FAQS } from './lib/content'
 
 import SmoothScroll from './components/SmoothScroll'
 import Preloader from './components/Preloader'
@@ -26,6 +27,16 @@ function App() {
     description:
       'Research-grade peptides HPLC-verified for purity, traceable to the lot, and documented to the milligram.',
     path: '/',
+    // Mirrors the homepage FAQ section so it is eligible for FAQ rich results.
+    jsonLd: {
+      '@context': 'https://schema.org',
+      '@type': 'FAQPage',
+      mainEntity: FAQS.map((f) => ({
+        '@type': 'Question',
+        name: f.q,
+        acceptedAnswer: { '@type': 'Answer', text: f.a },
+      })),
+    },
   })
 
   // The below-fold chunk mounts after the hero paints, so ScrollTrigger has to

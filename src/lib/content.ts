@@ -461,68 +461,106 @@ export const PRODUCTS = [
 ] as const
 
 /**
- * Homepage "Our products" showcase — the tabbed, horizontally scrolling box
- * gallery directly under the hero (components/sections/ProductShowcase).
+ * Shop categories. Drive the homepage "Our products" tabs, the footer
+ * "Category" column and the /products?category= filter.
  *
- * Items reference PRODUCTS by id so name, price and route stay single-sourced.
- * `product: null` is a box we have a render for but no catalogue entry yet; it
- * is shown as "coming soon" with no link, and becomes live by adding the
- * product to PRODUCTS and pointing `product` at its id.
+ * `products` lists PRODUCTS ids and, for boxes we render but do not sell yet,
+ * the keys of BOX_ART entries with `product: null`. The split below is
+ * PROVISIONAL — reassign ids here once the final category mapping is decided;
+ * nothing else needs to change.
+ *
+ * `all: true` means "every product", so the list is derived rather than kept.
+ */
+export interface Category {
+  id: string
+  label: string
+  /** PRODUCTS ids / BOX_ART keys. Ignored when `all` is set. */
+  products: readonly string[]
+  /** "All products": every catalogue entry, derived rather than listed. */
+  all?: true
+}
+
+export const CATEGORIES = [
+  { id: 'metabolic', label: 'Metabolic', products: ['retatrutide-20', 'retatrutide', 'tirzepatide', 'tesamorelin'] },
+  { id: 'recovery', label: 'Recovery', products: ['bpc-157', 'cjc-1295'] },
+  { id: 'skin-glow', label: 'Skin & Glow', products: ['glow'] },
+  { id: 'longevity', label: 'Longevity', products: ['nad-plus', 'mots-c'] },
+  { id: 'new-in', label: 'New in', products: ['tesamorelin', 'mots-c', 'cjc-1295'] },
+  { id: 'all', label: 'All products', products: [], all: true },
+] as const satisfies readonly Category[]
+
+export type CategoryId = (typeof CATEGORIES)[number]['id']
+
+/** Category by id, or undefined for an unknown slug (e.g. a stale URL). */
+export const findCategory = (id: string | null | undefined): Category | undefined =>
+  id ? (CATEGORIES as readonly Category[]).find((c) => c.id === id) : undefined
+
+/** PRODUCTS belonging to a category, in catalogue order. */
+export function productsInCategory(id: CategoryId | string) {
+  const c = findCategory(id)
+  if (!c || c.all) return PRODUCTS
+  return PRODUCTS.filter((p) => c.products.includes(p.id))
+}
+
+/**
+ * Box renders for the homepage "Our products" scroller
+ * (components/sections/ProductShowcase), keyed by product id.
+ *
+ * `product` points at a PRODUCTS id so name, price and route stay
+ * single-sourced. `product: null` is a box we have a render for but no
+ * catalogue entry yet; it is shown as "coming soon" with no link, and becomes
+ * live by adding the product to PRODUCTS and pointing `product` at its id.
  *
  * `accent` is the colour of the spiral lines on that box's artwork. The section
  * mixes it into the cream page background (--color-bg) for a light band behind
  * the centred box, and into the darker tan (--color-bg-deep) for the nested
  * arches, so both read as nude tints of the box, never the raw colour.
  *
- * COMPLIANCE: family copy describes research scope only — see file header.
+ * COMPLIANCE: copy describes research scope only — see file header.
  */
-export const SHOWCASE = [
-  {
-    id: 'metabolic',
-    label: 'Metabolic',
-    items: [
-      { product: 'retatrutide-20', box: '/images/products/boxes/retatrutide-20.webp', accent: '#f08a1c' },
-      { product: 'retatrutide', box: '/images/products/boxes/retatrutide-40.webp', accent: '#f5a82a' },
-      { product: 'tirzepatide', box: '/images/products/boxes/tirzepatide.webp', accent: '#2f9fe6' },
-      {
-        product: null,
-        name: 'Tesamorelin 20mg',
-        tagline: 'GHRH Analogue · Reference Standard',
-        box: '/images/products/boxes/tesamorelin.webp',
-        accent: '#e6262c',
-      },
-    ],
+export const BOX_ART = {
+  'retatrutide-20': { product: 'retatrutide-20', box: '/images/products/boxes/retatrutide-20.webp', accent: '#f08a1c' },
+  retatrutide: { product: 'retatrutide', box: '/images/products/boxes/retatrutide-40.webp', accent: '#f5a82a' },
+  tirzepatide: { product: 'tirzepatide', box: '/images/products/boxes/tirzepatide.webp', accent: '#2f9fe6' },
+  tesamorelin: {
+    product: null,
+    name: 'Tesamorelin 20mg',
+    tagline: 'GHRH Analogue · Reference Standard',
+    box: '/images/products/boxes/tesamorelin.webp',
+    accent: '#e6262c',
   },
-  {
-    id: 'cellular',
-    label: 'Cellular',
-    items: [
-      { product: 'nad-plus', box: '/images/products/boxes/nad-plus.webp', accent: '#f2a900' },
-      {
-        product: null,
-        name: 'MOTS-c 40mg',
-        tagline: 'Mitochondrial Peptide · Reference Standard',
-        box: '/images/products/boxes/mots-c.webp',
-        accent: '#9a3bb5',
-      },
-    ],
+  'nad-plus': { product: 'nad-plus', box: '/images/products/boxes/nad-plus.webp', accent: '#f2a900' },
+  'mots-c': {
+    product: null,
+    name: 'MOTS-c 40mg',
+    tagline: 'Mitochondrial Peptide · Reference Standard',
+    box: '/images/products/boxes/mots-c.webp',
+    accent: '#9a3bb5',
   },
-  {
-    id: 'signalling',
-    label: 'Signalling',
-    items: [
-      { product: 'bpc-157', box: '/images/products/boxes/bpc-157.webp', accent: '#2fa84f' },
-      { product: 'glow', box: '/images/products/boxes/glow.webp', accent: '#ec2f94' },
-      {
-        product: null,
-        name: 'CJC-1295 10mg',
-        tagline: 'GHRH Analogue · Without DAC',
-        box: '/images/products/boxes/cjc-1295.webp',
-        accent: '#f08a6a',
-      },
-    ],
+  'bpc-157': { product: 'bpc-157', box: '/images/products/boxes/bpc-157.webp', accent: '#2fa84f' },
+  glow: { product: 'glow', box: '/images/products/boxes/glow.webp', accent: '#ec2f94' },
+  'cjc-1295': {
+    product: null,
+    name: 'CJC-1295 10mg',
+    tagline: 'GHRH Analogue · Without DAC',
+    box: '/images/products/boxes/cjc-1295.webp',
+    accent: '#f08a6a',
   },
-] as const
+} as const
+
+export type BoxArt = (typeof BOX_ART)[keyof typeof BOX_ART]
+
+/**
+ * Homepage "Our products" tabs: one per category, each listing that
+ * category's box renders. "All products" shows every box in BOX_ART order.
+ */
+export const SHOWCASE = (CATEGORIES as readonly Category[]).map((c) => ({
+  id: c.id,
+  label: c.label,
+  items: (c.all ? Object.keys(BOX_ART) : c.products)
+    .map((k) => BOX_ART[k as keyof typeof BOX_ART])
+    .filter(Boolean) as readonly BoxArt[],
+}))
 
 /**
  * Homepage "standards" grid. Framed as research characteristics of the
@@ -530,10 +568,10 @@ export const SHOWCASE = [
  * or physiological benefits. Imagery is laboratory / analytical only.
  */
 export const BENEFITS = [
-  { k: '01', t: 'Verified Purity', d: 'Every batch characterized by HPLC — the milligrams on the label are exactly what arrives at your bench.', image: '/images/jupyter-labs/visible-radiance-benefit.webp' },
-  { k: '02', t: 'Independent Testing', d: 'Identity and content confirmed by an independent analytical lab (Janoshik) before any batch ships.', image: '/images/jupyter-labs/sustained-energy-benefit.webp' },
-  { k: '03', t: 'Full Documentation', d: 'A batch-specific Certificate of Analysis and MSDS accompany every order — traceable to the lot.', image: '/images/jupyter-labs/deep-recovery-benefit.webp' },
-  { k: '04', t: 'Stability-Grade Supply', d: 'Sealed, stability-grade packaging protects compound integrity through storage.', image: '/images/jupyter-labs/resilient-immunity-benefit.webp' },
+  { k: '01', t: 'Verified Purity', d: 'Every batch characterized by HPLC — the milligrams on the label are exactly what arrives at your bench.', image: '/images/ecom/research-verified-purity.webp' },
+  { k: '02', t: 'Independent Testing', d: 'Identity and content confirmed by an independent analytical lab (Janoshik) before any batch ships.', image: '/images/ecom/research-independent-testing.webp' },
+  { k: '03', t: 'Full Documentation', d: 'A batch-specific Certificate of Analysis and MSDS accompany every order — traceable to the lot.', image: '/images/ecom/research-full-documentation.webp' },
+  { k: '04', t: 'Stability-Grade Supply', d: 'Sealed, stability-grade packaging protects compound integrity through storage.', image: '/images/ecom/research-stability-grade-supply.webp' },
 ] as const
 
 /**
@@ -545,39 +583,45 @@ export const BENEFITS = [
 export const TESTIMONIALS = [
   {
     name: 'Amara N.',
+    date: '2025 March 11',
     role: 'Lab Procurement Lead',
     quote: 'The batch-specific COA arrives with every order and the Janoshik task IDs verify independently. Documentation this clean makes procurement sign-off effortless.',
-    image: '/images/jupyter-labs/customer-stories/customer-testimonial-amara-creative-director.webp',
+    image: '/images/ecom/stories/story1.webp',
   },
   {
     name: 'Julien M.',
+    date: '2025 April 02',
     role: 'Analytical Chemist',
     quote: 'Purity matches the certificate on our own HPLC re-tests. As a reference material, the lot-to-lot consistency is exactly what method development needs.',
-    image: '/images/jupyter-labs/customer-stories/customer-testimonial-julien-endurance-athlete.webp',
+    image: '/images/ecom/stories/story2.webp',
   },
   {
     name: 'Sofia R.',
+    date: '2025 May 19',
     role: 'Research Operations',
     quote: 'Sealed, stability-grade packaging and exact fill volumes — and the documentation was all in order. Straightforward from purchase to paperwork.',
-    image: '/images/jupyter-labs/customer-stories/customer-testimonial-sofia-founder.webp',
+    image: '/images/ecom/stories/story3.webp',
   },
   {
     name: 'Daniel K.',
+    date: '2025 June 27',
     role: 'Laboratory Manager',
     quote: 'Traceability to the lot and a published certificate for every batch. This is the transparency a research supplier should provide as standard.',
-    image: '/images/jupyter-labs/customer-stories/customer-testimonial-daniel-physician.webp',
+    image: '/images/ecom/stories/story4.webp',
   },
   {
     name: 'Lina P.',
+    date: '2025 August 08',
     role: 'Quality Assurance',
     quote: 'Identity and content verified independently, MSDS included, storage guidance clear. Everything we need for compliant intake was in the box.',
-    image: '/images/jupyter-labs/customer-stories/customer-testimonial-lina-yoga-teacher.webp',
+    image: '/images/ecom/stories/story5.webp',
   },
   {
     name: 'Marcus T.',
+    date: '2025 September 15',
     role: 'Procurement Director',
     quote: 'Accurate orders and certificates that verify against the lab portal. A supplier we can document and audit with confidence.',
-    image: '/images/jupyter-labs/customer-stories/customer-testimonial-marcus-investor.webp',
+    image: '/images/ecom/stories/story6.webp',
   },
 ] as const
 
@@ -597,8 +641,43 @@ export const NAV = [
   // The full catalogue page, not the homepage's 3-product teaser section. The
   // #products section still exists and still links through to /products itself.
   { label: 'Shop', href: '/products' },
-  { label: 'Why Us', href: '#why' },
+  { label: 'Why Us', href: '#about' },
   { label: 'Testimonials', href: '#testimonials' },
   // Now a standalone page with a contact form, not a scroll to the footer.
   { label: 'Contact', href: '/contact' },
+] as const
+
+/**
+ * Homepage FAQ. Also emitted as FAQPage JSON-LD from App for rich results.
+ *
+ * COMPLIANCE: answers describe ordering, handling and the research-use-only
+ * status of the catalogue. They never give dosing, administration or any
+ * human-use guidance — the "dosing" question exists to say exactly that.
+ * Keep policy figures in sync with /shipping-policy and /refund-policy.
+ */
+export const FAQS = [
+  {
+    q: 'How quickly do you ship, and is it tracked?',
+    a: 'Orders paid before 3pm UK time on a working day are usually dispatched the same day; later orders go out the next working day. Every parcel ships tracked and signed-for. UK deliveries typically arrive the next working day after dispatch; international deliveries take around 3–10 working days depending on destination and customs. Your tracking number is emailed as soon as the parcel leaves our fulfilment centre.',
+  },
+  {
+    q: 'Do you ship internationally?',
+    a: 'Yes. Shipping costs are calculated at checkout from your location and parcel weight. International buyers are responsible for any customs duties, VAT or import taxes charged by their country — these are not included in our prices. Some territories restrict the import of research compounds, so please check your local rules before ordering.',
+  },
+  {
+    q: 'Do you provide dosing or usage instructions?',
+    a: 'No. Every product is supplied strictly as a laboratory reference material for in-vitro research and development. Nothing in our catalogue is intended for human or animal use, and we do not offer dosing, administration or any other usage guidance. What we do provide is the analytical data a lab needs: a batch-specific Certificate of Analysis, HPLC purity, exact milligram content and an MSDS.',
+  },
+  {
+    q: 'How do I verify purity and content?',
+    a: "Each batch is characterised by HPLC and independently tested by a third-party analytical lab before it ships. The batch-specific COA comes with your order and carries the independent lab's task ID, so the result can be checked against the lab's own records rather than taken on trust.",
+  },
+  {
+    q: 'What is your returns policy?',
+    a: 'Because these are temperature-sensitive reference materials, we cannot accept returns on opened, used or incorrectly stored items. Unopened items in their original packaging may be returned within 7 days of delivery. If an order arrives damaged, incorrect or defective, contact support within 48 hours with your order number and photos and we will put it right. Approved refunds go back to the original payment method within 5–10 business days.',
+  },
+  {
+    q: 'How should products be stored on arrival?',
+    a: 'Keep sealed products refrigerated at 2–8 °C and out of direct light. Our stability-grade packaging protects the compound in transit, but storage conditions after delivery are the responsibility of the receiving laboratory, and incorrectly stored items are not eligible for return.',
+  },
 ] as const

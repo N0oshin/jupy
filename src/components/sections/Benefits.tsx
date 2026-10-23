@@ -17,14 +17,18 @@ export default function Benefits() {
       const mm = gsap.matchMedia()
       mm.add('(min-width: 1024px)', () => {
         const t = track.current!
-        const distance = t.scrollWidth - window.innerWidth + 80
+        // Measured on every ScrollTrigger refresh, not once at mount: fonts,
+        // lazy images and the refreshes BelowFold fires all change the track's
+        // width after this runs, and a stale distance stops the scroll short
+        // of the last card.
+        const distance = () => t.scrollWidth - window.innerWidth + 80
         gsap.to(t, {
-          x: -distance,
+          x: () => -distance(),
           ease: 'none',
           scrollTrigger: {
             trigger: ref.current!,
             start: 'top top',
-            end: () => `+=${distance}`,
+            end: () => `+=${distance()}`,
             pin: true,
             scrub: 1,
             invalidateOnRefresh: true,
@@ -43,6 +47,9 @@ export default function Benefits() {
           <div className="container-x lg:w-[42vw] lg:shrink-0 lg:px-0">
             <Heading
               eyebrow="The Research Standard"
+              eyebrowGap="mb-5"
+              // Same type scale as the Difference / Craft sections above.
+              className="[&_h2]:text-balance [&_h2]:text-[clamp(1.35rem,0.9rem+1.7vw,2.1rem)] [&_.eyebrow]:text-[0.8rem] [&_p.type-sub]:text-[0.9rem] [&_p.type-sub]:!mt-3"
               title={'What ships\nwith every batch.'}
               intro="Every Jupyter Labs compound is supplied as a research reference material — verified for purity, independently tested, fully documented and stability-protected from synthesis to storage."
             />
@@ -52,48 +59,37 @@ export default function Benefits() {
             {BENEFITS.map((b) => (
               <div
                 key={b.k}
-                className="group relative flex w-full flex-col overflow-hidden rounded-[var(--radius-xl2)] border border-line bg-card transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] hover:border-accent-dark/30 hover:shadow-[0_30px_60px_-30px_rgba(121,13,22,0.45)] lg:h-[58vh] lg:w-[24rem] lg:shrink-0"
+                tabIndex={0}
+                aria-label={`${b.t}. ${b.d}`}
+                className="group relative block aspect-[4/5] w-full overflow-hidden rounded-[1.75rem] bg-[#c9b8a8] shadow-[0_30px_60px_-30px_rgba(40,60,80,0.55)] outline-none ring-accent-dark/50 focus-visible:ring-2 lg:w-[20rem] lg:shrink-0"
               >
-                {/* Full-bleed image */}
+                {/* Photo: blurs and lightens on hover so the details sit on a calm surface. */}
                 <img
                   src={b.image}
                   alt={b.t}
-                  className="pointer-events-none absolute inset-0 h-full w-full object-cover transition-transform duration-[1600ms] ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-[1.08]"
-                  style={{ objectPosition: b.k === '01' ? '75% 50%' : '50% 50%' }}
+                  className="absolute inset-0 h-full w-full scale-[1.02] object-cover transition-[filter,transform] duration-700 ease-[var(--ease-lux)] group-hover:scale-[1.06] group-hover:blur-[10px] group-hover:brightness-[1.12] group-focus-visible:scale-[1.06] group-focus-visible:blur-[10px] group-focus-visible:brightness-[1.12]"
                   loading="lazy"
                   decoding="async"
+                  draggable={false}
                 />
 
-                {/* Card cover over lower portion — fades on hover so image fills card */}
-                <div className="pointer-events-none absolute inset-x-0 bottom-0 top-48 bg-card transition-opacity duration-700 group-hover:opacity-0 lg:top-72" />
+                {/* Resting label, fades out as the details come up. */}
+                <div className="pointer-events-none absolute inset-x-0 bottom-0 bg-gradient-to-t from-white/80 via-white/40 to-transparent p-5 pt-16 text-ink transition-opacity duration-500 group-hover:opacity-0 group-focus-visible:opacity-0 lg:p-6">
+                  <span className="font-display text-3xl font-light leading-none">{b.k}</span>
+                  <h3 className="mt-2 font-display text-lg font-medium leading-[1.15] tracking-[-0.02em] lg:text-xl">{b.t}</h3>
+                </div>
 
-                {/* Dark gradient overlay — appears on hover so text stays readable on image */}
-                <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-ink/90 via-ink/55 to-ink/10 opacity-0 transition-opacity duration-700 group-hover:opacity-100" />
+                {/* White scrim fading in with the blur. */}
+                <div className="pointer-events-none absolute inset-0 bg-white/35 opacity-0 transition-opacity duration-500 group-hover:opacity-100 group-focus-visible:opacity-100" />
 
-                {/* Top accent rail */}
-                <span className="pointer-events-none absolute inset-x-0 top-0 z-10 h-[3px] origin-left scale-x-0 bg-gold transition-transform duration-700 ease-out group-hover:scale-x-100" />
-
-                {/* Chip */}
-                <span className="absolute left-5 top-5 z-10 rounded-full bg-bg/95 px-3 py-1 text-[0.65rem] uppercase tracking-[0.22em] text-ink backdrop-blur-md transition-all duration-500 group-hover:-translate-y-0.5 group-hover:bg-gold">
-                  Standard · {b.k}
-                </span>
-
-                {/* Image height spacer */}
-                <div className="h-48 lg:h-72" aria-hidden />
-
-                {/* Content */}
-                <div className="relative flex flex-1 flex-col justify-between p-7 lg:p-8">
-                  {/* accent-dark/70, not sand: --color-sand (#a9d6cf) sits at 1.59:1 on
-                      white — these numerals are content, not decoration, so they need
-                      the 3:1 large-text floor. This keeps the soft muted teal at 3.1:1. */}
-                  <span className="font-display text-4xl font-light text-accent-dark/70 transition-colors duration-500 group-hover:text-gold">
-                    {b.k}
-                  </span>
-                  <div>
-                    <h3 className="font-display text-2xl font-medium leading-[1.2] text-ink transition-colors duration-500 group-hover:text-bg">{b.t}</h3>
-                    <p className="mt-3 text-base leading-[1.4] text-muted transition-colors duration-500 group-hover:text-bg/85">{b.d}</p>
+                {/* Details over the blurred photo. */}
+                <div className="absolute inset-0 flex flex-col justify-end p-5 text-accent-dark opacity-0 transition-opacity duration-500 group-hover:opacity-100 group-focus-visible:opacity-100 lg:p-6">
+                  <div className="translate-y-4 transition-transform duration-700 ease-[var(--ease-lux)] group-hover:translate-y-0 group-focus-visible:translate-y-0">
+                    <span className="font-display text-4xl font-light leading-none">{b.k}</span>
+                    <p className="mt-4 text-[0.6rem] uppercase tracking-[0.22em] text-accent-dark/70">Standard · {b.k}</p>
+                    <h3 className="mt-1.5 font-display text-xl font-medium leading-[1.15] tracking-[-0.02em] lg:text-2xl">{b.t}</h3>
+                    <p className="mt-3 text-[0.8rem] leading-[1.5] text-accent-dark/80">{b.d}</p>
                   </div>
-                  <div className="mt-8 h-px w-full origin-left scale-x-0 bg-gold transition-transform duration-700 group-hover:scale-x-100" />
                 </div>
               </div>
             ))}

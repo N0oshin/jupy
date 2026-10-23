@@ -116,7 +116,7 @@ export default function Navbar() {
       {/* Full-bleed frosted bar (sits behind the width-capped content). */}
       <div
         className={`pointer-events-none absolute inset-0 -z-10 transition-opacity duration-500 ${
-          scrolled || open || location.pathname !== '/' ? 'opacity-100' : 'opacity-0'
+          scrolled || open || (location.pathname !== '/' && location.pathname !== '/about') ? 'opacity-100' : 'opacity-0'
         }`}
       >
         <div className="glass h-full w-full" />
@@ -419,7 +419,7 @@ export default function Navbar() {
                 transition={{ duration: 0.5, delay: 0.5 }}
                 className="mt-6 text-[0.65rem] uppercase tracking-[0.28em] text-muted"
               >
-                For research use only · Not for human consumption
+                For research use only 
               </motion.p>
               </div>
             </nav>

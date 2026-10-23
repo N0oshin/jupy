@@ -43,10 +43,10 @@ function validate(values: typeof EMPTY): Errors {
 }
 
 const inputCls =
-  'w-full rounded-2xl border border-line bg-bg px-4 py-3 text-sm text-ink placeholder:text-muted/60 transition-colors focus:border-accent-dark disabled:opacity-60'
+  'w-full rounded-lg border border-line bg-transparent px-4 py-2.5 text-[0.8rem] text-ink placeholder:text-muted/60 transition-colors focus:border-ink focus:outline-none focus-visible:outline-none disabled:opacity-60'
 const invalidCls = 'border-red-500/70 focus:border-red-500'
-const labelCls = 'block text-xs uppercase tracking-[0.18em] text-muted'
-const linkCls = 'text-accent-dark underline underline-offset-4 transition-colors hover:text-accent'
+const labelCls = 'block text-[0.68rem] uppercase tracking-[0.18em] text-muted'
+const linkCls = 'text-ink underline underline-offset-4 transition-colors hover:text-ink/70'
 
 export default function Contact() {
   useSeo({
@@ -126,15 +126,16 @@ export default function Contact() {
   return (
     <>
       <Navbar />
-      <main id="main-content" className="relative z-10 bg-bg pt-28 lg:pt-32">
-        <div className="container-x pb-16">
+      <main id="main-content" className="relative z-10 bg-[#fdfcf8] pt-40 lg:pt-52">
+        <div className="container-x pb-16 sm:px-8 md:px-16 lg:px-28 xl:px-40">
           <Heading
             as="h1"
             eyebrow="Get in touch"
-            // H1 text from the SEO sheet, passed through the existing Heading
-            // component unchanged — same styling, same SplitReveal animation.
-            title={'Contact Jupyter Labs | Support\n& Laboratory Research Products'}
-            intro="Certificates of analysis, batch documentation, bulk research quotes or an existing order — send us the details and we'll come back to you within one business day."
+            eyebrowGap="mb-5"
+            // Same type scale as the homepage sections (Difference / Craft / Benefits).
+            className="[&_h1]:text-balance [&_h1]:text-[clamp(1.35rem,0.9rem+1.7vw,2.1rem)] [&_.eyebrow]:text-[1.3rem] [&_p.type-sub]:text-[0.9rem] [&_p.type-sub]:!mt-3"
+
+  
           />
 
           <div className="mt-14 grid gap-12 lg:grid-cols-[1.15fr_0.85fr] lg:gap-20">
@@ -144,11 +145,11 @@ export default function Contact() {
                 <div
                   role="status"
                   aria-live="polite"
-                  className="rounded-3xl border border-accent-dark/30 bg-section p-8 sm:p-10"
+                  className="rounded-xl border border-ink/30 bg-section p-8 sm:p-10"
                 >
                   <span
                     aria-hidden="true"
-                    className="grid h-12 w-12 place-items-center rounded-full bg-accent-dark text-bg"
+                    className="grid h-12 w-12 place-items-center rounded-full bg-ink text-bg"
                   >
                     <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                       <path d="m4 12.5 5 5L20 6.5" />
@@ -156,13 +157,13 @@ export default function Contact() {
                   </span>
                   <h2 className="mt-5 font-display text-2xl text-ink">Message sent</h2>
                   <p className="mt-3 max-w-md text-sm leading-[1.7] text-muted">
-                    Thanks for reaching out — your message is with our research team and we'll reply within one
-                    business day. Please check your spam folder if you don't hear back.
+                    Thanks for reaching out — your message is with our team and we'll reply within one to two
+                    business days.Please check your spam folder if you don't hear back.
                   </p>
                   <button
                     type="button"
                     onClick={() => setStatus('idle')}
-                    className="mt-7 rounded-full border border-accent-dark px-6 py-3 text-sm tracking-wide text-accent-dark transition-colors hover:bg-accent-dark hover:text-bg"
+                    className="mt-7 rounded-lg border border-ink px-6 py-3 text-sm tracking-wide text-ink transition-colors hover:bg-ink hover:text-bg"
                   >
                     Send another message
                   </button>
@@ -231,7 +232,7 @@ export default function Contact() {
 
                   <div>
                     <label htmlFor={fieldId('message')} className={labelCls}>
-                      Message <span className="text-accent-dark">*</span>
+                      Message <span className="text-ink">*</span>
                     </label>
                     <textarea
                       id={fieldId('message')}
@@ -263,7 +264,7 @@ export default function Contact() {
                   {formError && (
                     <p
                       role="alert"
-                      className="rounded-2xl border border-red-500/30 bg-red-500/5 px-4 py-3 text-sm text-red-600"
+                      className="rounded-lg border border-red-500/30 bg-red-500/5 px-4 py-3 text-sm text-red-600"
                     >
                       {formError}
                     </p>
@@ -273,7 +274,7 @@ export default function Contact() {
                     <button
                       type="submit"
                       disabled={busy}
-                      className="inline-flex items-center justify-center gap-2.5 rounded-full bg-accent-dark px-7 py-3 text-sm tracking-wide text-bg transition-colors duration-400 ease-[cubic-bezier(0.16,1,0.3,1)] hover:bg-accent disabled:cursor-not-allowed disabled:opacity-70"
+                      className="inline-flex items-center justify-center gap-2.5 rounded-lg bg-ink px-6 py-2.5 text-[0.8rem] tracking-wide text-bg transition-colors duration-400 ease-[cubic-bezier(0.16,1,0.3,1)] hover:bg-ink/80 disabled:cursor-not-allowed disabled:opacity-70"
                     >
                       {busy && (
                         <span
@@ -283,8 +284,8 @@ export default function Contact() {
                       )}
                       {busy ? 'Sending…' : 'Send Message'}
                     </button>
-                    <p className="text-xs text-muted">
-                      <span className="text-accent-dark">*</span> Required. We only use your details to reply.
+                    <p className="text-[0.7rem] text-muted">
+                      <span className="text-ink">*</span> Required. We only use your details to reply.
                     </p>
                   </div>
 
@@ -299,9 +300,9 @@ export default function Contact() {
 
             {/* ───── Aside ───── */}
             <aside className="lg:pt-2">
-              <div className="rounded-3xl border border-line bg-section p-8">
-                <h2 className="font-display text-xl text-ink">Before you write</h2>
-                <ul className="mt-5 space-y-4 text-sm leading-[1.7] text-muted">
+              <div className="rounded-xl border border-line p-6">
+                <h2 className="font-display text-base text-ink">Before you write</h2>
+                <ul className="mt-4 space-y-3 text-[0.8rem] leading-[1.6] text-muted">
                   <li>
                     Chasing an existing order?{' '}
                     <Link to="/track" className={linkCls}>
@@ -329,8 +330,8 @@ export default function Contact() {
                   </li>
                 </ul>
 
-                <p className="mt-7 border-t border-line pt-6 text-xs uppercase tracking-[0.2em] text-muted">
-                  For research use only · Not for human consumption
+                <p className="mt-5 border-t border-line pt-4 text-[0.65rem] uppercase tracking-[0.2em] text-muted">
+                  For research use only 
                 </p>
               </div>
 
@@ -391,7 +392,7 @@ function TextField({
   return (
     <div>
       <label htmlFor={id} className={labelCls}>
-        {label} {required && <span className="text-accent-dark">*</span>}
+        {label} {required && <span className="text-ink">*</span>}
         {optional && <span className="normal-case tracking-normal text-muted/70">(optional)</span>}
       </label>
       <input

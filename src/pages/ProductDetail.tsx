@@ -1,22 +1,24 @@
 import { useEffect, useMemo, useState } from 'react'
-import { Link, useParams } from 'react-router-dom'
+import { Link, useNavigate, useParams } from 'react-router-dom'
 import Navbar from '../components/Navbar'
 import Footer from '../components/sections/Footer'
+import ProductCard from '../components/ui/ProductCard'
 import { PRODUCTS } from '../lib/content'
 import { useCart, formatPrice } from '../lib/CartContext'
 import { useSeo, SITE_URL } from '../lib/useSeo'
 
-const TABS = ['Package Contents', 'Storage Logic'] as const
-type Tab = (typeof TABS)[number]
+const SECTIONS = ['Description', 'Package Contents', 'Storage Logic'] as const
+type Section = (typeof SECTIONS)[number]
 
 export default function ProductDetail() {
   const { slug } = useParams<{ slug: string }>()
   const { add } = useCart()
+  const navigate = useNavigate()
 
   const product = useMemo(() => PRODUCTS.find((p) => p.slug === slug), [slug])
   const [active, setActive] = useState(0)
   const [qty, setQty] = useState(1)
-  const [tab, setTab] = useState<Tab>('Package Contents')
+  const [open, setOpen] = useState<Section[]>(['Description'])
   const [coaOpen, setCoaOpen] = useState(false)
   const [introOpen, setIntroOpen] = useState(true)
 
@@ -24,7 +26,7 @@ export default function ProductDetail() {
     window.scrollTo(0, 0)
     setActive(0)
     setQty(1)
-    setTab('Package Contents')
+    setOpen(['Description'])
     setCoaOpen(false)
     setIntroOpen(true)
   }, [slug])
@@ -103,16 +105,21 @@ export default function ProductDetail() {
     )
   }
 
-  const related = PRODUCTS.filter((p) => p.id !== product.id).slice(0, 3)
+  const related = PRODUCTS.filter((p) => p.id !== product.id).slice(0, 4)
 
   function addToCart() {
     add(product!.id, qty)
   }
 
+  function buyNow() {
+    add(product!.id, qty)
+    navigate('/checkout')
+  }
+
   return (
     <>
       <Navbar />
-      <main id="main-content" className="relative z-10 bg-bg pt-28 lg:pt-32">
+      <main id="main-content" className="relative z-10 bg-[#fcfaf6] pb-20 pt-28 lg:pb-28 lg:pt-32">
         <div className="container-x">
           <nav className="mb-8 flex items-center gap-2 text-xs uppercase tracking-[0.22em] text-muted">
             <Link to="/" className="hover:text-ink">Home</Link>
@@ -124,29 +131,26 @@ export default function ProductDetail() {
 
           <div className="grid items-start gap-12 lg:grid-cols-[1.1fr_1fr] lg:gap-16">
             {/* Sticky Gallery */}
-            <div className="flex flex-col gap-0 lg:sticky lg:top-28 lg:self-start">
-              <div className="relative aspect-square w-full overflow-hidden rounded-[var(--radius-xl2)]">
+            <div className="mx-auto flex w-full max-w-[30rem] flex-col gap-3 lg:sticky lg:top-28 lg:self-start">
+              <div className="relative aspect-[1/1] w-full overflow-hidden rounded-2xl bg-section">
                 <img
                   src={product.gallery[active]}
                   alt={product.name}
-                  className="absolute inset-0 h-full w-full object-contain transition-opacity duration-500"
+                  className="absolute inset-0 h-full w-full object-cover transition-opacity duration-500"
                 />
-                <span className="absolute left-4 top-4 rounded-full bg-bg/95 px-3 py-1 text-[0.6rem] uppercase tracking-[0.22em] text-ink backdrop-blur-md">
-                  {product.category}
-                </span>
               </div>
-              <div className="-mt-10 flex flex-wrap justify-center gap-2 sm:-mt-20 sm:gap-3">
+              <div className="grid grid-cols-4 gap-3">
                 {product.gallery.map((src, i) => (
                   <button
                     key={src}
                     type="button"
                     onClick={() => setActive(i)}
-                    className={`relative h-16 w-16 shrink-0 overflow-hidden rounded-xl transition-all sm:h-24 sm:w-24 lg:h-28 lg:w-28 ${
-                      active === i ? 'ring-2 ring-accent-dark ring-offset-2 ring-offset-bg' : 'opacity-70 hover:opacity-100'
+                    className={`relative aspect-square overflow-hidden rounded-xl bg-section transition-all ${
+                      active === i ? 'ring-2 ring-[#4a2c1a] ring-offset-2 ring-offset-bg' : 'opacity-70 hover:opacity-100'
                     }`}
                     aria-label={`View image ${i + 1}`}
                   >
-                    <img src={src} alt="" className="absolute inset-0 h-full w-full object-contain" />
+                    <img src={src} alt="" className="absolute inset-0 h-full w-full object-cover" />
                   </button>
                 ))}
               </div>
@@ -154,29 +158,101 @@ export default function ProductDetail() {
 
             {/* Scrolling info column */}
             <div>
-              <p className="text-[0.65rem] uppercase tracking-[0.28em] text-accent-dark">Compound Analysis</p>
-              {/* H1 text comes from the SEO sheet where one is defined; classes
-                  are unchanged, so the existing size/weight/tracking and
-                  responsive behaviour are untouched and longer strings simply
-                  wrap. Falls back to the product name when no sheet H1 exists. */}
-              <h1 className="mt-3 font-display text-4xl tracking-[-0.02em] text-ink lg:text-5xl">{product.seo?.h1 ?? product.name}</h1>
-              <p className="mt-4 font-display text-3xl text-ink">{formatPrice(product.price, product.currency)}</p>
+              <div className="flex items-baseline justify-between gap-4">
+                <h1 className="font-display text-2xl tracking-[-0.02em] text-ink lg:text-3xl">{product.name}</h1>
+                <p className="shrink-0 font-display text-2xl text-ink lg:text-3xl">{formatPrice(product.price, product.currency)}</p>
+              </div>
 
-              <p className="mt-6 text-sm leading-relaxed text-muted">{product.longDesc}</p>
+              <div className="mt-6 flex items-center gap-3">
+                <span className="text-xs uppercase tracking-[0.18em] text-muted">Qty</span>
+                <div className="flex items-center rounded-full border border-line">
+                  <button
+                    type="button"
+                    onClick={() => setQty((q) => Math.max(1, q - 1))}
+                    className="grid h-9 w-9 place-items-center text-ink hover:text-accent-dark"
+                    aria-label="Decrease quantity"
+                  >
+                    −
+                  </button>
+                  <span className="w-8 text-center text-sm">{qty}</span>
+                  <button
+                    type="button"
+                    onClick={() => setQty((q) => q + 1)}
+                    className="grid h-9 w-9 place-items-center text-ink hover:text-accent-dark"
+                    aria-label="Increase quantity"
+                  >
+                    +
+                  </button>
+                </div>
+              </div>
 
-              {/* Safety preface */}
-              <div className="mt-6 flex items-start gap-3 rounded-2xl border border-line bg-section px-4 py-3">
-                <span className="mt-0.5 grid h-6 w-6 shrink-0 place-items-center rounded-full bg-accent-dark/10 text-accent-dark" aria-hidden>
-                  <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                    <path d="M12 3l8 4v5c0 5-3.5 8-8 9-4.5-1-8-4-8-9V7l8-4z" />
-                    <path d="M9 12l2 2 4-4" />
-                  </svg>
-                </span>
-                <p className="text-xs leading-relaxed text-ink">
-                  <span className="font-medium">For research purposes only.</span> Not intended for human or veterinary use.
-                  Not intended to diagnose, treat, cure, or prevent any disease. Supplied strictly for laboratory and analytical
-                  research conducted by qualified professionals.
-                </p>
+              <div className="mt-4 grid grid-cols-2 gap-3">
+                <button
+                  type="button"
+                  onClick={addToCart}
+                  className="min-h-12 whitespace-nowrap rounded-md bg-[#4a2c1a] px-4 py-3 text-xs font-medium uppercase tracking-[0.14em] text-white transition-colors hover:bg-[#5d3a24]"
+                >
+                  Add to Cart
+                </button>
+                <button
+                  type="button"
+                  onClick={buyNow}
+                  className="min-h-12 whitespace-nowrap rounded-md border border-[#4a2c1a] bg-transparent px-4 py-3 text-xs font-medium uppercase tracking-[0.14em] text-[#4a2c1a] transition-colors hover:bg-[#4a2c1a] hover:text-white"
+                >
+                  Buy Now
+                </button>
+              </div>
+
+              {/* Accordion: Description / Package Contents / Storage Logic */}
+              <div className="mt-8 border-y border-line">
+                {SECTIONS.map((name, idx) => {
+                  const isOpen = open.includes(name)
+                  return (
+                    <div key={name} className={idx ? 'border-t border-line' : ''}>
+                      <h2>
+                        <button
+                          type="button"
+                          onClick={() => setOpen((o) => (isOpen ? o.filter((n) => n !== name) : [...o, name]))}
+                          aria-expanded={isOpen}
+                          className="flex w-full items-center justify-between py-5 text-left text-sm text-ink"
+                        >
+                          {name}
+                          <span aria-hidden className="text-lg font-light leading-none text-muted">{isOpen ? '−' : '+'}</span>
+                        </button>
+                      </h2>
+                      {isOpen && (
+                        <div className="pb-5 text-sm leading-relaxed text-ink">
+                          {name === 'Description' && <p className="text-muted">{product.longDesc}</p>}
+                          {name === 'Package Contents' && product.included && (
+                            <>
+                              <p className="text-xs text-muted">Each {product.name} research kit includes:</p>
+                              <ul className="mt-3 space-y-2">
+                                {product.included.map((item) => (
+                                  <li key={item} className="flex items-start gap-2">
+                                    <span aria-hidden className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-accent-dark" />
+                                    <span>{item}</span>
+                                  </li>
+                                ))}
+                              </ul>
+                            </>
+                          )}
+                          {name === 'Storage Logic' && (
+                            <ul className="space-y-2">
+                              <li className="flex items-start gap-2">
+                                <span aria-hidden className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-accent-dark" />
+                                <span>Store refrigerated (2–8°C). Do not freeze.</span>
+                              </li>
+                              <li className="flex items-start gap-2">
+                                <span aria-hidden className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-accent-dark" />
+                                <span>Supplied in fixed-volume sealed format for laboratory analysis.</span>
+                              </li>
+                            </ul>
+                          )}
+                        </div>
+                      )}
+                    </div>
+                  )
+                })}
               </div>
 
               {/* View Janoshik Analytical Report */}
@@ -241,88 +317,6 @@ export default function ProductDetail() {
                 </div>
               )}
 
-              {/* Tabs: Package Contents / Storage / Supply Chain */}
-              <div className="mt-8">
-                <div className="flex flex-wrap gap-1 rounded-full border border-line bg-section p-1">
-                  {TABS.map((t) => (
-                    <button
-                      key={t}
-                      type="button"
-                      onClick={() => setTab(t)}
-                      className={`flex-1 whitespace-nowrap rounded-full px-4 py-2 text-[0.7rem] uppercase tracking-[0.18em] transition-all ${
-                        tab === t ? 'bg-accent-dark text-bg' : 'text-muted hover:text-ink'
-                      }`}
-                    >
-                      {t}
-                    </button>
-                  ))}
-                </div>
-
-                <div className="mt-5 min-h-[7rem] text-sm text-ink">
-                  {tab === 'Package Contents' && product.included && (
-                    <>
-                      <p className="text-xs text-muted">Each {product.name} research kit includes:</p>
-                      <ul className="mt-3 space-y-2">
-                        {product.included.map((item) => (
-                          <li key={item} className="flex items-start gap-2 leading-relaxed">
-                            <span aria-hidden className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-accent-dark" />
-                            <span>{item}</span>
-                          </li>
-                        ))}
-                      </ul>
-                    </>
-                  )}
-                  {tab === 'Storage Logic' && (
-                    <ul className="space-y-2">
-                      <li className="flex items-start gap-2 leading-relaxed">
-                        <span aria-hidden className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-accent-dark" />
-                        <span>Store refrigerated (2–8°C). Do not freeze.</span>
-                      </li>
-                      <li className="flex items-start gap-2 leading-relaxed">
-                        <span aria-hidden className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-accent-dark" />
-                        <span>Supplied in fixed-volume sealed format for laboratory analysis.</span>
-                      </li>
-                    </ul>
-                  )}
-                </div>
-              </div>
-
-              <div className="mt-8 flex flex-wrap items-stretch gap-3">
-                <div className="flex shrink-0 items-center rounded-full border border-line">
-                  <button
-                    type="button"
-                    onClick={() => setQty((q) => Math.max(1, q - 1))}
-                    className="grid h-12 w-12 place-items-center text-ink hover:text-accent-dark"
-                    aria-label="Decrease quantity"
-                  >
-                    −
-                  </button>
-                  <span className="w-10 text-center text-sm">{qty}</span>
-                  <button
-                    type="button"
-                    onClick={() => setQty((q) => q + 1)}
-                    className="grid h-12 w-12 place-items-center text-ink hover:text-accent-dark"
-                    aria-label="Increase quantity"
-                  >
-                    +
-                  </button>
-                </div>
-                <button
-                  type="button"
-                  onClick={addToCart}
-                  className="min-h-12 flex-1 whitespace-nowrap rounded-full bg-accent-dark px-6 py-3 text-sm font-medium text-bg transition-all hover:bg-accent hover:shadow-[0_20px_40px_-20px_rgba(121,13,22,0.6)]"
-                >
-                  Add to Cart
-                </button>
-              </div>
-
-              {/* Required research-only disclaimer, immediately beside the purchase action */}
-              <p className="mt-4 rounded-2xl border border-line bg-section px-4 py-3 text-[0.7rem] leading-relaxed text-muted">
-                <span className="font-semibold uppercase tracking-[0.14em] text-ink">For research purposes only.</span>{' '}
-                Not intended for human or veterinary use. Not intended to diagnose, treat, cure, or prevent any disease.
-                Products are supplied strictly for laboratory and analytical research conducted by qualified professionals.
-              </p>
-
             </div>
           </div>
 
@@ -335,22 +329,9 @@ export default function ProductDetail() {
               </div>
               <Link to="/#products" className="text-sm text-accent-dark hover:text-accent">View all →</Link>
             </div>
-            <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-              {related.map((p) => (
-                <Link
-                  key={p.id}
-                  to={`/products/${p.slug}`}
-                  className="group relative flex flex-col overflow-hidden rounded-[var(--radius-xl2)] border border-line bg-card transition-all hover:-translate-y-1 hover:border-accent-dark/30"
-                >
-                  <div className="relative aspect-[5/4] overflow-hidden bg-section">
-                    <img src={p.image} alt={p.name} className="absolute inset-0 h-full w-full scale-[0.95] object-contain transition-transform duration-700 group-hover:scale-100" />
-                  </div>
-                  <div className="p-5">
-                    <p className="text-[0.6rem] uppercase tracking-[0.22em] text-muted">Compound</p>
-                    <h3 className="mt-2 font-display text-lg text-ink">{p.name}</h3>
-                    <p className="mt-2 text-sm text-accent-dark">{formatPrice(p.price, p.currency)}</p>
-                  </div>
-                </Link>
+            <div className="mt-10 grid grid-cols-2 gap-3 sm:gap-4 lg:grid-cols-4">
+              {related.map((p, i) => (
+                <ProductCard key={p.id} p={p} i={i} />
               ))}
             </div>
           </section>

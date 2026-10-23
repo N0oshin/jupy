@@ -11,7 +11,7 @@ const HEADLINE = [
 
 // Kept in sync with the <link rel="preload"> in index.html — the two must resolve
 // to the same file or the preload is wasted and fetched twice.
-const HERO_IMG = '/images/ecom/hero-nad-pen.webp'
+const HERO_IMG = '/images/ecom/hero-trio-pens.webp'
 
 export default function Hero() {
   const ref = useRef<HTMLElement>(null)
@@ -46,11 +46,11 @@ export default function Hero() {
           high priority. object-cover fills the whole viewport edge to edge. */}
       <motion.img
         src={HERO_IMG}
-        alt="Smiling woman in a powder-blue t-shirt holding an Alluvi NAD+ pen toward the camera"
+        alt="Three women in ivory dresses on a cream sofa, each holding an Alluvi peptide pen"
         fetchPriority="high"
         decoding="async"
         style={reduced ? undefined : { filter: imgFilter }}
-        className="absolute inset-0 h-full w-full object-cover object-[72%_50%] lg:object-[32%_50%] lg:[@media(min-aspect-ratio:1.7)]:object-[12%_50%]"
+        className="absolute inset-0 h-full w-full object-cover object-[62%_50%] lg:object-[100%_50%]"
       />
 
       {/* Light scrim for headline legibility: left-to-right on desktop, bottom-up on mobile */}
@@ -63,7 +63,7 @@ export default function Hero() {
       
         {/* Headline block — left on desktop, bottom on mobile */}
         <div className="mt-auto lg:my-auto lg:max-w-[44rem]">
-          <h1 className="font-display text-[clamp(1.6rem,0.8rem+3vw,3rem)] font-light leading-[1.15] text-ink">
+          <h1 className="font-bodoni text-[clamp(1.6rem,0.8rem+3vw,3rem)] font-light leading-[1.15] text-ink">
             {HEADLINE.map((line) => (
               <span key={line.join(' ')} className="block whitespace-nowrap">
                 {line.map((w) => (

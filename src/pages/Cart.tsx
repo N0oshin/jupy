@@ -33,7 +33,7 @@ export default function Cart() {
   return (
     <>
       <Navbar />
-      <main id="main-content" className="relative z-10 bg-bg pt-28 lg:pt-32">
+      <main id="main-content" className="relative z-10 bg-[#fdfcf8] pt-28 lg:pt-32">
         <div className="container-x pb-16">
           <div className="flex items-end justify-between border-b border-line pb-8">
             <div>

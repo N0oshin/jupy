@@ -56,7 +56,7 @@ export default function AuthLayout({ eyebrow, title, subtitle, children }: AuthL
   }, [])
 
   return (
-    <main id="main-content" className="relative z-10 min-h-screen bg-bg lg:grid lg:grid-cols-[1.05fr_1fr]">
+    <main id="main-content" className="relative z-10 min-h-screen bg-[#fdfcf8] lg:grid lg:grid-cols-[1.05fr_1fr]">
       {/* ───── Brand panel (desktop) ───── */}
       <aside className="relative hidden overflow-hidden bg-accent-dark text-bg lg:flex lg:flex-col lg:justify-between lg:p-12 xl:p-16">
         <img

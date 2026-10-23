@@ -72,7 +72,7 @@ export default function Science() {
   )
 
   return (
-    <section id="science" ref={ref} className="relative bg-blue text-ink">
+    <section id="science" ref={ref} className="relative bg-section text-ink">
       <div className="science-pin relative flex min-h-[100svh] flex-col justify-center overflow-hidden">
         {/* atmosphere */}
         <div className="absolute inset-0 grain opacity-15" />
@@ -82,8 +82,11 @@ export default function Science() {
         <div className="container-x relative flex w-full flex-col py-16 lg:py-20">
           {/* header row */}
           <div className="flex items-center justify-between gap-4 border-b border-ink/10 pb-6">
-            <p className="eyebrow">Science Behind Every Formula</p>
-            <span className="font-display text-sm tracking-[0.25em] text-ink/55">
+            <div className="flex items-center gap-3">
+              <span className="h-px w-10 bg-accent-dark" />
+              <p className="eyebrow !text-[0.8rem]">Science Behind Every Formula</p>
+            </div>
+            <span className="font-display text-xs tracking-[0.25em] text-ink/55">
               0{active + 1}
               <span className="text-ink/25"> / 0{total}</span>
             </span>
@@ -94,11 +97,11 @@ export default function Science() {
             {/* text scenes */}
             <div className="relative order-2 lg:order-1">
               {/* watermark step number */}
-              <div className="pointer-events-none mb-4 font-display text-[clamp(3.5rem,8vw,7rem)] font-extralight leading-none text-gold/70">
+              <div className="pointer-events-none mb-3 font-display text-[clamp(2.5rem,1.5rem+4vw,4.5rem)] font-light leading-none tracking-[-0.015em] text-muted/70">
                 0{active + 1}
               </div>
 
-              <div className="relative min-h-[14rem] sm:min-h-[13rem]">
+              <div className="relative min-h-[11rem] sm:min-h-[10rem]">
                 {STEPS.map((s, i) => (
                   <div
                     key={s.k}
@@ -110,8 +113,8 @@ export default function Science() {
                       pointerEvents: active === i ? 'auto' : 'none',
                     }}
                   >
-                    <h3 className="font-display text-[clamp(1.9rem,3.4vw,2.75rem)] font-medium leading-[1.15]">{s.t}</h3>
-                    <p className="mt-5 max-w-md text-xl leading-[1.5] text-ink/70">{s.d}</p>
+                    <h3 className="font-display text-[clamp(1.35rem,0.9rem+1.7vw,2.1rem)] font-medium leading-[1.08] tracking-[-0.015em] text-ink">{s.t}</h3>
+                    <p className="mt-3 max-w-md text-[0.9rem] leading-[1.55] text-ink/70">{s.d}</p>
                   </div>
                 ))}
               </div>
@@ -128,7 +131,7 @@ export default function Science() {
                       />
                     </div>
                     <span
-                      className={`mt-3 block text-sm tracking-wide transition-colors duration-500 ${
+                      className={`mt-3 block text-[0.62rem] uppercase tracking-[0.25em] transition-colors duration-500 ${
                         active === i ? 'text-ink' : 'text-ink/40'
                       }`}
                     >
@@ -161,12 +164,12 @@ export default function Science() {
                 ))}
 
                 {/* step chip */}
-                <div className="absolute right-5 top-5 rounded-full border border-bg/25 bg-ink/40 px-4 text-bg py-1.5 text-xs uppercase tracking-[0.22em] backdrop-blur-md">
+                <div className="absolute right-5 top-5 rounded-full border border-bg/25 bg-ink/40 px-3 py-1 text-[0.62rem] uppercase tracking-[0.22em] text-bg backdrop-blur-md">
                   {STEPS[active].k}
                 </div>
 
                 {/* COA badge */}
-                <div className="glass absolute bottom-5 right-5 inline-flex items-center gap-2 rounded-full px-5 py-2.5 text-sm text-ink">
+                <div className="glass absolute bottom-5 right-5 inline-flex items-center gap-2 rounded-full px-4 py-2 text-xs text-ink">
                   <span className="h-2 w-2 rounded-full bg-accent-dark" />
                   Batch-tested · COA available
                 </div>

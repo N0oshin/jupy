@@ -17,8 +17,52 @@ function statusIndex(status: string): number {
   return i === -1 ? 0 : i
 }
 
+/** Sample payload for the dev-only /track/DEMO preview. */
+const DEMO_ORDER = {
+  order: {
+    id: 0,
+    order_number: 'ORD-DEMO-0001',
+    user_id: null,
+    customer_email: 'jane.doe@example.com',
+    customer_name: 'Jane Doe',
+    customer_phone: '+1 555 010 0199',
+    shipping_address: '123 Research Way',
+    shipping_city: 'Austin',
+    shipping_state: 'TX',
+    shipping_zip: '78701',
+    shipping_country: 'United States',
+    tracking_number: '9400 1000 0000 0000 0000 00',
+    currency: 'USD',
+    subtotal: '180.00',
+    shipping: '0.00',
+    total: '162.00',
+    status: 'processing',
+    payment_status: 'paid',
+    payment_method: 'Card',
+    promo_code: 'WELCOME10',
+    promo_discount: '10',
+    discount_amount: '18.00',
+    bank_account_used: null,
+    created_at: new Date().toISOString(),
+    updated_at: null,
+    total_before_discount: '180.00',
+    total_after_discount: '162.00',
+    promo_discount_percent: '10',
+    promo_valid: 1,
+    items_text: null,
+    credits_applied: null,
+    total_before_credits: null,
+    credits_reserved: null,
+  },
+  items: [
+    { id: 1, order_id: 0, product_id: 1, name: 'Tirzepatide 40mg Pen', sku: 'TZP-40', quantity: 1, unit_price: '120.00', line_total: '120.00' },
+    { id: 2, order_id: 0, product_id: 2, name: 'Tesamorelin 10mg Pen', sku: 'TSM-10', quantity: 1, unit_price: '60.00', line_total: '60.00' },
+  ],
+  payments: [],
+} as unknown as OrderDetailResponse
+
 const inputCls =
-  'w-full rounded-2xl border border-line bg-bg px-4 py-3 text-sm text-ink placeholder:text-muted/60 transition-colors focus:border-accent-dark focus:outline-none'
+  'w-full rounded-2xl border border-line bg-bg px-4 py-3 text-sm text-ink placeholder:text-muted/60 transition-colors focus:border-ink focus:outline-none'
 
 export default function OrderTracking() {
   const { orderNumber: paramOrder } = useParams<{ orderNumber: string }>()
@@ -43,6 +87,12 @@ export default function OrderTracking() {
     setData(null)
     setSearched(true)
     try {
+      // Dev-only preview: /track/DEMO shows a sample order without calling the API.
+      // Stripped from production builds (import.meta.env.DEV is false there).
+      if (import.meta.env.DEV && code.toUpperCase() === 'DEMO') {
+        setData(DEMO_ORDER)
+        return
+      }
       const res = await orderService.getByNumber(code)
       setData(res)
     } catch (err) {
@@ -79,11 +129,11 @@ export default function OrderTracking() {
   return (
     <>
       <Navbar />
-      <main id="main-content" className="relative z-10 bg-bg pt-28 lg:pt-32">
+      <main id="main-content" className="relative z-10 bg-[#fdfcf8] pt-28 lg:pt-32">
         <div className="container-x pb-16">
           {/* Header */}
           <div className="border-b border-line pb-8">
-            <p className="text-[0.65rem] uppercase tracking-[0.28em] text-accent-dark">Order Tracking</p>
+            <p className="text-[0.65rem] uppercase tracking-[0.28em] text-ink">Order Tracking</p>
             <h1 className="mt-2 font-display text-4xl tracking-[-0.02em] text-ink lg:text-5xl">Track your order</h1>
             <p className="mt-3 max-w-xl text-sm text-muted">
               Enter the order number from your confirmation email (e.g. <span className="text-ink">ORD-…</span>) to see its
@@ -104,7 +154,7 @@ export default function OrderTracking() {
             <button
               type="submit"
               disabled={loading}
-              className="shrink-0 rounded-full bg-accent-dark px-7 py-3 text-sm font-medium text-bg transition-all hover:bg-accent disabled:opacity-70"
+              className="shrink-0 rounded-full bg-ink px-7 py-3 text-sm font-medium text-bg transition-all hover:bg-ink/80 disabled:opacity-70"
             >
               {loading ? 'Searching…' : 'Track order'}
             </button>
@@ -117,7 +167,7 @@ export default function OrderTracking() {
 
           {loading && (
             <div className="mt-10 flex items-center gap-3 text-sm text-muted" role="status" aria-live="polite">
-              <span className="h-5 w-5 animate-spin rounded-full border-2 border-line border-t-accent-dark" />
+              <span className="h-5 w-5 animate-spin rounded-full border-2 border-line border-t-ink" />
               Looking up your order…
             </div>
           )}
@@ -128,7 +178,7 @@ export default function OrderTracking() {
               {/* Left: status + items */}
               <div className="flex flex-col gap-10">
                 {/* Status timeline */}
-                <section className="rounded-[var(--radius-xl2)] border border-line bg-section p-7">
+                <section className="rounded-[var(--radius-xl2)] border border-line p-7">
                   <div className="flex flex-wrap items-center justify-between gap-3">
                     <div>
                       <p className="text-[0.6rem] uppercase tracking-[0.22em] text-muted">Order</p>
@@ -139,8 +189,8 @@ export default function OrderTracking() {
                         cancelled
                           ? 'bg-red-100 text-red-700'
                           : idx >= 2
-                            ? 'bg-accent-dark text-bg'
-                            : 'bg-bg text-accent-dark'
+                            ? 'bg-ink text-bg'
+                            : 'bg-bg text-ink'
                       }`}
                     >
                       {order.status}
@@ -154,7 +204,7 @@ export default function OrderTracking() {
                       {TIMELINE.map((step, i) => (
                         <li key={step}>
                           <div className="h-[3px] w-full overflow-hidden rounded-full bg-line">
-                            <div className={`h-full rounded-full bg-accent-dark transition-[width] duration-700 ${i <= idx ? 'w-full' : 'w-0'}`} />
+                            <div className={`h-full rounded-full bg-ink transition-[width] duration-700 ${i <= idx ? 'w-full' : 'w-0'}`} />
                           </div>
                           <span className={`mt-3 block text-xs capitalize tracking-wide ${i <= idx ? 'text-ink' : 'text-muted'}`}>
                             {step}
@@ -194,7 +244,7 @@ export default function OrderTracking() {
 
               {/* Right: summary + customer + address */}
               <aside className="flex h-fit flex-col gap-6 lg:sticky lg:top-28">
-                <section className="rounded-[var(--radius-xl2)] border border-line bg-section p-7">
+                <section className="rounded-[var(--radius-xl2)] border border-line bg-card p-7">
                   <h2 className="font-display text-xl text-ink">Summary</h2>
                   <dl className="mt-6 space-y-3 text-sm">
                     <Row label="Subtotal" value={formatApiMoney(order.subtotal, order.currency)} />
@@ -220,7 +270,7 @@ export default function OrderTracking() {
                   </div>
                 </section>
 
-                <section className="rounded-[var(--radius-xl2)] border border-line bg-card p-7">
+                <section className="rounded-[var(--radius-xl2)] border border-line p-7">
                   <h2 className="font-display text-sm uppercase tracking-[0.2em] text-ink">Address</h2>
                   <address className="mt-4 space-y-1 text-sm not-italic text-muted">
                     {order.shipping_address && <p>{order.shipping_address}</p>}
@@ -260,7 +310,7 @@ function Row({ label, value, strong, accent }: { label: string; value: string; s
   return (
     <div className={`flex justify-between ${strong ? 'font-display text-lg' : ''}`}>
       <dt className="text-muted">{label}</dt>
-      <dd className={accent ? 'text-accent-dark' : 'text-ink'}>{value}</dd>
+      <dd className="text-ink">{value}</dd>
     </div>
   )
 }
