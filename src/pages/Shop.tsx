@@ -26,7 +26,7 @@ export default function Shop() {
   return (
     <>
       <Navbar />
-      <main id="main-content" className="relative z-10 bg-bg pt-28 lg:pt-32">
+      <main id="main-content" className="relative z-10 bg-[#fffdf8] pt-28 lg:pt-32">
         <div className="container-x pb-10">
           <Heading
             as="h1"
@@ -91,8 +91,8 @@ export default function Shop() {
                 <span className="grid h-16 w-16 place-items-center rounded-full bg-[#efe6dc] text-[#4a2c1a]">
                   <StandardIcon index={i} />
                 </span>
-                <h3 className="mt-6 font-sans text-[0.68rem] font-normal uppercase tracking-[0.22em] text-ink">{b.t}</h3>
-                <p className="mt-3 text-[0.82rem] font-light leading-[1.65] text-muted">{b.d}</p>
+                <h3 className="mt-6 font-sans text-sm font-normal uppercase tracking-[0.22em] text-ink">{b.t}</h3>
+                <p className="mt-3 text-sm font-light leading-[1.65] text-muted">{b.d}</p>
               </div>
             ))}
           </div>

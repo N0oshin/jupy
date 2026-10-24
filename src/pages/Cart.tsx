@@ -1,10 +1,25 @@
-import { useEffect } from 'react'
+import { useEffect, type ReactNode } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import Navbar from '../components/Navbar'
 import Footer from '../components/sections/Footer'
 import { PRODUCTS } from '../lib/content'
 import { useCart, formatPrice } from '../lib/CartContext'
 import { useSeo } from '../lib/useSeo'
+
+const BROWN = 'text-[#3b1f14]'
+
+function CircleBtn({ label, onClick, children }: { label: string; onClick: () => void; children: ReactNode }) {
+  return (
+    <button
+      type="button"
+      onClick={onClick}
+      aria-label={label}
+      className="grid h-6 w-6 place-items-center rounded-full border border-[#3b1f14]/40 text-[0.8125rem] leading-none text-[#3b1f14] transition-colors hover:border-[#3b1f14] hover:bg-[#3b1f14] hover:text-bg"
+    >
+      {children}
+    </button>
+  )
+}
 
 export default function Cart() {
   const { items, subtotal, setQty, remove, clear } = useCart()
@@ -23,8 +38,7 @@ export default function Cart() {
     })
     .filter(Boolean) as { id: string; qty: number; product: (typeof PRODUCTS)[number] }[]
 
-  const shipping = lineItems.length ? 0 : 0
-  const total = subtotal + shipping
+  const total = subtotal
 
   function checkout() {
     navigate('/checkout')
@@ -35,140 +49,146 @@ export default function Cart() {
       <Navbar />
       <main id="main-content" className="relative z-10 bg-[#fdfcf8] pt-28 lg:pt-32">
         <div className="container-x pb-16">
-          <div className="flex items-end justify-between border-b border-line pb-8">
-            <div>
-              <p className="text-[0.65rem] uppercase tracking-[0.28em] text-accent-dark">Your Cart</p>
-              <h1 className="mt-2 font-display text-4xl tracking-[-0.02em] text-ink lg:text-5xl">
-                {lineItems.length ? `${lineItems.length} ${lineItems.length === 1 ? 'item' : 'items'}` : 'Cart is empty'}
-              </h1>
-            </div>
-            <Link to="/#products" className="hidden text-sm text-accent-dark hover:text-accent md:inline-block">
-              ← Back to Shop
-            </Link>
-          </div>
+          <Link
+            to="/#products"
+            className={`inline-flex items-center gap-1.5 text-[0.65rem] uppercase tracking-[0.22em] ${BROWN} hover:text-[#5a3220]`}
+          >
+            <span aria-hidden>‹</span> Back to store
+          </Link>
 
           {lineItems.length === 0 ? (
-            <div className="mt-12 flex flex-col items-center justify-center rounded-[var(--radius-xl2)] border border-line bg-section py-14 text-center">
-              <div className="grid h-16 w-16 place-items-center rounded-full bg-bg text-accent-dark">
-                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6">
-                  <path d="M3 3h2l2.4 12.2a2 2 0 0 0 2 1.6h8.2a2 2 0 0 0 2-1.5L21 8H6" />
-                  <circle cx="9" cy="20" r="1.5" />
-                  <circle cx="18" cy="20" r="1.5" />
-                </svg>
+            <>
+              <h1 className="mt-4 font-display text-4xl tracking-[-0.02em] text-ink lg:text-5xl">Shopping cart</h1>
+              <div className="mt-10 flex flex-col items-center justify-center rounded-[var(--radius-xl2)] bg-bg py-14 text-center">
+                <div className="grid h-16 w-16 place-items-center rounded-full bg-[#fdfcf8] text-accent-dark">
+                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6">
+                    <path d="M3 3h2l2.4 12.2a2 2 0 0 0 2 1.6h8.2a2 2 0 0 0 2-1.5L21 8H6" />
+                    <circle cx="9" cy="20" r="1.5" />
+                    <circle cx="18" cy="20" r="1.5" />
+                  </svg>
+                </div>
+                <p className="mt-5 font-display text-xl text-ink">No research products yet</p>
+                <p className="mt-2 text-[0.8125rem] text-muted">Explore our catalogue and add a compound to get started.</p>
+                <Link
+                  to="/#products"
+                  className="mt-8 rounded-full bg-[#3b1f14] px-6 py-3 text-[0.8125rem] text-bg transition-colors hover:bg-[#5a3220]"
+                >
+                  Continue shopping
+                </Link>
               </div>
-              <p className="mt-5 font-display text-xl text-ink">No research products yet</p>
-              <p className="mt-2 text-sm text-muted">Explore our catalogue and add a compound to get started.</p>
-              <Link to="/#products" className="mt-8 rounded-full bg-accent-dark px-6 py-3 text-sm text-bg transition-colors hover:bg-accent">
-                Continue shopping
-              </Link>
-            </div>
+            </>
           ) : (
-            <div className="mt-12 grid gap-10 lg:grid-cols-[1.4fr_1fr] lg:gap-14">
-              {/* Line items */}
-              <ul className="flex flex-col gap-4">
-                {lineItems.map(({ product, qty }) => (
-                  <li
-                    key={product.id}
-                    className="flex flex-col gap-4 rounded-[var(--radius-xl2)] border border-line bg-card p-5 sm:flex-row sm:items-center"
-                  >
-                    <Link
-                      to={`/products/${product.slug}`}
-                      className="relative h-28 w-28 shrink-0 overflow-hidden rounded-2xl bg-section"
+            <div className="mt-4 grid gap-10 lg:grid-cols-[1fr_22rem] lg:gap-0 lg:overflow-hidden lg:rounded-[var(--radius-xl2)]">
+              {/* Items */}
+              <section className="lg:pr-12">
+                <div className="flex items-end justify-between">
+                  <h1 className="font-display text-4xl tracking-[-0.02em] text-ink lg:text-5xl">Shopping cart</h1>
+                  <p className="pb-2 text-[0.65rem] uppercase tracking-[0.22em] text-muted">
+                    {lineItems.length} {lineItems.length === 1 ? 'item' : 'items'}
+                  </p>
+                </div>
+
+                <div className="mt-10 hidden grid-cols-[1fr_7rem_6rem_2rem] gap-4 text-[0.65rem] tracking-[0.12em] text-muted sm:grid">
+                  <span>Item</span>
+                  <span>Quantity</span>
+                  <span>Price</span>
+                  <span />
+                </div>
+
+                <ul className="mt-4 flex flex-col">
+                  {lineItems.map(({ product, qty }) => (
+                    <li
+                      key={product.id}
+                      className="grid grid-cols-[auto_1fr_auto] items-center gap-x-4 gap-y-3 py-5 sm:grid-cols-[1fr_7rem_6rem_2rem]"
                     >
-                      <img src={product.image} alt={product.name} className="absolute inset-0 h-full w-full object-contain p-3" />
-                    </Link>
-
-                    <div className="flex flex-1 flex-col gap-2 sm:flex-row sm:items-center sm:justify-between sm:gap-6">
-                      <div>
-                        <p className="text-[0.6rem] uppercase tracking-[0.22em] text-muted">{product.category}</p>
-                        <Link to={`/products/${product.slug}`} className="mt-1 block font-display text-lg text-ink hover:text-accent-dark">
-                          {product.name}
-                        </Link>
-                        <p className="mt-1 text-xs text-muted">{product.stat}</p>
-                      </div>
-
-                      <div className="flex flex-wrap items-center gap-x-5 gap-y-3">
-                        <div className="flex items-center rounded-full border border-line">
-                          <button
-                            type="button"
-                            onClick={() => setQty(product.id, qty - 1)}
-                            className="grid h-10 w-10 place-items-center text-ink hover:text-accent-dark"
-                            aria-label="Decrease quantity"
-                          >
-                            −
-                          </button>
-                          <span className="w-8 text-center text-sm">{qty}</span>
-                          <button
-                            type="button"
-                            onClick={() => setQty(product.id, qty + 1)}
-                            className="grid h-10 w-10 place-items-center text-ink hover:text-accent-dark"
-                            aria-label="Increase quantity"
-                          >
-                            +
-                          </button>
-                        </div>
-                        <p className="w-20 text-right font-display text-base text-ink">
-                          {formatPrice(product.price * qty, product.currency)}
-                        </p>
-                        <button
-                          type="button"
-                          onClick={() => remove(product.id)}
-                          className="text-xs uppercase tracking-[0.2em] text-muted hover:text-accent-dark"
-                          aria-label={`Remove ${product.name}`}
+                      <div className="col-span-2 flex items-center gap-5 sm:col-span-1 sm:col-start-1 sm:row-start-1">
+                        <Link
+                          to={`/products/${product.slug}`}
+                          className="relative h-20 w-14 shrink-0 overflow-hidden"
                         >
-                          Remove
-                        </button>
+                          <img src={product.image} alt={product.name} className="absolute inset-0 h-full w-full object-contain" />
+                        </Link>
+                        <div>
+                          <Link
+                            to={`/products/${product.slug}`}
+                            className="block font-display text-lg text-ink transition-colors hover:text-[#3b1f14]"
+                          >
+                            {product.name}
+                          </Link>
+                          <p className="mt-1 text-[0.6rem] uppercase tracking-[0.22em] text-muted">{product.category}</p>
+                        </div>
                       </div>
-                    </div>
-                  </li>
-                ))}
 
-                <div className="mt-2 flex justify-end">
+                      <button
+                        type="button"
+                        onClick={() => remove(product.id)}
+                        aria-label={`Remove ${product.name}`}
+                        className={`col-start-3 row-start-1 justify-self-end text-2xl leading-none ${BROWN} transition-colors hover:text-accent sm:col-start-4`}
+                      >
+                        ×
+                      </button>
+
+                      <div className="col-span-2 flex items-center gap-2.5 sm:col-span-1 sm:col-start-2 sm:row-start-1">
+                        <CircleBtn label="Decrease quantity" onClick={() => setQty(product.id, qty - 1)}>
+                          −
+                        </CircleBtn>
+                        <span className="w-4 text-center text-[0.8125rem] text-ink">{qty}</span>
+                        <CircleBtn label="Increase quantity" onClick={() => setQty(product.id, qty + 1)}>
+                          +
+                        </CircleBtn>
+                      </div>
+
+                      <p className="text-[0.8125rem] text-ink sm:col-start-3 sm:row-start-1">{formatPrice(product.price * qty, product.currency)}</p>
+                    </li>
+                  ))}
+                </ul>
+
+                <div className="mt-4 flex items-center justify-between border-t border-line pt-5">
+                  <p className="text-[0.7rem] text-muted">For laboratory research use only.</p>
                   <button
                     type="button"
                     onClick={clear}
-                    className="text-xs uppercase tracking-[0.2em] text-muted hover:text-accent-dark"
+                    className={`text-[0.65rem] uppercase tracking-[0.2em] ${BROWN} transition-colors hover:text-accent`}
                   >
                     Clear cart
                   </button>
                 </div>
-              </ul>
+              </section>
 
               {/* Summary */}
-              <aside className="h-fit rounded-[var(--radius-xl2)] border border-line bg-section p-7 lg:sticky lg:top-28">
-                <h2 className="font-display text-xl text-ink">Order summary</h2>
+              <aside className="flex flex-col rounded-[var(--radius-xl2)] bg-bg p-8 lg:rounded-none">
+                <h2 className="font-display text-xl text-ink">Summary</h2>
 
-                <dl className="mt-6 space-y-3 text-sm">
+                <dl className="mt-8 space-y-3 text-[0.8125rem]">
                   <div className="flex justify-between">
                     <dt className="text-muted">Subtotal</dt>
                     <dd className="text-ink">{formatPrice(subtotal)}</dd>
                   </div>
-                  <div className="my-4 h-px bg-line" />
-                  <div className="flex justify-between font-display text-lg">
-                    <dt className="text-ink">Total</dt>
-                    <dd className="text-ink">{formatPrice(total)}</dd>
-                  </div>
                 </dl>
 
-                <button
-                  type="button"
-                  onClick={checkout}
-                  className="mt-7 w-full rounded-full bg-accent-dark py-3.5 text-sm font-medium text-bg transition-all hover:bg-accent hover:shadow-[0_20px_40px_-20px_rgba(121,13,22,0.6)]"
-                >
-                  Checkout
-                </button>
-                <Link to="/#products" className="mt-4 block text-center text-sm text-accent-dark hover:text-accent">
-                  Continue shopping
-                </Link>
+                <div className="mt-auto pt-24">
+                  <div className="flex items-baseline justify-between">
+                    <span className="text-[0.8125rem] text-ink">Total</span>
+                    <span className="font-display text-xl text-ink">{formatPrice(total)}</span>
+                  </div>
 
-                <div className="mt-7 border-t border-line pt-5 text-[0.7rem] leading-relaxed text-muted">
-                  <p>
-                    By proceeding to checkout, you acknowledge that these products are intended solely for laboratory research
-                    purposes and are not intended for human or veterinary use.
-                  </p>
-                  <p className="mt-2">
-                    These products are not intended to diagnose, treat, cure, or prevent any disease.
-                  </p>
+                  <button
+                    type="button"
+                    onClick={checkout}
+                    className="mt-6 w-full bg-[#3b1f14] py-4 text-[0.65rem] font-medium uppercase tracking-[0.25em] text-bg transition-colors hover:bg-[#5a3220]"
+                  >
+                    Checkout
+                  </button>
+
+                  <div className="mt-6 text-[0.7rem] leading-relaxed text-muted">
+                    <p>
+                      By proceeding to checkout, you acknowledge that these products are intended solely for laboratory
+                      research purposes and are not intended for human or veterinary use.
+                    </p>
+                    <p className="mt-2">
+                      These products are not intended to diagnose, treat, cure, or prevent any disease.
+                    </p>
+                  </div>
                 </div>
               </aside>
             </div>

@@ -36,7 +36,7 @@ export default function Testimonials() {
     <section
       id="testimonials"
       aria-label="Testimonials"
-      className="relative overflow-hidden bg-[#fdfcf8] py-10 lg:py-14"
+      className="relative overflow-hidden bg-[#fdfcf8] py-20 md:py-24 lg:py-28"
       onMouseEnter={() => setPaused(true)}
       onMouseLeave={() => setPaused(false)}
       onFocus={() => setPaused(true)}
@@ -48,7 +48,7 @@ export default function Testimonials() {
         {/* Photo. A still, uneven amoeba outline; the mask then fades the
             text-side and bottom edges into the page so it sits on the
             section rather than in a frame. */}
-        <div className="relative mx-auto w-[16rem] md:mx-0 md:-mr-10 md:w-[20rem] lg:-mr-12">
+        <div className="relative mx-auto w-[12rem] md:mx-0 md:-mr-6 md:w-[15rem] lg:-mr-8">
           <div
             className="relative aspect-[4/5] overflow-hidden border-0 outline-none ring-0"
             style={{
