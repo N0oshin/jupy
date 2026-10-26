@@ -1,7 +1,7 @@
 import { Link, useLocation, useNavigate } from 'react-router-dom'
 import type { ReactNode } from 'react'
 import Magnetic from './Magnetic'
-import { scrollToHash } from '../SmoothScroll'
+import { scrollToHash } from '../../lib/scrollToHash'
 
 type Variant = 'solid' | 'outline' | 'solid-light' | 'outline-light'
 

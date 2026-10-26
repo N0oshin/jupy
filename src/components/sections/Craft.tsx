@@ -133,7 +133,7 @@ export default function Craft() {
   const ref = (n: number) => (el: HTMLDivElement | null) => { cards.current[n] = el }
 
   return (
-    <section id="craft" className="relative overflow-x-clip bg-[#fdfcf8] py-16 lg:py-28">
+    <section id="craft" className="relative overflow-x-clip bg-bg py-16 lg:py-28">
       <div className="container-x">
         <Heading
           align="center"

@@ -3,7 +3,8 @@ import { Link, useNavigate } from 'react-router-dom'
 import Navbar from '../components/Navbar'
 import Footer from '../components/sections/Footer'
 import { PRODUCTS } from '../lib/content'
-import { useCart, formatPrice } from '../lib/CartContext'
+import { useCart } from '../lib/useCart'
+import { formatPrice } from '../lib/format'
 import { useSeo } from '../lib/useSeo'
 
 const BROWN = 'text-[#3b1f14]'
@@ -47,7 +48,7 @@ export default function Cart() {
   return (
     <>
       <Navbar />
-      <main id="main-content" className="relative z-10 bg-[#fdfcf8] pt-28 lg:pt-32">
+      <main id="main-content" className="relative z-10 bg-bg pt-28 lg:pt-32">
         <div className="container-x pb-16">
           <Link
             to="/#products"

@@ -1,4 +1,5 @@
-import { createContext, useCallback, useContext, useEffect, useMemo, useState, type ReactNode } from 'react'
+import { useCallback, useEffect, useMemo, useState, type ReactNode } from 'react'
+import { AuthContext, type AuthContextValue, type AuthStatus } from './auth-context'
 import type { AuthResponse, LoginRequest, RegisterRequest, User } from '../types/api'
 import { getToken, setToken as persistToken, clearToken, UNAUTHORIZED_EVENT } from './authToken'
 
@@ -12,24 +13,11 @@ import { getToken, setToken as persistToken, clearToken, UNAUTHORIZED_EVENT } fr
  */
 const loadAuthService = () => import('../services/auth.service').then((m) => m.authService)
 
-type AuthStatus = 'loading' | 'authenticated' | 'guest'
-
-interface AuthContextValue {
-  user: User | null
-  status: AuthStatus
-  isAuthenticated: boolean
-  login: (creds: LoginRequest) => Promise<User>
-  register: (body: RegisterRequest) => Promise<User>
-  logout: () => void
-  /** Re-hydrate from /api/auth/verify (used on mount + manual refresh). */
-  refresh: () => Promise<void>
-}
-
-const AuthContext = createContext<AuthContextValue | null>(null)
-
 export function AuthProvider({ children }: { children: ReactNode }) {
   const [user, setUser] = useState<User | null>(null)
-  const [status, setStatus] = useState<AuthStatus>('loading')
+  // No token means there is nothing to verify, so start as a guest instead of
+  // flipping from 'loading' inside an effect.
+  const [status, setStatus] = useState<AuthStatus>(() => (getToken() ? 'loading' : 'guest'))
 
   const applyAuth = useCallback((res: AuthResponse) => {
     persistToken(res.token)
@@ -62,10 +50,29 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     }
   }, [])
 
-  // Session restore on load.
+  // Session restore on load (only when there is a token to check). State is
+  // only touched from the promise callbacks, never synchronously in the effect.
   useEffect(() => {
-    void refresh()
-  }, [refresh])
+    if (!getToken()) return
+    let cancelled = false
+    loadAuthService()
+      .then((svc) => svc.verify())
+      .then(({ user }) => {
+        if (cancelled) return
+        setUser(user)
+        setStatus('authenticated')
+      })
+      .catch(() => {
+        if (cancelled) return
+        // Invalid/expired token — verify already triggered a 401 clear.
+        clearToken()
+        setUser(null)
+        setStatus('guest')
+      })
+    return () => {
+      cancelled = true
+    }
+  }, [])
 
   // React to a 401 from anywhere in the app (interceptor emits this).
   useEffect(() => {
@@ -92,10 +99,4 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   )
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>
-}
-
-export function useAuth(): AuthContextValue {
-  const ctx = useContext(AuthContext)
-  if (!ctx) throw new Error('useAuth must be used within <AuthProvider>')
-  return ctx
 }

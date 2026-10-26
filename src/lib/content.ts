@@ -12,81 +12,6 @@
 
 export const PRODUCTS = [
   {
-    id: 'bpc-157',
-    slug: 'bpc-157-tb-500',
-    name: 'BPC-157 & TB-500',
-    seo: {
-      title: 'BPC-157 & TB-500 Peptide | Complex Jupyter Labs',
-      description:
-        'Jupyter Labs provides BPC-157 & TB-500 40mg for muscle and connective tissue research, including bone repair, and body tissue repair studies.',
-      h1: 'best way to repair torn muscles',
-    },
-    tagline: 'Peptide Blend · Reference Standard',
-    category: 'Peptide Complex',
-    desc: 'A synthetic research-peptide blend supplied as a laboratory reference material for in-vitro and pre-clinical study.',
-    longDesc:
-      'A research blend of BPC-157 (a synthetic pentadecapeptide) and TB-500 (a fragment of Thymosin Beta-4, an actin-binding peptide). Supplied pre-filled into an Alluvi research device (4 × 10mg) as a characterized reference material for laboratory analysis, method development and in-vitro study. Supplied strictly for laboratory research use — not for human or veterinary use.',
-    price: 130,
-    currency: 'USD',
-    accent: '#790D16',
-    tint: '#E6F1EF',
-    image: '/images/products/bpc-front.webp',
-    gallery: [
-      '/images/products/bpc-front.webp',
-      '/images/products/bpc-open.webp',
-      '/images/products/bpc-pen.webp',
-      '/images/products/bpc-uv.webp',
-    ],
-    stat: '99.2% HPLC purity',
-    specs: [
-      { k: 'Purity', v: '99.21%+ HPLC verified' },
-      { k: 'Testing', v: 'Janoshik independent COA' },
-      { k: 'Format', v: 'Pre-filled research device · 4 × 10mg' },
-      { k: 'Storage', v: '2–8°C · Do not freeze' },
-      { k: 'Shelf life', v: '24–36 months sealed' },
-    ],
-    mechanism:
-      'BPC-157 is studied in the literature in relation to angiogenic signalling markers (VEGF) and nitric-oxide pathways, while TB-500 is characterized for actin sequestration and cell-migration assays. Supplied as a reference material for in-vitro investigation of these pathways; no human or veterinary application is implied or intended.',
-    benefits: [
-      'Angiogenesis pathway assay reference',
-      'Actin-binding / cell-migration in-vitro studies',
-      'Peptide-stability and degradation research',
-      'HPLC method-development reference standard',
-      'Comparative purity and identity analysis',
-      'Formulation and reconstitution research',
-    ],
-    applications: [
-      'Pre-clinical in-vitro assay reference material',
-      'In-vitro angiogenesis and migration assays',
-      'Comparative peptide-stability research',
-      'Reference standard for HPLC method development',
-    ],
-    included: [
-      'Pre-filled research device · 40mg total (4 × 10mg)',
-      'Batch-specific Janoshik Certificate of Analysis',
-      'Material Safety Data Sheet (MSDS)',
-      'Reconstitution & storage guidelines',
-      'Research information sheet',
-    ],
-    coa: {
-      image: '/images/certificates/alluvi-bpc-tb500-coa.png',
-      sampleImages: [
-        '/images/certificates/alluvi-bpc-tb500-sample-1.jpg',
-        '/images/certificates/alluvi-bpc-tb500-sample-2.jpg',
-      ],
-      batch: 'BP1701FSR',
-      taskId: '163218',
-      purity: 'ID & amount verified',
-      testDate: '14 May 2026',
-      verifyUrl: 'https://verify.janoshik.com/tests/163218-ALLUVI_BPC157_TB500_40MG_KIT_EAI125ZEF8TB',
-      fillVolume: '2.4 mL',
-      compound: 'BPC-157 + TB-500',
-      sequence: 'C62H98N16O22 · C212H350N56O78S',
-      concentrationLabel: '7.33 mg/mL · 6.53 mg/mL',
-      totalContent: '4 × 10 mg blend',
-    },
-  },
-  {
     id: 'retatrutide-20',
     slug: 'retatrutide-20mg',
     name: 'Retatrutide 20mg',
@@ -105,10 +30,10 @@ export const PRODUCTS = [
     currency: 'USD',
     accent: '#AEC4D4',
     tint: '#EAF0EC',
-    image: '/images/products/retatrutide-20-front.jpg',
+    image: '/images/products/shop/retatrutide-20-pen.webp',
     gallery: [
-      '/images/products/retatrutide-20-front.jpg',
-      '/images/products/retatrutide-20-open.jpg',
+      '/images/products/shop/retatrutide-20-pen.webp',
+      '/images/products/shop/retatrutide-20-carton.webp',
       '/images/products/retatrutide-20-pen.jpg',
       '/images/products/retatrutide-20-uv.jpg',
     ],
@@ -180,10 +105,10 @@ export const PRODUCTS = [
     currency: 'USD',
     accent: '#9A2530',
     tint: '#E7EDE9',
-    image: '/images/products/retatrutide-front.webp',
+    image: '/images/products/shop/retatrutide-40-pen.webp',
     gallery: [
-      '/images/products/retatrutide-front.webp',
-      '/images/products/retatrutide-open.webp',
+      '/images/products/shop/retatrutide-40-pen.webp',
+      '/images/products/shop/retatrutide-40-carton.webp',
       '/images/products/retatrutide-pen.webp',
       '/images/products/retatrutide-uv.webp',
     ],
@@ -237,6 +162,81 @@ export const PRODUCTS = [
     },
   },
   {
+    id: 'glow',
+    slug: 'glow-70mg',
+    name: 'Glow 70mg (GHK-Cu)',
+    seo: {
+      title: 'Glow 70mg (GHK-Cu) Copper Peptide | Jupyter Labs',
+      description:
+        'GHK-Cu peptide research at Jupyter Labs. Learn what GHK-Cu copper peptide is, its research applications, benefits, hair growth studies.',
+      h1: 'GHK-Cu copper peptide for hair growth and Skin care',
+    },
+    tagline: 'Copper Peptide · GHK-Cu',
+    category: 'Copper Peptide',
+    desc: 'A copper-tripeptide (GHK-Cu) research compound supplied as a laboratory reference material for in-vitro biochemical study.',
+    longDesc:
+      'Glow 70mg GHK-Cu pre-filled into an Alluvi research device. GHK-Cu (glycyl-L-histidyl-L-lysine copper) is a naturally-occurring tripeptide-copper complex. Supplied as a characterized reference material for in-vitro investigation of copper-peptide chemistry, collagen-related assay development and comparative peptide analysis. For laboratory research use only — not for human or veterinary use.',
+    price: 100,
+    currency: 'USD',
+    accent: '#6E8FA8',
+    tint: '#F3EEE2',
+    image: '/images/products/shop/glow-pen.webp',
+    gallery: [
+      '/images/products/shop/glow-pen.webp',
+      '/images/products/shop/glow-carton.webp',
+      '/images/products/glow-pen.webp',
+      '/images/products/glow-uv.webp',
+    ],
+    stat: '99.5% HPLC purity',
+    specs: [
+      { k: 'Purity', v: '99.52%+ HPLC verified' },
+      { k: 'Testing', v: 'Janoshik independent COA' },
+      { k: 'Format', v: 'Pre-filled research device · 70mg' },
+      { k: 'Storage', v: '2–8°C · Do not freeze' },
+      { k: 'Shelf life', v: '24–36 months sealed' },
+    ],
+    mechanism:
+      'GHK-Cu is characterized in the literature for copper-chelation chemistry and its interaction with growth-factor and matrix-remodelling markers in in-vitro dermal-research models. Supplied as a reference material for such assays; no human or veterinary application is implied or intended.',
+    benefits: [
+      'Copper-chelation chemistry reference',
+      'Collagen / elastin in-vitro assay development',
+      'Matrix-remodelling marker studies',
+      'Antioxidant-activity in-vitro assays',
+      'Comparative cosmetic-peptide research',
+      'HPLC identity and purity reference',
+    ],
+    applications: [
+      'In-vitro dermal-research assay reference',
+      'Oxidative-marker in-vitro assays',
+      'Comparative copper-peptide studies',
+      'Method-development reference standard',
+    ],
+    included: [
+      'Pre-filled research device · 70mg GHK-Cu',
+      'Batch-specific Janoshik Certificate of Analysis',
+      'Material Safety Data Sheet (MSDS)',
+      'Reconstitution & storage guidelines',
+      'Research information sheet',
+    ],
+    coa: {
+      image: '/images/certificates/alluvi-glow-70mg-coa.png',
+      sampleImages: [
+        '/images/certificates/alluvi-glow-70mg-sample-1.jpg',
+        '/images/certificates/alluvi-glow-70mg-sample-2.jpg',
+      ],
+      batch: 'GL0621XSA',
+      taskId: '163217',
+      purity: 'ID & amount verified',
+      testDate: '14 May 2026',
+      verifyUrl: 'https://verify.janoshik.com/tests/163217-ALLUVI_GLOW_70MG_KIT_DCL3AJSE4JQP',
+      fillVolume: '2.4 mL',
+      compound: 'GHK-Cu · BPC-157 · TB-500 (KLOW blend)',
+      sequence: 'C14H24CuN6O4 · C62H98N16O22 · C212H350N56O78S',
+      concentrationLabel: '7.59 · 2.39 · 1.99 mg/mL',
+      totalContent: '4 × 10 mg blend',
+    },
+  },
+  {
     id: 'tirzepatide',
     slug: 'tirzepatide-40mg',
     name: 'Tirzepatide 40mg',
@@ -255,10 +255,10 @@ export const PRODUCTS = [
     currency: 'USD',
     accent: '#E5D3AF',
     tint: '#E6EAF0',
-    image: '/images/products/tirzepatide-front.webp',
+    image: '/images/products/shop/tirzepatide-pen.webp',
     gallery: [
-      '/images/products/tirzepatide-front.webp',
-      '/images/products/tirzepatide-open.webp',
+      '/images/products/shop/tirzepatide-pen.webp',
+      '/images/products/shop/tirzepatide-carton.webp',
       '/images/products/tirzepatide-pen.webp',
       '/images/products/tirzepatide-uv.webp',
     ],
@@ -313,81 +313,6 @@ export const PRODUCTS = [
     },
   },
   {
-    id: 'glow',
-    slug: 'glow-70mg',
-    name: 'Glow 70mg (GHK-Cu)',
-    seo: {
-      title: 'Glow 70mg (GHK-Cu) Copper Peptide | Jupyter Labs',
-      description:
-        'GHK-Cu peptide research at Jupyter Labs. Learn what GHK-Cu copper peptide is, its research applications, benefits, hair growth studies.',
-      h1: 'GHK-Cu copper peptide for hair growth and Skin care',
-    },
-    tagline: 'Copper Peptide · GHK-Cu',
-    category: 'Copper Peptide',
-    desc: 'A copper-tripeptide (GHK-Cu) research compound supplied as a laboratory reference material for in-vitro biochemical study.',
-    longDesc:
-      'Glow 70mg GHK-Cu pre-filled into an Alluvi research device. GHK-Cu (glycyl-L-histidyl-L-lysine copper) is a naturally-occurring tripeptide-copper complex. Supplied as a characterized reference material for in-vitro investigation of copper-peptide chemistry, collagen-related assay development and comparative peptide analysis. For laboratory research use only — not for human or veterinary use.',
-    price: 100,
-    currency: 'USD',
-    accent: '#6E8FA8',
-    tint: '#F3EEE2',
-    image: '/images/products/glow-front.webp',
-    gallery: [
-      '/images/products/glow-front.webp',
-      '/images/products/glow-open.webp',
-      '/images/products/glow-pen.webp',
-      '/images/products/glow-uv.webp',
-    ],
-    stat: '99.5% HPLC purity',
-    specs: [
-      { k: 'Purity', v: '99.52%+ HPLC verified' },
-      { k: 'Testing', v: 'Janoshik independent COA' },
-      { k: 'Format', v: 'Pre-filled research device · 70mg' },
-      { k: 'Storage', v: '2–8°C · Do not freeze' },
-      { k: 'Shelf life', v: '24–36 months sealed' },
-    ],
-    mechanism:
-      'GHK-Cu is characterized in the literature for copper-chelation chemistry and its interaction with growth-factor and matrix-remodelling markers in in-vitro dermal-research models. Supplied as a reference material for such assays; no human or veterinary application is implied or intended.',
-    benefits: [
-      'Copper-chelation chemistry reference',
-      'Collagen / elastin in-vitro assay development',
-      'Matrix-remodelling marker studies',
-      'Antioxidant-activity in-vitro assays',
-      'Comparative cosmetic-peptide research',
-      'HPLC identity and purity reference',
-    ],
-    applications: [
-      'In-vitro dermal-research assay reference',
-      'Oxidative-marker in-vitro assays',
-      'Comparative copper-peptide studies',
-      'Method-development reference standard',
-    ],
-    included: [
-      'Pre-filled research device · 70mg GHK-Cu',
-      'Batch-specific Janoshik Certificate of Analysis',
-      'Material Safety Data Sheet (MSDS)',
-      'Reconstitution & storage guidelines',
-      'Research information sheet',
-    ],
-    coa: {
-      image: '/images/certificates/alluvi-glow-70mg-coa.png',
-      sampleImages: [
-        '/images/certificates/alluvi-glow-70mg-sample-1.jpg',
-        '/images/certificates/alluvi-glow-70mg-sample-2.jpg',
-      ],
-      batch: 'GL0621XSA',
-      taskId: '163217',
-      purity: 'ID & amount verified',
-      testDate: '14 May 2026',
-      verifyUrl: 'https://verify.janoshik.com/tests/163217-ALLUVI_GLOW_70MG_KIT_DCL3AJSE4JQP',
-      fillVolume: '2.4 mL',
-      compound: 'GHK-Cu · BPC-157 · TB-500 (KLOW blend)',
-      sequence: 'C14H24CuN6O4 · C62H98N16O22 · C212H350N56O78S',
-      concentrationLabel: '7.59 · 2.39 · 1.99 mg/mL',
-      totalContent: '4 × 10 mg blend',
-    },
-  },
-  {
     id: 'nad-plus',
     slug: 'nad-plus-1000mg',
     name: 'NAD+ 1,000mg',
@@ -406,10 +331,10 @@ export const PRODUCTS = [
     currency: 'USD',
     accent: '#B8863B',
     tint: '#ECE9F3',
-    image: '/images/products/nad-front.jpg',
+    image: '/images/products/shop/nad-plus-pen.webp',
     gallery: [
-      '/images/products/nad-front.jpg',
-      '/images/products/nad-open.jpg',
+      '/images/products/shop/nad-plus-pen.webp',
+      '/images/products/shop/nad-plus-carton.webp',
       '/images/products/nad-pen.jpg',
       '/images/products/nad-uv.jpg',
     ],
@@ -458,6 +383,81 @@ export const PRODUCTS = [
       totalContent: '1,000 mg',
     },
   },
+  {
+    id: 'bpc-157',
+    slug: 'bpc-157-tb-500',
+    name: 'BPC-157 & TB-500',
+    seo: {
+      title: 'BPC-157 & TB-500 Peptide | Complex Jupyter Labs',
+      description:
+        'Jupyter Labs provides BPC-157 & TB-500 40mg for muscle and connective tissue research, including bone repair, and body tissue repair studies.',
+      h1: 'best way to repair torn muscles',
+    },
+    tagline: 'Peptide Blend · Reference Standard',
+    category: 'Peptide Complex',
+    desc: 'A synthetic research-peptide blend supplied as a laboratory reference material for in-vitro and pre-clinical study.',
+    longDesc:
+      'A research blend of BPC-157 (a synthetic pentadecapeptide) and TB-500 (a fragment of Thymosin Beta-4, an actin-binding peptide). Supplied pre-filled into an Alluvi research device (4 × 10mg) as a characterized reference material for laboratory analysis, method development and in-vitro study. Supplied strictly for laboratory research use — not for human or veterinary use.',
+    price: 130,
+    currency: 'USD',
+    accent: '#790D16',
+    tint: '#E6F1EF',
+    image: '/images/products/shop/bpc-157-pen.webp',
+    gallery: [
+      '/images/products/shop/bpc-157-pen.webp',
+      '/images/products/shop/bpc-157-carton.webp',
+      '/images/products/bpc-pen.webp',
+      '/images/products/bpc-uv.webp',
+    ],
+    stat: '99.2% HPLC purity',
+    specs: [
+      { k: 'Purity', v: '99.21%+ HPLC verified' },
+      { k: 'Testing', v: 'Janoshik independent COA' },
+      { k: 'Format', v: 'Pre-filled research device · 4 × 10mg' },
+      { k: 'Storage', v: '2–8°C · Do not freeze' },
+      { k: 'Shelf life', v: '24–36 months sealed' },
+    ],
+    mechanism:
+      'BPC-157 is studied in the literature in relation to angiogenic signalling markers (VEGF) and nitric-oxide pathways, while TB-500 is characterized for actin sequestration and cell-migration assays. Supplied as a reference material for in-vitro investigation of these pathways; no human or veterinary application is implied or intended.',
+    benefits: [
+      'Angiogenesis pathway assay reference',
+      'Actin-binding / cell-migration in-vitro studies',
+      'Peptide-stability and degradation research',
+      'HPLC method-development reference standard',
+      'Comparative purity and identity analysis',
+      'Formulation and reconstitution research',
+    ],
+    applications: [
+      'Pre-clinical in-vitro assay reference material',
+      'In-vitro angiogenesis and migration assays',
+      'Comparative peptide-stability research',
+      'Reference standard for HPLC method development',
+    ],
+    included: [
+      'Pre-filled research device · 40mg total (4 × 10mg)',
+      'Batch-specific Janoshik Certificate of Analysis',
+      'Material Safety Data Sheet (MSDS)',
+      'Reconstitution & storage guidelines',
+      'Research information sheet',
+    ],
+    coa: {
+      image: '/images/certificates/alluvi-bpc-tb500-coa.png',
+      sampleImages: [
+        '/images/certificates/alluvi-bpc-tb500-sample-1.jpg',
+        '/images/certificates/alluvi-bpc-tb500-sample-2.jpg',
+      ],
+      batch: 'BP1701FSR',
+      taskId: '163218',
+      purity: 'ID & amount verified',
+      testDate: '14 May 2026',
+      verifyUrl: 'https://verify.janoshik.com/tests/163218-ALLUVI_BPC157_TB500_40MG_KIT_EAI125ZEF8TB',
+      fillVolume: '2.4 mL',
+      compound: 'BPC-157 + TB-500',
+      sequence: 'C62H98N16O22 · C212H350N56O78S',
+      concentrationLabel: '7.33 mg/mL · 6.53 mg/mL',
+      totalContent: '4 × 10 mg blend',
+    },
+  },
 ] as const
 
 /**
@@ -490,6 +490,22 @@ export const CATEGORIES = [
 ] as const satisfies readonly Category[]
 
 export type CategoryId = (typeof CATEGORIES)[number]['id']
+
+/**
+ * Display order of the Shop grid, mixing PRODUCTS ids and the not-yet-sold
+ * BOX_ART keys. Anything missing from this list sorts last, in source order.
+ */
+export const SHOP_ORDER: readonly string[] = [
+  'retatrutide-20',
+  'retatrutide',
+  'glow',
+  'tesamorelin',
+  'tirzepatide',
+  'nad-plus',
+  'mots-c',
+  'bpc-157',
+  'cjc-1295',
+]
 
 /** Category by id, or undefined for an unknown slug (e.g. a stale URL). */
 export const findCategory = (id: string | null | undefined): Category | undefined =>
@@ -524,6 +540,7 @@ export const BOX_ART = {
   tirzepatide: { product: 'tirzepatide', box: '/images/products/boxes/tirzepatide.webp', accent: '#2f9fe6' },
   tesamorelin: {
     product: null,
+    photo: '/images/products/shop/tesamorelin-pen.webp',
     name: 'Tesamorelin 20mg',
     tagline: 'GHRH Analogue · Reference Standard',
     box: '/images/products/boxes/tesamorelin.webp',
@@ -532,6 +549,7 @@ export const BOX_ART = {
   'nad-plus': { product: 'nad-plus', box: '/images/products/boxes/nad-plus.webp', accent: '#f2a900' },
   'mots-c': {
     product: null,
+    photo: '/images/products/shop/mots-c-pen.webp',
     name: 'MOTS-c 40mg',
     tagline: 'Mitochondrial Peptide · Reference Standard',
     box: '/images/products/boxes/mots-c.webp',
@@ -541,6 +559,7 @@ export const BOX_ART = {
   glow: { product: 'glow', box: '/images/products/boxes/glow.webp', accent: '#ec2f94' },
   'cjc-1295': {
     product: null,
+    photo: '/images/products/shop/cjc-1295-pen.webp',
     name: 'CJC-1295 10mg',
     tagline: 'GHRH Analogue · Without DAC',
     box: '/images/products/boxes/cjc-1295.webp',

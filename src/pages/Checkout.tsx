@@ -4,8 +4,9 @@ import { Link, useNavigate } from 'react-router-dom'
 import Navbar from '../components/Navbar'
 import Footer from '../components/sections/Footer'
 import { PRODUCTS } from '../lib/content'
-import { useCart, formatPrice } from '../lib/CartContext'
-import { useAuth } from '../lib/AuthContext'
+import { useCart } from '../lib/useCart'
+import { formatPrice } from '../lib/format'
+import { useAuth } from '../lib/useAuth'
 import { orderService } from '../services/order.service'
 import { emailService } from '../services/email.service'
 import { promoService } from '../services/promo.service'
@@ -60,8 +61,9 @@ export default function Checkout() {
   // customer_email matches the account email — otherwise it can never show
   // up under My Orders, which looks orders up by email. Only fills fields
   // still blank, so it never overwrites something the customer already typed.
-  useEffect(() => {
-    if (!user) return
+  const [prefilledFor, setPrefilledFor] = useState<number | null>(null)
+  if (user && prefilledFor !== user.id) {
+    setPrefilledFor(user.id)
     setForm((f) => ({
       ...f,
       firstName: f.firstName || user.name?.split(' ')[0] || '',
@@ -69,7 +71,7 @@ export default function Checkout() {
       email: f.email || user.email || '',
       phone: f.phone || user.phone || '',
     }))
-  }, [user])
+  }
 
   const [promoInput, setPromoInput] = useState('')
   const [promo, setPromo] = useState<{ code: string; percent: number } | null>(null)
@@ -223,7 +225,7 @@ export default function Checkout() {
   return (
     <>
       <Navbar />
-      <main id="main-content" className="relative z-10 bg-[#fdfcf8] pt-28 lg:pt-32">
+      <main id="main-content" className="relative z-10 bg-bg pt-28 lg:pt-32">
         <div className="container-x pb-16">
           <div className="border-b border-line pb-8">
             <p className="text-[0.65rem] uppercase tracking-[0.28em] text-accent-dark">Checkout</p>

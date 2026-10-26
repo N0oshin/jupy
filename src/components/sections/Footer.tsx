@@ -1,8 +1,7 @@
-import { Link, useNavigate } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import SocialLinks from '../ui/SocialLinks'
 import { SOCIALS_CONFIGURED } from '../../lib/social'
-import { useAuth } from '../../lib/AuthContext'
-import { scrollToHash } from '../SmoothScroll'
+import { scrollToHash } from '../../lib/scrollToHash'
 import { CATEGORIES, type Category } from '../../lib/content'
 
 type FooterLink = { label: string; to: string; hash?: boolean }
@@ -41,6 +40,8 @@ const COLS: { h: string; links: FooterLink[] }[] = [
   {
     h: 'Legal',
     links: [
+      { label: 'Shipping Policy', to: '/shipping-policy' },
+      { label: 'Refund Policy', to: '/refund-policy' },
       { label: 'Privacy Policy', to: '/privacy-policy' },
       { label: 'Terms & Conditions', to: '/terms-of-service' },
     ],
@@ -48,8 +49,6 @@ const COLS: { h: string; links: FooterLink[] }[] = [
 ]
 
 export default function Footer() {
-  const { isAuthenticated, user, logout } = useAuth()
-  const navigate = useNavigate()
   return (
     <footer id="contact" className="relative overflow-hidden bg-bg pt-16">
       <div className="container-x">

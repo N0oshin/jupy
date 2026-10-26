@@ -153,7 +153,7 @@ export default function AboutUs() {
   return (
     <>
       <Navbar />
-      <main id="main-content" className="relative z-10 bg-[#fffdf8]">
+      <main id="main-content" className="relative z-10 bg-bg">
         {/* ───── HERO + ORIGIN ─────
             Full-bleed photograph at three quarters of the viewport height with all the copy pinned
             to the bottom over a dark gradient. Copy stays first in the DOM so the

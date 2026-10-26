@@ -51,11 +51,6 @@
     <priority>0.3</priority>
   </url>
   <url>
-    <loc>https://jupyterlabs.net/products/bpc-157-tb-500</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
     <loc>https://jupyterlabs.net/products/retatrutide-20mg</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
@@ -66,17 +61,22 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://jupyterlabs.net/products/tirzepatide-40mg</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
     <loc>https://jupyterlabs.net/products/glow-70mg</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://jupyterlabs.net/products/tirzepatide-40mg</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://jupyterlabs.net/products/nad-plus-1000mg</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://jupyterlabs.net/products/bpc-157-tb-500</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>

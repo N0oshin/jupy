@@ -71,7 +71,7 @@ export default function SplitReveal({
     { scope: ref, dependencies: [reduced] },
   )
 
-  const Component: any = Tag
+  const Component = Tag
   return (
     <Component ref={ref} className={className}>
       {children}

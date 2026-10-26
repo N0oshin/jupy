@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { Link, useNavigate, useSearchParams } from 'react-router-dom'
-import { useAuth } from '../lib/AuthContext'
+import { useAuth } from '../lib/useAuth'
 import { useSeo } from '../lib/useSeo'
 import type { ApiError } from '../types/api'
 import AuthLayout, { authInputCls, Field, PasswordField } from '../components/AuthLayout'
@@ -53,18 +53,19 @@ export default function SignIn() {
 
   return (
     <AuthLayout
-      eyebrow="Researcher access"
-      title="Sign in"
-      subtitle="Welcome back. Sign in to review orders, certificates of analysis and account history."
+      icon="signin"
+      title="Sign in with email"
+      subtitle="Welcome back. Review orders, certificates of analysis and account history."
+      socialLabel="Or sign in with"
     >
-      <form onSubmit={onSubmit} className="flex flex-col gap-4">
-        <Field label="Email">
+      <form onSubmit={onSubmit} className="flex flex-col gap-3">
+        <Field label="Email" icon="mail">
           <input
             className={authInputCls}
             type="email"
             required
             autoComplete="email"
-            placeholder="you@lab.com"
+            placeholder="Email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             disabled={submitting}
@@ -77,21 +78,18 @@ export default function SignIn() {
           onChange={setPassword}
           autoComplete="current-password"
           minLength={6}
-          placeholder="••••••••"
+          placeholder="Password"
           disabled={submitting}
         />
 
         <div className="-mt-1 text-right">
-          <Link
-            to="/forgot-password"
-            className="text-xs uppercase tracking-[0.22em] text-accent-dark hover:text-accent"
-          >
+          <Link to="/forgot-password" className="text-xs text-ink/70 hover:text-ink">
             Forgot password?
           </Link>
         </div>
 
         {error && (
-          <p role="alert" className="rounded-2xl border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700">
+          <p role="alert" className="rounded-xl border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700">
             {error}
           </p>
         )}
@@ -99,16 +97,16 @@ export default function SignIn() {
         <button
           type="submit"
           disabled={submitting}
-          className="mt-2 rounded-full bg-accent-dark px-7 py-3.5 text-sm font-medium text-bg transition-all hover:bg-accent hover:shadow-[0_20px_40px_-20px_rgba(121,13,22,0.6)] disabled:opacity-70"
+          className="mt-1 rounded-xl bg-ink px-6 py-3 text-sm font-medium text-white shadow-[0_12px_24px_-12px_rgba(42,15,18,0.6)] transition-all hover:bg-accent-dark disabled:opacity-70"
         >
-          {submitting ? 'Signing in…' : 'Sign in'}
+          {submitting ? 'Signing in…' : 'Get Started'}
         </button>
 
-        <p className="mt-4 text-center text-sm text-muted">
+        <p className="mt-2 text-center text-xs text-[#6b7280]">
           New to Jupyter Labs?{' '}
           <Link
             to={`/register${returnTo !== '/' ? `?returnTo=${encodeURIComponent(returnTo)}` : ''}`}
-            className="font-medium text-accent-dark hover:text-accent"
+            className="font-medium text-ink hover:text-accent-dark"
           >
             Create an account
           </Link>

@@ -2,7 +2,9 @@ import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import Reveal from './Reveal'
 import { PRODUCTS } from '../../lib/content'
-import { formatPrice, useCart } from '../../lib/CartContext'
+import { formatPrice } from '../../lib/format'
+import { useCart } from '../../lib/useCart'
+import { responsive } from '../../lib/responsiveImage'
 
 type Product = (typeof PRODUCTS)[number]
 
@@ -24,15 +26,16 @@ export default function ProductCard({ p, i, compact = false }: { p: Product; i: 
 
   return (
     <Reveal delay={i * 0.08} className="h-full">
-      <article className="group flex h-full flex-col overflow-hidden rounded-[1.3rem] bg-white shadow-[0_10px_30px_-18px_rgba(40,30,20,0.3)] transition-shadow duration-500 hover:shadow-[0_20px_40px_-18px_rgba(40,30,20,0.35)]">
+      <article className="group mx-auto flex h-full w-[95%] flex-col overflow-hidden rounded-[1.3rem] bg-white">
         {/* Photo — fills most of the card */}
         <Link
           to={href}
           aria-label={`View ${p.name}`}
-          className="relative block aspect-[5/6] w-full overflow-hidden bg-bg outline-none ring-accent-dark/50 focus-visible:ring-2"
+          className="relative block aspect-square w-full overflow-hidden bg-bg outline-none ring-accent-dark/50 focus-visible:ring-2"
         >
           <img
             src={p.image}
+            {...responsive(p.image, '(min-width: 1024px) 25vw, (min-width: 768px) 33vw, 50vw')}
             alt={p.name}
             className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 ease-[var(--ease-lux)] group-hover:scale-[1.05]"
             loading="lazy"

@@ -1,8 +1,8 @@
-import { useCallback, useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import Navbar from '../components/Navbar'
 import Footer from '../components/sections/Footer'
-import { useAuth } from '../lib/AuthContext'
+import { useAuth } from '../lib/useAuth'
 import { useSeo } from '../lib/useSeo'
 import { orderService } from '../services/order.service'
 import { formatApiMoney } from '../utils/apiFormat'
@@ -17,26 +17,34 @@ export default function MyOrders() {
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState('')
 
-  const loadOrders = useCallback(async (email: string) => {
-    setLoading(true)
-    try {
-      const res = await orderService.getByEmail(email)
-      setOrders(res.orders)
-    } catch (err) {
-      const e = err as ApiError
-      setError(e.serverMessage || 'Failed to load your orders.')
-    } finally {
-      setLoading(false)
-    }
-  }, [])
-
   useEffect(() => {
     window.scrollTo(0, 0)
   }, [])
 
+  // `loading` starts true, so the fetch only has to clear it once it settles.
+  // State is only touched from the promise callbacks, and a stale response
+  // (account switched mid-request) is ignored.
+  const email = user?.email
   useEffect(() => {
-    if (user?.email) void loadOrders(user.email)
-  }, [user?.email, loadOrders])
+    if (!email) return
+    let cancelled = false
+    orderService
+      .getByEmail(email)
+      .then((res) => {
+        if (cancelled) return
+        setOrders(res.orders)
+        setError('')
+      })
+      .catch((err: ApiError) => {
+        if (!cancelled) setError(err.serverMessage || 'Failed to load your orders.')
+      })
+      .finally(() => {
+        if (!cancelled) setLoading(false)
+      })
+    return () => {
+      cancelled = true
+    }
+  }, [email])
 
   return (
     <>

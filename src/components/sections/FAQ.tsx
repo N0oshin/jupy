@@ -17,7 +17,7 @@ export default function FAQ() {
   const [open, setOpen] = useState<number | null>(0)
 
   return (
-    <section id="faq" aria-labelledby="faq-title" className="relative bg-section section-pad">
+    <section id="faq" aria-labelledby="faq-title" className="relative bg-bg section-pad">
       <div className="container-x grid gap-10 lg:grid-cols-[1fr_1.6fr] lg:gap-20">
         <div id="faq-title">
           <Heading

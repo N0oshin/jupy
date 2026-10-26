@@ -72,7 +72,7 @@ export default function Science() {
   )
 
   return (
-    <section id="science" ref={ref} className="relative bg-section text-ink">
+    <section id="science" ref={ref} className="relative bg-bg text-ink">
       <div className="science-pin relative flex min-h-[100svh] flex-col justify-center overflow-hidden">
         {/* atmosphere */}
         <div className="absolute inset-0 grain opacity-15" />

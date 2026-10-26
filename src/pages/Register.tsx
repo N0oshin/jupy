@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { Link, useNavigate, useSearchParams } from 'react-router-dom'
-import { useAuth } from '../lib/AuthContext'
+import { useAuth } from '../lib/useAuth'
 import { useSeo } from '../lib/useSeo'
 import type { ApiError, RegisterRequest } from '../types/api'
 import AuthLayout, { authInputCls, Field, PasswordField } from '../components/AuthLayout'
@@ -127,45 +127,47 @@ export default function Register() {
 
   return (
     <AuthLayout
-      eyebrow="Researcher access"
+      icon="register"
       title="Create your account"
-      subtitle="Join Jupyter Labs to access certificates of analysis, order history and members-only research notes."
+      subtitle="Access certificates of analysis, order history and members-only research notes."
+      socialLabel="Or sign up with"
+      wide
     >
-      <form onSubmit={onSubmit} className="flex flex-col gap-4">
-        <Field label="Full name">
+      <form onSubmit={onSubmit} className="flex flex-col gap-3">
+        <Field label="Full name" icon="user">
           <input
             className={authInputCls}
             required
             maxLength={80}
             autoComplete="name"
-            placeholder="Dr. Ada Lovelace"
+            placeholder="Full name"
             value={form.name}
             onChange={(e) => set('name', e.target.value)}
             disabled={submitting}
           />
         </Field>
 
-        <Field label="Email">
+        <Field label="Email" icon="mail">
           <input
             className={authInputCls}
             type="email"
             required
             autoComplete="email"
-            placeholder="you@lab.com"
+            placeholder="Email"
             value={form.email}
             onChange={(e) => set('email', e.target.value)}
             disabled={submitting}
           />
         </Field>
 
-        <div className="grid gap-4 sm:grid-cols-2">
+        <div className="grid gap-3 sm:grid-cols-2">
           <PasswordField
             label="Password"
             value={form.password}
             onChange={(v) => set('password', v)}
             autoComplete="new-password"
             minLength={8}
-            placeholder="At least 8 characters"
+            placeholder="Password"
             disabled={submitting}
           />
           <PasswordField
@@ -174,12 +176,12 @@ export default function Register() {
             onChange={(v) => set('confirmPassword', v)}
             autoComplete="new-password"
             minLength={8}
-            placeholder="Repeat password"
+            placeholder="Confirm password"
             disabled={submitting}
           />
         </div>
 
-        <Field label="Date of birth">
+        <Field label="Date of birth" icon="calendar">
           <input
             className={authInputCls}
             type="date"
@@ -191,8 +193,8 @@ export default function Register() {
           />
         </Field>
 
-        <div className="grid gap-4 sm:grid-cols-2">
-          <Field label="Nationality">
+        <div className="grid gap-3 sm:grid-cols-2">
+          <Field label="Nationality" icon="flag">
             <select
               className={authInputCls}
               required
@@ -205,7 +207,7 @@ export default function Register() {
               ))}
             </select>
           </Field>
-          <Field label="Country of residence">
+          <Field label="Country of residence" icon="globe">
             <select
               className={authInputCls}
               required
@@ -221,7 +223,7 @@ export default function Register() {
         </div>
 
         {error && (
-          <p role="alert" className="rounded-2xl border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700">
+          <p role="alert" className="rounded-xl border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700">
             {error}
           </p>
         )}
@@ -229,16 +231,16 @@ export default function Register() {
         <button
           type="submit"
           disabled={submitting}
-          className="mt-2 rounded-full bg-accent-dark px-7 py-3.5 text-sm font-medium text-bg transition-all hover:bg-accent hover:shadow-[0_20px_40px_-20px_rgba(121,13,22,0.6)] disabled:opacity-70"
+          className="mt-1 rounded-xl bg-ink px-6 py-3 text-sm font-medium text-white shadow-[0_12px_24px_-12px_rgba(42,15,18,0.6)] transition-all hover:bg-accent-dark disabled:opacity-70"
         >
-          {submitting ? 'Creating account…' : 'Create account'}
+          {submitting ? 'Creating account…' : 'Get Started'}
         </button>
 
-        <p className="mt-4 text-center text-sm text-muted">
+        <p className="mt-2 text-center text-xs text-[#6b7280]">
           Already have an account?{' '}
           <Link
             to={`/signin${returnTo !== '/' ? `?returnTo=${encodeURIComponent(returnTo)}` : ''}`}
-            className="font-medium text-accent-dark hover:text-accent"
+            className="font-medium text-ink hover:text-accent-dark"
           >
             Sign in
           </Link>

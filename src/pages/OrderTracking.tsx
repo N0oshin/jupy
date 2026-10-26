@@ -61,8 +61,24 @@ const DEMO_ORDER = {
   payments: [],
 } as unknown as OrderDetailResponse
 
+/**
+ * Fetch an order by number. Dev-only: /track/DEMO returns the sample order
+ * without calling the API (stripped from production builds).
+ */
+function fetchOrder(code: string): Promise<OrderDetailResponse> {
+  if (import.meta.env.DEV && code.toUpperCase() === 'DEMO') return Promise.resolve(DEMO_ORDER)
+  return orderService.getByNumber(code)
+}
+
+function lookupErrorMessage(err: unknown): string {
+  const e = err as ApiError
+  return e.status === 404
+    ? "We couldn't find an order with that number. Please double-check and try again."
+    : e.serverMessage || 'Something went wrong looking up your order. Please try again.'
+}
+
 const inputCls =
-  'w-full rounded-2xl border border-line bg-bg px-4 py-3 text-sm text-ink placeholder:text-muted/60 transition-colors focus:border-ink focus:outline-none'
+  'w-full rounded-2xl border border-line bg-transparent px-4 py-3 text-sm text-ink placeholder:text-muted/60 transition-colors focus:border-ink focus:outline-none'
 
 export default function OrderTracking() {
   const { orderNumber: paramOrder } = useParams<{ orderNumber: string }>()
@@ -70,12 +86,13 @@ export default function OrderTracking() {
 
   const [input, setInput] = useState(paramOrder ?? '')
   const [data, setData] = useState<OrderDetailResponse | null>(null)
-  const [loading, setLoading] = useState(false)
+  const [loading, setLoading] = useState(Boolean(paramOrder))
   const [error, setError] = useState<string | null>(null)
-  const [searched, setSearched] = useState(false)
+  const [searched, setSearched] = useState(Boolean(paramOrder))
 
   useSeo({ title: 'Track Your Order — Jupyter Labs', path: '/track', noindex: true })
 
+  /** Manual submit: reset the result panel, then fetch. */
   const lookup = useCallback(async (orderNumber: string) => {
     const code = orderNumber.trim()
     if (!code) {
@@ -87,31 +104,48 @@ export default function OrderTracking() {
     setData(null)
     setSearched(true)
     try {
-      // Dev-only preview: /track/DEMO shows a sample order without calling the API.
-      // Stripped from production builds (import.meta.env.DEV is false there).
-      if (import.meta.env.DEV && code.toUpperCase() === 'DEMO') {
-        setData(DEMO_ORDER)
-        return
-      }
-      const res = await orderService.getByNumber(code)
-      setData(res)
+      setData(await fetchOrder(code))
     } catch (err) {
-      const e = err as ApiError
-      setError(
-        e.status === 404
-          ? "We couldn't find an order with that number. Please double-check and try again."
-          : e.serverMessage || 'Something went wrong looking up your order. Please try again.',
-      )
+      setError(lookupErrorMessage(err))
     } finally {
       setLoading(false)
     }
   }, [])
 
-  // Auto-lookup when arriving at /track/:orderNumber.
+  // When the URL param changes (/track/A -> /track/B) reset the panel during
+  // render; the initial state above already covers the first mount.
+  const [lastParam, setLastParam] = useState(paramOrder)
+  if (lastParam !== paramOrder) {
+    setLastParam(paramOrder)
+    if (paramOrder) {
+      setInput(paramOrder)
+      setLoading(true)
+      setError(null)
+      setData(null)
+      setSearched(true)
+    }
+  }
+
+  // Auto-lookup when arriving at /track/:orderNumber. State is only touched
+  // from the promise callbacks, and a stale response is ignored if the param
+  // changes again before it lands.
   useEffect(() => {
     window.scrollTo(0, 0)
-    if (paramOrder) void lookup(paramOrder)
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    if (!paramOrder) return
+    let cancelled = false
+    fetchOrder(paramOrder)
+      .then((res) => {
+        if (!cancelled) setData(res)
+      })
+      .catch((err: unknown) => {
+        if (!cancelled) setError(lookupErrorMessage(err))
+      })
+      .finally(() => {
+        if (!cancelled) setLoading(false)
+      })
+    return () => {
+      cancelled = true
+    }
   }, [paramOrder])
 
   function onSubmit(e: React.FormEvent) {
@@ -129,20 +163,37 @@ export default function OrderTracking() {
   return (
     <>
       <Navbar />
-      <main id="main-content" className="relative z-10 bg-[#fdfcf8] pt-28 lg:pt-32">
-        <div className="container-x pb-16">
-          {/* Header */}
-          <div className="border-b border-line pb-8">
-            <p className="text-[0.65rem] uppercase tracking-[0.28em] text-ink">Order Tracking</p>
-            <h1 className="mt-2 font-display text-4xl tracking-[-0.02em] text-ink lg:text-5xl">Track your order</h1>
-            <p className="mt-3 max-w-xl text-sm text-muted">
-              Enter the order number from your confirmation email (e.g. <span className="text-ink">ORD-…</span>) to see its
-              current status.
-            </p>
+      {/* Fills the monitor height so the footer only shows once the user
+          scrolls; the search block sits vertically centred until a result
+          loads and the page grows naturally. */}
+      <main id="main-content" className="relative z-10 flex min-h-[100svh] flex-col bg-bg pt-28 lg:pt-32">
+        <div className="container-x flex flex-1 flex-col justify-center pb-16">
+          {/* Header: heading beside the illustration */}
+          <div className="grid items-center gap-10 lg:grid-cols-[1fr_1fr] lg:gap-16">
+            <div>
+              <p className="text-[0.65rem] uppercase tracking-[0.28em] text-ink">Order Tracking</p>
+              <h1 className="mt-2 font-display text-4xl tracking-[-0.02em] text-ink lg:text-5xl">Track your order</h1>
+              <p className="mt-3 max-w-xl text-sm text-muted">
+                Enter the order number from your confirmation email (e.g. <span className="text-ink">ORD-…</span>) to see its
+                current status.
+              </p>
+            </div>
+            <div className="relative mx-auto w-full max-w-[36rem] overflow-hidden rounded-[var(--radius-xl2)] bg-bg lg:mx-0 lg:ml-auto lg:max-w-[42rem]">
+              <img
+                src="/images/ecom/bg/img2.jpg"
+                alt=""
+                width={1600}
+                height={842}
+                loading="lazy"
+                decoding="async"
+                draggable={false}
+                className="w-full select-none mix-blend-multiply"
+              />
+            </div>
           </div>
 
           {/* Search */}
-          <form onSubmit={onSubmit} className="mt-8 flex max-w-xl flex-col gap-3 sm:flex-row">
+          <form onSubmit={onSubmit} className="mt-2 flex max-w-xl flex-col gap-3 sm:flex-row">
             <input
               className={inputCls}
               placeholder="Order number"
@@ -154,7 +205,7 @@ export default function OrderTracking() {
             <button
               type="submit"
               disabled={loading}
-              className="shrink-0 rounded-full bg-ink px-7 py-3 text-sm font-medium text-bg transition-all hover:bg-ink/80 disabled:opacity-70"
+              className="shrink-0 rounded-lg bg-ink px-7 py-3 text-sm font-medium text-bg transition-all hover:bg-ink/80 disabled:opacity-70"
             >
               {loading ? 'Searching…' : 'Track order'}
             </button>
@@ -310,7 +361,7 @@ function Row({ label, value, strong, accent }: { label: string; value: string; s
   return (
     <div className={`flex justify-between ${strong ? 'font-display text-lg' : ''}`}>
       <dt className="text-muted">{label}</dt>
-      <dd className="text-ink">{value}</dd>
+      <dd className={accent ? 'text-accent' : 'text-ink'}>{value}</dd>
     </div>
   )
 }

@@ -2,9 +2,9 @@ import { useEffect, useRef, useState } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
 import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { NAV } from '../lib/content'
-import { scrollToHash } from './SmoothScroll'
-import { useCart } from '../lib/CartContext'
-import { useAuth } from '../lib/AuthContext'
+import { scrollToHash } from '../lib/scrollToHash'
+import { useCart } from '../lib/useCart'
+import { useAuth } from '../lib/useAuth'
 
 const MENU_EASE = [0.16, 1, 0.3, 1] as const
 
@@ -67,10 +67,13 @@ export default function Navbar() {
     }
   }, [accountOpen])
 
-  // Close the account dropdown whenever the route changes.
-  useEffect(() => {
+  // Close the account dropdown whenever the route changes. Done during render
+  // (React's "adjust state on prop change" pattern) so it doesn't need an effect.
+  const [lastPath, setLastPath] = useState(location.pathname)
+  if (lastPath !== location.pathname) {
+    setLastPath(location.pathname)
     setAccountOpen(false)
-  }, [location.pathname])
+  }
 
   // Scroll to the hash target after route changes (e.g. tapping "About" in the
   // mobile menu while on /cart navigates to /#about — without this, the page

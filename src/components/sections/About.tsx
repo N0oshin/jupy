@@ -3,7 +3,6 @@ import { Link } from "react-router-dom";
 import { useGSAP } from "@gsap/react";
 import { gsap } from "../../lib/gsap";
 import { useReducedMotion } from "../../lib/useReducedMotion";
-import SplitReveal from "../ui/SplitReveal";
 import Reveal from "../ui/Reveal";
 import Img from "../ui/Img";
 import Magnetic from "../ui/Magnetic";
@@ -48,12 +47,8 @@ export default function About() {
     <section
       id="about"
       ref={ref}
-      className="relative overflow-hidden bg-section py-15 lg:py-20"
+      className="relative overflow-hidden bg-bg py-15 lg:py-20"
     >
-      {/* Ambient ornaments */}
-      <div className="pointer-events-none absolute -right-40 top-20 h-[34rem] w-[34rem] rounded-full bg-accent/15 blur-[140px]" />
-      <div className="pointer-events-none absolute -left-32 bottom-20 h-[28rem] w-[28rem] rounded-full bg-sand/30 blur-[120px]" />
-
       <div className="container-x relative">
         {/* ───── HERO ───── */}
         <div className="grid items-end gap-8 lg:grid-cols-12 lg:gap-12">
@@ -84,22 +79,22 @@ export default function About() {
         {/* ───── COUNTER ROW ───── */}
         <div className="mt-8 grid grid-cols-2 gap-px overflow-hidden rounded-[var(--radius-xl2)] bg-line sm:grid-cols-3 lg:grid-cols-5">
           {STATS.map((s, i) => (
-            <Reveal key={s.label} delay={i * 0.1} className="bg-bg p-5">
+            <Reveal key={s.label} delay={i * 0.1} className="bg-section px-5 py-4">
               <div className="flex items-baseline gap-1">
                 {"fixed" in s ? (
-                  <span className="font-display text-[clamp(1.75rem,2.8vw,2.5rem)] font-light leading-[0.9] tracking-[-0.015em] text-ink">
+                  <span className="font-display text-[clamp(1.5rem,2.4vw,2.1rem)] font-light leading-[0.9] tracking-[-0.015em] text-ink">
                     {s.fixed}
                   </span>
                 ) : (
                   <>
                     <Counter to={s.v} />
-                    <span className="font-display text-xl font-light text-accent-dark">
+                    <span className="font-display text-lg font-light text-accent-dark">
                       {s.suffix}
                     </span>
                   </>
                 )}
               </div>
-              <p className="mt-1.5 text-[0.7rem] uppercase tracking-[0.18em] text-muted">
+              <p className="mt-1 text-[0.65rem] uppercase tracking-[0.18em] text-muted">
                 {s.label}
               </p>
             </Reveal>
@@ -150,9 +145,9 @@ export default function About() {
                   <div className="font-display text-4xl leading-none text-accent">
                     "
                   </div>
-                  <p className="-mt-2 font-display text-[clamp(1.05rem,1.4vw,1.3rem)] font-light leading-[1.3] text-bg">
-                    We refused to release a single milligram we couldn't
-                    verify by HPLC. That refusal became the whole company.
+                  <p className="-mt-2 font-serif text-[clamp(1.2rem,1.6vw,1.5rem)] font-medium italic leading-[1.3] text-bg">
+                    “We refused to release a single milligram we couldn't
+                    verify by HPLC. That refusal became the whole company.”
                   </p>
                   <div className="mt-6 flex items-center justify-between">
                     <span className="text-[0.6rem] uppercase tracking-[0.22em] text-bg/60">
@@ -168,7 +163,7 @@ export default function About() {
                   <span className="text-[0.6rem] uppercase tracking-[0.25em] text-bg/70">
                     our founding year
                   </span>
-                  <div className="my-6 font-display text-[clamp(3.5rem,6.5vw,5.5rem)] font-light leading-[0.85] tracking-[-0.015em] text-bg">
+                  <div className="my-6 font-bodoni text-[clamp(3.5rem,6.5vw,5.5rem)] font-light leading-[0.85] tracking-[-0.015em] text-bg">
                     2019
                   </div>
                   
@@ -191,10 +186,7 @@ function Counter({ to }: { to: number }) {
   const reduced = useReducedMotion();
 
   useEffect(() => {
-    if (reduced) {
-      setVal(to);
-      return;
-    }
+    if (reduced) return;
     const el = ref.current;
     if (!el) return;
     let started = false;
@@ -223,9 +215,9 @@ function Counter({ to }: { to: number }) {
   return (
     <span
       ref={ref}
-      className="font-display text-[clamp(1.75rem,2.8vw,2.5rem)] font-light leading-[0.9] tracking-[-0.015em] text-ink"
+      className="font-display text-[clamp(1.5rem,2.4vw,2.1rem)] font-light leading-[0.9] tracking-[-0.015em] text-ink"
     >
-      {val}
+      {reduced ? to : val}
     </span>
   );
 }

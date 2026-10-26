@@ -10,12 +10,9 @@ export default function Cursor() {
   const ring = useRef<HTMLDivElement>(null)
   const [hover, setHover] = useState(false)
   const reduced = useReducedMotion()
-  const [enabled, setEnabled] = useState(false)
-
-  useEffect(() => {
-    if (reduced) return
-    if (window.matchMedia('(pointer: fine)').matches) setEnabled(true)
-  }, [reduced])
+  // Pointer type is a static device trait, so read it once at mount.
+  const [pointerFine] = useState(() => window.matchMedia('(pointer: fine)').matches)
+  const enabled = !reduced && pointerFine
 
   useEffect(() => {
     if (!enabled) return

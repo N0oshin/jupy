@@ -3,7 +3,7 @@ import { motion } from "framer-motion";
 import Heading from "../ui/Heading";
 import { useReducedMotion } from "../../lib/useReducedMotion";
 import { PRODUCTS } from "../../lib/content";
-import { formatPrice } from "../../lib/CartContext";
+import { formatPrice } from "../../lib/format";
 import { responsive } from "../../lib/responsiveImage";
 
 /**

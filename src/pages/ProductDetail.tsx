@@ -4,7 +4,9 @@ import Navbar from '../components/Navbar'
 import Footer from '../components/sections/Footer'
 import ProductCard from '../components/ui/ProductCard'
 import { PRODUCTS } from '../lib/content'
-import { useCart, formatPrice } from '../lib/CartContext'
+import { useCart } from '../lib/useCart'
+import { formatPrice } from '../lib/format'
+import { responsive } from '../lib/responsiveImage'
 import { useSeo, SITE_URL } from '../lib/useSeo'
 
 const SECTIONS = ['Description', 'Package Contents', 'Storage Logic'] as const
@@ -22,13 +24,20 @@ export default function ProductDetail() {
   const [coaOpen, setCoaOpen] = useState(false)
   const [introOpen, setIntroOpen] = useState(true)
 
-  useEffect(() => {
-    window.scrollTo(0, 0)
+  // Reset per-product UI state when the route switches to another product.
+  // Done during render (React's "adjust state on prop change" pattern).
+  const [lastSlug, setLastSlug] = useState(slug)
+  if (lastSlug !== slug) {
+    setLastSlug(slug)
     setActive(0)
     setQty(1)
     setOpen(['Description'])
     setCoaOpen(false)
     setIntroOpen(true)
+  }
+
+  useEffect(() => {
+    window.scrollTo(0, 0)
   }, [slug])
 
   useEffect(() => {
@@ -119,7 +128,7 @@ export default function ProductDetail() {
   return (
     <>
       <Navbar />
-      <main id="main-content" className="relative z-10 bg-[#fcfaf6] pb-20 pt-28 lg:pb-28 lg:pt-32">
+      <main id="main-content" className="relative z-10 bg-bg pb-20 pt-28 lg:pb-28 lg:pt-32">
         <div className="container-x">
           <nav className="mb-8 flex items-center gap-2 text-xs uppercase tracking-[0.22em] text-muted">
             <Link to="/" className="hover:text-ink">Home</Link>
@@ -134,23 +143,40 @@ export default function ProductDetail() {
             <div className="mx-auto flex w-full max-w-[30rem] flex-col gap-3 lg:sticky lg:top-28 lg:self-start">
               <div className="relative aspect-[1/1] w-full overflow-hidden rounded-2xl bg-section">
                 <img
+                  key={product.gallery[active]}
                   src={product.gallery[active]}
-                  alt={product.name}
+                  {...responsive(product.gallery[active], '(min-width: 1024px) 30rem, 100vw')}
+                  alt={`${product.name} — view ${active + 1}`}
+                  fetchPriority={active === 0 ? 'high' : 'auto'}
+                  decoding="async"
                   className="absolute inset-0 h-full w-full object-cover transition-opacity duration-500"
                 />
               </div>
-              <div className="grid grid-cols-4 gap-3">
+              {/* Thumbnails: the two lifestyle shots plus the studio set — six per
+                  product, so the row is sized by count rather than a fixed 4-up. */}
+              <div
+                className="grid gap-2 sm:gap-3"
+                style={{ gridTemplateColumns: `repeat(${product.gallery.length}, minmax(0, 1fr))` }}
+              >
                 {product.gallery.map((src, i) => (
                   <button
                     key={src}
                     type="button"
                     onClick={() => setActive(i)}
+                    aria-pressed={active === i}
                     className={`relative aspect-square overflow-hidden rounded-xl bg-section transition-all ${
                       active === i ? 'ring-2 ring-[#4a2c1a] ring-offset-2 ring-offset-bg' : 'opacity-70 hover:opacity-100'
                     }`}
                     aria-label={`View image ${i + 1}`}
                   >
-                    <img src={src} alt="" className="absolute inset-0 h-full w-full object-cover" />
+                    <img
+                      src={src}
+                      {...responsive(src, '6rem')}
+                      alt=""
+                      loading="lazy"
+                      decoding="async"
+                      className="absolute inset-0 h-full w-full object-cover"
+                    />
                   </button>
                 ))}
               </div>
@@ -375,7 +401,7 @@ export default function ProductDetail() {
             </button>
 
             {/* Beaker icon */}
-            <div className="mx-auto grid h-14 w-14 place-items-center rounded-2xl bg-accent-dark text-bg">
+            <div className="mx-auto grid h-14 w-14 place-items-center rounded-2xl bg-[#5c3a21] text-bg">
               <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
                 <path d="M9 3h6" />
                 <path d="M10 3v6l-5 9a2 2 0 0 0 1.7 3h10.6a2 2 0 0 0 1.7-3l-5-9V3" />
@@ -402,7 +428,7 @@ export default function ProductDetail() {
               </div>
               <div className="rounded-2xl border border-line bg-section px-3 py-4 text-center">
                 <p className="text-[0.55rem] uppercase tracking-[0.18em] text-muted">Purity</p>
-                <p className="mt-2 text-sm font-semibold text-accent-dark">{product.coa.purity}</p>
+                <p className="mt-2 text-sm font-semibold text-[#5c3a21]">{product.coa.purity}</p>
               </div>
             </div>
 
@@ -431,7 +457,7 @@ export default function ProductDetail() {
                   setIntroOpen(false)
                   setCoaOpen(true)
                 }}
-                className="mt-6 flex w-full items-center justify-center rounded-full bg-accent-dark px-6 py-3.5 text-sm font-medium text-bg transition-all hover:bg-accent hover:shadow-[0_20px_40px_-20px_rgba(121,13,22,0.6)]"
+                className="mt-6 flex w-full items-center justify-center rounded-full bg-[#5c3a21] px-6 py-3.5 text-sm font-medium text-bg transition-all hover:bg-[#7a4f2e] hover:shadow-[0_20px_40px_-20px_rgba(92,58,33,0.6)]"
               >
                 View Full Janoshik Report
               </button>

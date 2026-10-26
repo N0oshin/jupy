@@ -3,7 +3,9 @@ import Navbar from '../components/Navbar'
 import Footer from '../components/sections/Footer'
 import Heading from '../components/ui/Heading'
 import ProductCard from '../components/ui/ProductCard'
-import { BENEFITS, CATEGORIES, findCategory, productsInCategory, type Category } from '../lib/content'
+import Reveal from '../components/ui/Reveal'
+import { BENEFITS, BOX_ART, CATEGORIES, SHOP_ORDER, findCategory, productsInCategory, type Category } from '../lib/content'
+import { responsive } from '../lib/responsiveImage'
 import { useSeo } from '../lib/useSeo'
 
 export default function Shop() {
@@ -14,6 +16,21 @@ export default function Shop() {
   const category = findCategory(params.get('category'))
   const active = category && !category.all ? category : undefined
   const products = productsInCategory(active?.id ?? 'all')
+  // Compounds we photograph but do not sell yet (BOX_ART entries without a
+  // catalogue product). They appear as "coming soon" tiles, so a category
+  // like "New in" is never an empty grid.
+  const upcoming = Object.entries(BOX_ART)
+    .filter(([id, b]) => b.product === null && (!active || active.products.includes(id)))
+    .map(([id, b]) => ({ id, ...(b as Extract<(typeof BOX_ART)[keyof typeof BOX_ART], { product: null }>) }))
+  // One grid, live and upcoming interleaved in the merchandised SHOP_ORDER.
+  const rank = (id: string) => {
+    const i = SHOP_ORDER.indexOf(id)
+    return i === -1 ? SHOP_ORDER.length : i
+  }
+  const tiles = [
+    ...products.map((p) => ({ kind: 'live' as const, id: p.id, p })),
+    ...upcoming.map((u) => ({ kind: 'soon' as const, id: u.id, u })),
+  ].sort((a, b) => rank(a.id) - rank(b.id))
 
   useSeo({
     title: active ? `${active.label} Peptides — Jupyter Labs` : 'Shop — Jupyter Labs',
@@ -26,8 +43,15 @@ export default function Shop() {
   return (
     <>
       <Navbar />
-      <main id="main-content" className="relative z-10 bg-[#fffdf8] pt-28 lg:pt-32">
-        <div className="container-x pb-10">
+      <main id="main-content" className="relative z-10 bg-bg pt-28 lg:pt-32">
+        <div
+          className="
+            container-x pb-10
+            [&_h1]:!text-3xl md:[&_h1]:!text-4xl lg:[&_h1]:!text-5xl
+            [&_p]:!text-sm md:[&_p]:!text-base
+            [&_p]:!leading-relaxed
+          "
+        >
           <Heading
             as="h1"
             eyebrow="Full Catalogue"
@@ -35,6 +59,8 @@ export default function Shop() {
             intro="HPLC-verified research peptides, each batch independently tested and documented to the lot. For laboratory R&D use only."
           />
         </div>
+
+
 
         <div className="container-x pb-16">
           {/* The product cards are H3s. Without a section H2 the document jumps
@@ -64,11 +90,43 @@ export default function Shop() {
             })}
           </nav>
 
-          {products.length ? (
+          {tiles.length ? (
             <div className="mt-8 grid grid-cols-2 gap-3 sm:gap-4 md:grid-cols-3 lg:grid-cols-4">
-              {products.map((p, i) => (
-                <ProductCard key={p.id} p={p} i={i} />
-              ))}
+              {tiles.map((t, i) =>
+                t.kind === 'live' ? (
+                  <ProductCard key={t.id} p={t.p} i={i} />
+                ) : (
+                  <Reveal key={t.id} delay={i * 0.08} className="h-full">
+                    <article
+                      aria-label={`${t.u.name} — coming soon`}
+                      className="mx-auto flex h-full w-[95%] flex-col overflow-hidden rounded-[1.3rem] bg-white"
+                    >
+                      <div className="relative aspect-square w-full overflow-hidden bg-bg">
+                        <img
+                          src={t.u.photo}
+                          {...responsive(t.u.photo, '(min-width: 1024px) 25vw, (min-width: 768px) 33vw, 50vw')}
+                          alt={t.u.name}
+                          loading="lazy"
+                          decoding="async"
+                          className="absolute inset-0 h-full w-full object-cover"
+                        />
+                        <span className="absolute left-3 top-3 rounded-full bg-ink/85 px-3 py-1 font-sans text-[0.6rem] font-medium uppercase tracking-[0.18em] text-bg">
+                          Coming soon
+                        </span>
+                      </div>
+                      <div className="flex flex-1 flex-col px-4 pb-4 pt-3.5">
+                        <h3 className="font-display text-base font-semibold leading-[1.2] text-ink">{t.u.name}</h3>
+                        <p className="mt-0.5 line-clamp-1 text-[0.95rem] leading-[1.7] text-muted md:text-base">
+                          {t.u.tagline.split(' · ')[0]}
+                        </p>
+                        <p className="mt-auto pt-3 font-sans text-[0.68rem] uppercase tracking-[0.14em] text-muted">
+                          Clearing independent testing
+                        </p>
+                      </div>
+                    </article>
+                  </Reveal>
+                ),
+              )}
             </div>
           ) : (
             <p className="mt-10 max-w-md text-muted">

@@ -1,8 +1,9 @@
-import { createContext, useContext, useEffect, useMemo, useReducer } from 'react'
+import { useEffect, useMemo, useReducer } from 'react'
 import { PRODUCTS } from './content'
+import { CartContext, type CartCtx, type CartItem } from './cart-context'
 
 type Product = (typeof PRODUCTS)[number]
-export type CartItem = { id: Product['id']; qty: number }
+export type { CartItem } from './cart-context'
 
 type State = { items: CartItem[] }
 type Action =
@@ -46,18 +47,6 @@ function reducer(state: State, action: Action): State {
   }
 }
 
-type CartCtx = {
-  items: CartItem[]
-  count: number
-  subtotal: number
-  add: (id: Product['id'], qty?: number) => void
-  remove: (id: Product['id']) => void
-  setQty: (id: Product['id'], qty: number) => void
-  clear: () => void
-}
-
-const Ctx = createContext<CartCtx | null>(null)
-
 export function CartProvider({ children }: { children: React.ReactNode }) {
   const [state, dispatch] = useReducer(reducer, { items: [] })
 
@@ -68,13 +57,17 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
       const parsed = JSON.parse(raw) as CartItem[]
       const valid = parsed.filter((i) => PRODUCTS.some((p) => p.id === i.id))
       if (valid.length) dispatch({ type: 'hydrate', items: valid })
-    } catch {}
+    } catch {
+      // Storage unavailable or corrupt — start with an empty cart.
+    }
   }, [])
 
   useEffect(() => {
     try {
       localStorage.setItem(STORAGE_KEY, JSON.stringify(state.items))
-    } catch {}
+    } catch {
+      // Storage unavailable (private mode / quota) — the cart just won't persist.
+    }
   }, [state.items])
 
   const value = useMemo<CartCtx>(() => {
@@ -94,15 +87,5 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
     }
   }, [state.items])
 
-  return <Ctx.Provider value={value}>{children}</Ctx.Provider>
-}
-
-export function useCart() {
-  const v = useContext(Ctx)
-  if (!v) throw new Error('useCart must be used inside CartProvider')
-  return v
-}
-
-export function formatPrice(amount: number, currency = 'USD') {
-  return new Intl.NumberFormat('en-US', { style: 'currency', currency, maximumFractionDigits: 0 }).format(amount)
+  return <CartContext.Provider value={value}>{children}</CartContext.Provider>
 }

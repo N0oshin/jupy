@@ -50,7 +50,7 @@ export default function Newsletter() {
   }
 
   return (
-    <section id="newsletter" aria-labelledby="newsletter-title" className="relative overflow-hidden border-t border-line bg-section text-ink">
+    <section id="newsletter" aria-labelledby="newsletter-title" className="relative overflow-hidden border-t border-line bg-bg text-ink">
       {/* Full-bleed lifestyle photo; the card sits over its bottom-left corner on larger screens. */}
       <div className="relative min-h-[26rem] lg:min-h-[34rem]">
         <img

@@ -43,10 +43,14 @@ function validate(values: typeof EMPTY): Errors {
 }
 
 const inputCls =
-  'w-full rounded-lg border border-line bg-transparent px-4 py-2.5 text-[0.8rem] text-ink placeholder:text-muted/60 transition-colors focus:border-ink focus:outline-none focus-visible:outline-none disabled:opacity-60'
+  'w-full rounded-md border border-line bg-transparent px-4 py-2.5 text-[0.8rem] text-ink placeholder:text-muted/60 transition-colors focus:border-ink focus:outline-none focus-visible:outline-none disabled:opacity-60'
 const invalidCls = 'border-red-500/70 focus:border-red-500'
 const labelCls = 'block text-[0.68rem] uppercase tracking-[0.18em] text-muted'
-const linkCls = 'text-ink underline underline-offset-4 transition-colors hover:text-ink/70'
+const QUICK_LINKS = [
+  { title: 'Track an existing order', body: 'Live courier status for any parcel — usually faster than emailing.', cta: 'Track it', to: '/track' },
+  { title: 'Certificates of analysis', body: 'Every batch COA is published on its own product page.', cta: 'Browse products', to: '/products' },
+  { title: 'Returns and shipping', body: 'Delivery timings and the returns process, in plain language.', cta: 'Read policies', to: '/shipping-policy' },
+] as const
 
 export default function Contact() {
   useSeo({
@@ -126,27 +130,44 @@ export default function Contact() {
   return (
     <>
       <Navbar />
-      <main id="main-content" className="relative z-10 bg-[#fdfcf8] pt-40 lg:pt-52">
-        <div className="container-x pb-16 sm:px-8 md:px-16 lg:px-28 xl:px-40">
-          <Heading
-            as="h1"
-            eyebrow="Get in touch"
-            eyebrowGap="mb-5"
-            // Same type scale as the homepage sections (Difference / Craft / Benefits).
-            className="[&_h1]:text-balance [&_h1]:text-[clamp(1.35rem,0.9rem+1.7vw,2.1rem)] [&_.eyebrow]:text-[1.3rem] [&_p.type-sub]:text-[0.9rem] [&_p.type-sub]:!mt-3"
+      <main id="main-content" className="relative z-10 bg-bg pt-22 lg:pt-26">
+        <div className="container-x pb-20 sm:px-8 md:px-16 lg:px-28 xl:px-40">
+          {/* ───── Intro: heading beside the illustration ───── */}
+          <div className="grid items-center gap-10 lg:grid-cols-[1.15fr_0.85fr] lg:gap-16">
+            <Heading
+              as="h1"
+              eyebrow="Get in touch"
+              eyebrowGap="mb-5"
+              title="Talk to the team."
+              intro="Questions about a certificate, a batch, a bulk order or something already on its way — send a note and a real person replies within one to two business days."
+              className="[&_h1]:text-balance [&_h1]:text-[clamp(1.6rem,1rem+2.2vw,2.6rem)] [&_.eyebrow]:text-[1.3rem] [&_p.type-sub]:text-[0.9rem] [&_p.type-sub]:!mt-4"
+            />
+            <div className="relative mx-auto mt-6 aspect-[4/3] w-full max-w-[26rem] overflow-hidden rounded-2xl bg-bg lg:mx-0 lg:ml-auto lg:mt-10 lg:max-w-[28rem]">
+              {/* The source is square with a lot of empty space above and below the
+                  figures — a 4:3 crop keeps them in frame and shortens the row. */}
+              <img
+                src="/images/ecom/bg/img1.jpg"
+                alt=""
+                width={736}
+                height={736}
+                loading="lazy"
+                decoding="async"
+                draggable={false}
+                className="h-full w-full select-none object-cover object-[50%_42%] mix-blend-multiply"
+              />
+            </div>
+          </div>
 
-  
-          />
+          {/* ───── Form + side notes ───── */}
+          <div className="mt-2 grid gap-10 lg:grid-cols-[1.15fr_0.85fr] lg:gap-16">
+            <div className="rounded-2xl border border-line bg-card p-6 sm:p-8">
+              <h2 className="font-display text-xl text-ink">Send a message</h2>
+              <p className="mt-2 text-[0.8rem] text-muted">
+                Fields marked <span className="text-ink">*</span> are required.
+              </p>
 
-          <div className="mt-14 grid gap-12 lg:grid-cols-[1.15fr_0.85fr] lg:gap-20">
-            {/* ───── Form ───── */}
-            <div>
               {status === 'sent' ? (
-                <div
-                  role="status"
-                  aria-live="polite"
-                  className="rounded-xl border border-ink/30 bg-section p-8 sm:p-10"
-                >
+                <div role="status" aria-live="polite" className="mt-8 rounded-lg border border-ink/30 bg-section p-8 sm:p-10">
                   <span
                     aria-hidden="true"
                     className="grid h-12 w-12 place-items-center rounded-full bg-ink text-bg"
@@ -155,21 +176,21 @@ export default function Contact() {
                       <path d="m4 12.5 5 5L20 6.5" />
                     </svg>
                   </span>
-                  <h2 className="mt-5 font-display text-2xl text-ink">Message sent</h2>
+                  <h3 className="mt-5 font-display text-2xl text-ink">Message sent</h3>
                   <p className="mt-3 max-w-md text-sm leading-[1.7] text-muted">
                     Thanks for reaching out — your message is with our team and we'll reply within one to two
-                    business days.Please check your spam folder if you don't hear back.
+                    business days. Please check your spam folder if you don't hear back.
                   </p>
                   <button
                     type="button"
                     onClick={() => setStatus('idle')}
-                    className="mt-7 rounded-lg border border-ink px-6 py-3 text-sm tracking-wide text-ink transition-colors hover:bg-ink hover:text-bg"
+                    className="mt-7 rounded-md border border-ink px-6 py-3 text-sm tracking-wide text-ink transition-colors hover:bg-ink hover:text-bg"
                   >
                     Send another message
                   </button>
                 </div>
               ) : (
-                <form ref={formRef} onSubmit={onSubmit} noValidate className="grid gap-5">
+                <form ref={formRef} onSubmit={onSubmit} noValidate className="mt-8 grid gap-5">
                   <TextField
                     id={fieldId('name')}
                     errorId={errorId('name')}
@@ -264,7 +285,7 @@ export default function Contact() {
                   {formError && (
                     <p
                       role="alert"
-                      className="rounded-lg border border-red-500/30 bg-red-500/5 px-4 py-3 text-sm text-red-600"
+                      className="rounded-md border border-red-500/30 bg-red-500/5 px-4 py-3 text-sm text-red-600"
                     >
                       {formError}
                     </p>
@@ -274,7 +295,7 @@ export default function Contact() {
                     <button
                       type="submit"
                       disabled={busy}
-                      className="inline-flex items-center justify-center gap-2.5 rounded-lg bg-ink px-6 py-2.5 text-[0.8rem] tracking-wide text-bg transition-colors duration-400 ease-[cubic-bezier(0.16,1,0.3,1)] hover:bg-ink/80 disabled:cursor-not-allowed disabled:opacity-70"
+                      className="inline-flex items-center justify-center gap-2.5 rounded-md bg-ink px-6 py-2.5 text-[0.8rem] tracking-wide text-bg transition-colors duration-400 ease-[cubic-bezier(0.16,1,0.3,1)] hover:bg-ink/80 disabled:cursor-not-allowed disabled:opacity-70"
                     >
                       {busy && (
                         <span
@@ -284,9 +305,6 @@ export default function Contact() {
                       )}
                       {busy ? 'Sending…' : 'Send Message'}
                     </button>
-                    <p className="text-[0.7rem] text-muted">
-                      <span className="text-ink">*</span> Required. We only use your details to reply.
-                    </p>
                   </div>
 
                   {/* Announces the in-flight state to assistive tech without
@@ -298,46 +316,48 @@ export default function Contact() {
               )}
             </div>
 
-            {/* ───── Aside ───── */}
-            <aside className="lg:pt-2">
-              <div className="rounded-xl border border-line p-6">
-                <h2 className="font-display text-base text-ink">Before you write</h2>
-                <ul className="mt-4 space-y-3 text-[0.8rem] leading-[1.6] text-muted">
-                  <li>
-                    Chasing an existing order?{' '}
-                    <Link to="/track" className={linkCls}>
-                      Track it here
-                    </Link>{' '}
-                    — it's usually faster than emailing.
-                  </li>
-                  <li>
-                    After a certificate of analysis? Every batch COA is published on its own{' '}
-                    <Link to="/products" className={linkCls}>
-                      product page
+            <aside className="flex flex-col gap-6 lg:pt-2">
+              {/* Quick answers — just the link by default; the detail unfolds on hover or focus. */}
+              <ul className="grid gap-3">
+                {QUICK_LINKS.map((q) => (
+                  <li key={q.title}>
+                    <Link
+                      to={q.to}
+                      className="group block rounded-lg border border-line bg-card px-5 py-4 transition-colors duration-300 hover:border-ink/40 focus-visible:border-ink/40 focus-visible:outline-none"
+                    >
+                      <span className="flex items-center justify-between gap-4">
+                        <span className="font-display text-base text-ink">{q.title}</span>
+                        <span className="inline-flex shrink-0 items-center gap-1.5 text-[0.68rem] uppercase tracking-[0.2em] text-ink">
+                          {q.cta}
+                          <span aria-hidden="true" className="transition-transform duration-300 group-hover:translate-x-0.5">
+                            →
+                          </span>
+                        </span>
+                      </span>
+                      <span className="grid grid-rows-[0fr] transition-[grid-template-rows] duration-300 ease-out group-hover:grid-rows-[1fr] group-focus-visible:grid-rows-[1fr]">
+                        <span className="block overflow-hidden">
+                          <span className="block pt-2 text-[0.78rem] leading-[1.6] text-muted">{q.body}</span>
+                        </span>
+                      </span>
                     </Link>
-                    .
                   </li>
-                  <li>
-                    Returns and delivery timings are covered in our{' '}
-                    <Link to="/refund-policy" className={linkCls}>
-                      refund
-                    </Link>{' '}
-                    and{' '}
-                    <Link to="/shipping-policy" className={linkCls}>
-                      shipping
-                    </Link>{' '}
-                    policies.
-                  </li>
-                </ul>
+                ))}
+              </ul>
 
-                <p className="mt-5 border-t border-line pt-4 text-[0.65rem] uppercase tracking-[0.2em] text-muted">
-                  For research use only 
+              
+
+              <div className="rounded-2xl bg-ink p-6 text-bg">
+                <p className="text-[0.62rem] uppercase tracking-[0.25em] text-bg/60">Follow along</p>
+                <p className="mt-2 text-[0.8rem] leading-[1.6] text-bg/80">
+                  New batches, certificates and research notes as they're published.
                 </p>
+                <SocialLinks className="mt-5" />
               </div>
 
-              <SocialLinks className="mt-8" />
+           
             </aside>
           </div>
+
         </div>
       </main>
       <Footer />

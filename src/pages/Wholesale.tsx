@@ -133,7 +133,7 @@ export default function Wholesale() {
   return (
     <>
       <Navbar />
-      <main id="main-content" className="relative z-10 bg-[#fdfcf8] pt-40 lg:pt-52">
+      <main id="main-content" className="relative z-10 bg-bg pt-40 lg:pt-52">
         {/* ───── HERO + ENQUIRY FORM ───── */}
         <section className="container-x pb-20 sm:px-8 md:px-16 lg:px-28 lg:pb-28 xl:px-40">
           <div className="flex items-center justify-center gap-4">

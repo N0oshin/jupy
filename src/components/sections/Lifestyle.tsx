@@ -10,7 +10,7 @@ export default function Lifestyle() {
   const scale = useTransform(scrollYProgress, [0, 1], [1.00, 1])
 
   return (
-    <section id="lifestyle" ref={ref} className="section-pad relative overflow-hidden bg-section">
+    <section id="lifestyle" ref={ref} className="section-pad relative overflow-hidden bg-bg">
       <div className="container-x">
         <div className="mb-10">
           {/* Same eyebrow / title scale as the Difference, Craft and Research

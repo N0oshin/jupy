@@ -12,7 +12,7 @@ const PILLARS = [
 
 export default function Difference() {
   return (
-    <section id="difference" className="relative bg-[#fdfcf8] py-20 lg:py-24 ">
+    <section id="difference" className="relative bg-bg py-20 lg:py-24">
       <div className="container-x">
         <div className="grid items-start gap-8 lg:grid-cols-[minmax(0,28rem)_minmax(0,1fr)] lg:items-stretch lg:gap-12">
           <div className="relative isolate mx-auto w-full max-w-[28rem] lg:mx-0 lg:mt-2 lg:self-start">

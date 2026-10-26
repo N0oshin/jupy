@@ -4,7 +4,7 @@ import { gsap } from '../../lib/gsap'
 import Heading from '../ui/Heading'
 import Reveal from '../ui/Reveal'
 import { PRODUCTS, SHOWCASE } from '../../lib/content'
-import { formatPrice } from '../../lib/CartContext'
+import { formatPrice } from '../../lib/format'
 import { responsive } from '../../lib/responsiveImage'
 import { useReducedMotion } from '../../lib/useReducedMotion'
 

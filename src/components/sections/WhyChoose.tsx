@@ -61,7 +61,7 @@ export default function WhyChoose() {
       if (reduced) return
 
       // Pen: slow float + a touch of scroll parallax.
-      gsap.to('.why-pen', { y: -10, duration: 3.2, ease: 'sine.inOut', yoyo: true, repeat: -1 })
+      gsap.fromTo('.why-pen', { y: 14 }, { y: -22, duration: 2.6, ease: 'sine.inOut', yoyo: true, repeat: -1 })
       gsap.to('.why-pen-wrap', {
         yPercent: -6,
         ease: 'none',
