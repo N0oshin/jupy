@@ -34,7 +34,7 @@ export const PRODUCTS = [
     gallery: [
       '/images/products/shop/retatrutide-20-pen.webp',
       '/images/products/shop/retatrutide-20-carton.webp',
-      '/images/products/retatrutide-20-pen.jpg',
+      '/images/products/retatrutide-20-open.jpg',
       '/images/products/retatrutide-20-uv.jpg',
     ],
     stat: '99.3% HPLC purity',
@@ -109,7 +109,7 @@ export const PRODUCTS = [
     gallery: [
       '/images/products/shop/retatrutide-40-pen.webp',
       '/images/products/shop/retatrutide-40-carton.webp',
-      '/images/products/retatrutide-pen.webp',
+      '/images/products/retatrutide-open.webp',
       '/images/products/retatrutide-uv.webp',
     ],
     stat: '99.4% HPLC purity',
@@ -184,7 +184,7 @@ export const PRODUCTS = [
     gallery: [
       '/images/products/shop/glow-pen.webp',
       '/images/products/shop/glow-carton.webp',
-      '/images/products/glow-pen.webp',
+      '/images/products/glow-open.webp',
       '/images/products/glow-uv.webp',
     ],
     stat: '99.5% HPLC purity',
@@ -259,7 +259,7 @@ export const PRODUCTS = [
     gallery: [
       '/images/products/shop/tirzepatide-pen.webp',
       '/images/products/shop/tirzepatide-carton.webp',
-      '/images/products/tirzepatide-pen.webp',
+      '/images/products/tirzepatide-open.webp',
       '/images/products/tirzepatide-uv.webp',
     ],
     stat: '99.1% HPLC purity',
@@ -335,7 +335,7 @@ export const PRODUCTS = [
     gallery: [
       '/images/products/shop/nad-plus-pen.webp',
       '/images/products/shop/nad-plus-carton.webp',
-      '/images/products/nad-pen.jpg',
+      '/images/products/nad-open.jpg',
       '/images/products/nad-uv.jpg',
     ],
     stat: '99.0% HPLC purity',
@@ -406,7 +406,7 @@ export const PRODUCTS = [
     gallery: [
       '/images/products/shop/bpc-157-pen.webp',
       '/images/products/shop/bpc-157-carton.webp',
-      '/images/products/bpc-pen.webp',
+      '/images/products/bpc-open.webp',
       '/images/products/bpc-uv.webp',
     ],
     stat: '99.2% HPLC purity',
