@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import Reveal from './Reveal'
+import Stars from './Stars'
 import { PRODUCTS } from '../../lib/content'
 import { formatPrice } from '../../lib/format'
 import { useCart } from '../../lib/useCart'
@@ -53,6 +54,7 @@ export default function ProductCard({ p, i, compact = false }: { p: Product; i: 
           <p className={`mt-0.5 line-clamp-1 text-muted ${compact ? 'text-xs' : 'text-[0.95rem] leading-[1.7] md:text-base'}`}>
             {p.tagline.split(' · ')[0]}
           </p>
+          <Stars rating={p.rating} size={compact ? 11 : 13} className="mt-1.5" />
 
           <div className="mt-auto flex items-center justify-between pt-3">
             <span className={`font-display font-semibold text-ink ${compact ? 'text-base' : 'text-lg'}`}>

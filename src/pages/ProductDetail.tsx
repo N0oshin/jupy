@@ -8,6 +8,7 @@ import { useCart } from '../lib/useCart'
 import { formatPrice } from '../lib/format'
 import { responsive } from '../lib/responsiveImage'
 import { useSeo, SITE_URL } from '../lib/useSeo'
+import Stars from '../components/ui/Stars'
 
 const SECTIONS = ['Description', 'Package Contents', 'Storage Logic'] as const
 type Section = (typeof SECTIONS)[number]
@@ -188,6 +189,7 @@ export default function ProductDetail() {
                 <h1 className="font-display text-2xl tracking-[-0.02em] text-ink lg:text-3xl">{product.name}</h1>
                 <p className="shrink-0 font-display text-2xl text-ink lg:text-3xl">{formatPrice(product.price, product.currency)}</p>
               </div>
+              <Stars rating={product.rating} size={15} showValue className="mt-2" />
 
               <div className="mt-6 flex items-center gap-3">
                 <span className="text-xs uppercase tracking-[0.18em] text-muted">Qty</span>
@@ -362,16 +364,6 @@ export default function ProductDetail() {
             </div>
           </section>
 
-          {/* Product-footer compliance band */}
-          <section className="mt-14 rounded-[var(--radius-xl2)] border border-line bg-section p-6 text-center lg:p-8">
-            <p className="text-[0.6rem] uppercase tracking-[0.28em] text-accent-dark">Compliance Notice</p>
-            <p className="mx-auto mt-3 max-w-3xl text-xs leading-relaxed text-muted">
-              <span className="font-semibold text-ink">FOR RESEARCH PURPOSES ONLY.</span> Not intended for human or veterinary
-              use. Not intended to diagnose, treat, cure, or prevent any disease. Products are supplied strictly for laboratory
-              and analytical research conducted by qualified professionals. Nothing on this page constitutes medical, therapeutic
-              or usage guidance.
-            </p>
-          </section>
         </div>
       </main>
 
