@@ -352,10 +352,10 @@ export default function ProductDetail() {
           <section className="mt-16 border-t border-line pt-12 lg:mt-20">
             <div className="flex flex-col items-start justify-between gap-3 lg:flex-row lg:items-end">
               <div>
-                <h2 className="font-display text-2xl tracking-[-0.02em] text-ink lg:text-3xl">Continue Your Research</h2>
-                <p className="mt-2 text-sm text-muted">Handpicked research kits that pair well with {product.name}.</p>
+                <h2 className="font-display text-2xl tracking-[-0.02em] text-ink lg:text-3xl">Related Products</h2>
+                <p className="mt-2 text-sm text-muted">Handpicked products that pair well with {product.name}.</p>
               </div>
-              <Link to="/#products" className="text-sm text-accent-dark hover:text-accent">View all →</Link>
+              <Link to="/products" className="text-sm text-accent-dark hover:text-accent">View all →</Link>
             </div>
             <div className="mt-10 grid grid-cols-2 gap-3 sm:gap-4 lg:grid-cols-4">
               {related.map((p, i) => (
