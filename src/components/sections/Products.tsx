@@ -96,8 +96,12 @@ export default function Products() {
 function Header() {
   return (
     <div className="container-x relative z-10 flex w-full items-end justify-between gap-6">
-      <h2 className="font-sans text-[1.08rem] font-semibold uppercase tracking-[0.1em] text-ink/60">
-        Featured Compounds
+      <h2 className="flex flex-col">
+        <span className="font-display text-[0.72rem] uppercase tracking-[0.32em] text-ink/60">Featured</span>
+        <span className="mt-1 font-display text-[clamp(2rem,1.4rem+2.2vw,3.1rem)] font-bold leading-[0.95] tracking-[-0.02em] text-ink/80">
+          <span aria-hidden className="mr-1 font-normal">#</span>
+          Compounds
+        </span>
       </h2>
       <Link
         to="/products"
