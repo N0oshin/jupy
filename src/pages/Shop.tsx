@@ -1,3 +1,4 @@
+import { useEffect } from 'react'
 import { Link, useSearchParams } from 'react-router-dom'
 import Navbar from '../components/Navbar'
 import Footer from '../components/sections/Footer'
@@ -16,6 +17,12 @@ export default function Shop() {
   const category = findCategory(params.get('category'))
   const active = category && !category.all ? category : undefined
   const products = productsInCategory(active?.id ?? 'all')
+
+  // Start at the top whenever the shop opens or the category changes, so a
+  // footer link clicked at the bottom of a page does not land mid-grid.
+  useEffect(() => {
+    window.scrollTo(0, 0)
+  }, [active?.id])
   // Compounds we photograph but do not sell yet (BOX_ART entries without a
   // catalogue product). They appear as "coming soon" tiles, so a category
   // like "New in" is never an empty grid.

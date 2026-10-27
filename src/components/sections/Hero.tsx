@@ -76,16 +76,18 @@ export default function Hero() {
       // Starts as the preloader curtain lifts.
       const tl = gsap.timeline({ delay: 0.65, defaults: { ease: 'power4.out' } })
       tl.from('.hero-top', { y: 18, opacity: 0, duration: 0.8 })
+        .addLabel('heading', '-=0.6')
         .from(
           '.hero-word',
           { yPercent: 120, opacity: 0, filter: 'blur(14px)', rotateX: -40, duration: 1.2, stagger: 0.12 },
-          '-=0.6',
+          'heading',
         )
+        // Standards bar enters alongside the heading instead of waiting for the rest of the chain.
+        .from('.hero-standard', { y: 24, opacity: 0, duration: 0.7, stagger: 0.08 }, 'heading')
         .from('.hero-sub', { y: 16, opacity: 0, duration: 0.7 }, '-=0.6')
         .from('.hero-cta', { y: 20, opacity: 0, duration: 0.7, stagger: 0.08 }, '-=0.5')
         .from('.hero-photo', { x: 60, opacity: 0, duration: 1.3, ease: 'power3.out' }, 0.1)
         .from('.hero-badge', { y: 14, opacity: 0, duration: 0.6 }, '-=0.5')
-        .from('.hero-standard', { y: 24, opacity: 0, duration: 0.7, stagger: 0.08 }, '-=0.6')
     },
     { scope: ref, dependencies: [reduced] },
   )
