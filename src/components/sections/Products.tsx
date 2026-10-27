@@ -17,7 +17,8 @@ import { responsive } from "../../lib/responsiveImage";
 const FEATURED = [
   {
     id: "glow",
-    img: "/images/ecom/feature-glow.webp",
+    img: "/images/ecom/featured/glow.jpg",
+    hover: "/images/ecom/feature-glow.webp",
     tint: "#fde3cf",
     accent: "Radiance",
     headline: "Nothing can stop",
@@ -27,7 +28,8 @@ const FEATURED = [
     // MOTS-c is not in the catalogue yet, so the row carries its own copy and
     // shows "Coming soon" instead of a price and link.
     id: "mots-c",
-    img: "/images/ecom/feature-mots-c.webp",
+    img: "/images/ecom/featured/motc.jpg",
+    hover: "/images/ecom/feature-mots-c.webp",
     tint: "#f9d2d6",
     accent: "Energy",
     headline: "Fuel the cell, go further",
@@ -41,7 +43,8 @@ const FEATURED = [
     // Tesamorelin is not in the catalogue yet either, so it carries its own
     // copy and shows "Coming soon".
     id: "tesamorelin",
-    img: "/images/ecom/feature-tesamorelin.webp",
+    img: "/images/ecom/featured/tesa.jpg",
+    hover: "/images/ecom/feature-tesamorelin.webp",
     tint: "#e4d6f7",
     accent: "Definition",
     headline: "Sculpt lean, stay strong",
@@ -57,6 +60,8 @@ type Product = (typeof PRODUCTS)[number];
 interface Item {
   id: string;
   img: string;
+  /** Second photo, cross-faded in over the first on hover and focus. */
+  hover: string;
   tint: string;
   accent: string;
   headline: string;
@@ -155,7 +160,7 @@ function Row({ item, index, flip }: { item: Item; index: number; flip: boolean }
  * photo is clipped by the same shape and zooms gently on hover.
  */
 function Panel({ item, index, flip }: { item: Item; index: number; flip: boolean }) {
-  const { p, img, tint, name } = item;
+  const { p, img, hover, tint, name } = item;
   const leaf = flip
     ? "rounded-tl-[46%] rounded-br-[46%] rounded-tr-[1.5rem] rounded-bl-[1.5rem]"
     : "rounded-tr-[46%] rounded-bl-[46%] rounded-tl-[1.5rem] rounded-br-[1.5rem]";
@@ -172,6 +177,18 @@ function Panel({ item, index, flip }: { item: Item; index: number; flip: boolean
         decoding="async"
         draggable={false}
         className="absolute inset-0 h-full w-full object-cover object-[50%_20%] transition-transform duration-[1200ms] ease-[var(--ease-lux)] group-hover:scale-[1.05] group-focus-visible:scale-[1.05]"
+      />
+      {/* Hover photo: sits on top, invisible at rest, and cross-fades in on
+          hover or keyboard focus. It zooms with the photo beneath so the two
+          stay registered through the fade. */}
+      <img
+        src={hover}
+        alt=""
+        aria-hidden="true"
+        loading="lazy"
+        decoding="async"
+        draggable={false}
+        className="absolute inset-0 h-full w-full object-cover object-[50%_20%] opacity-0 transition-[opacity,transform] duration-[900ms] ease-[var(--ease-lux)] group-hover:scale-[1.05] group-hover:opacity-100 group-focus-visible:scale-[1.05] group-focus-visible:opacity-100"
       />
       <span className="pointer-events-none absolute bottom-5 left-6 font-display text-sm font-light tracking-[0.2em] text-ink/50 md:bottom-7 md:left-8">
         0{index + 1}
