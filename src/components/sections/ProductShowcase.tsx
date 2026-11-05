@@ -13,11 +13,11 @@ import { useReducedMotion } from '../../lib/useReducedMotion'
  *
  * Layout and motion follow the product-selection section on
  * theobromachocolat.com: a heading with family tabs, and under it a full-bleed,
- * infinitely looping, drag-to-scroll row of product renders. The centred
- * render scales up to 1.5×, its neighbours are nudged outward, and each card
- * is a plain solid tile in a nude tint of its box's artwork, with the name,
- * tagline and an "Explore" cue set inside it. One
- * call-to-action under the row always points at the centred product.
+ * infinitely looping, drag-to-scroll row of product renders. Every card is
+ * shown at the same (large) size — there is no centre-focus scaling — and
+ * each is a plain solid tile in a nude tint of its box's artwork, with the
+ * name, tagline and an "Explore" cue set inside it. One call-to-action under
+ * the row always points at the centred product.
  */
 
 type Family = (typeof SHOWCASE)[number]
@@ -88,7 +88,7 @@ export default function ProductShowcase() {
       aria-labelledby="our-products-title"
       // On desktop the whole section is sized to one viewport: header, flexing
       // scroller, footer. Card size and scroller padding are vh-based so the
-      // 1.5× centred box still fits on a 16:9 laptop screen.
+      // row still fits on a 16:9 laptop screen.
       className="relative z-10 -mt-10 flex flex-col overflow-x-clip rounded-t-[2.5rem] bg-bg pb-20 pt-24 md:pb-20 md:pt-32"
       style={
         {
@@ -243,9 +243,9 @@ function BlobButton({ children, className = '', style, to, onClick, ...aria }: B
 
 /* ─────────────────────────────── box scroller ─────────────────────────────── */
 
-/** Continuous leftward drift, in px per 60fps frame (≈ 30px/s), and the pause
+/** Continuous leftward drift, in px per 60fps frame (≈ 15px/s), and the pause
  *  after the visitor interacts before it resumes. */
-const DRIFT_PX = 0.5
+const DRIFT_PX = 0.25
 const RESUME_MS = 1500
 const EASING = 0.06
 
@@ -262,10 +262,8 @@ interface ScrollerProps {
  * inside one copy's width and wrapped when it leaves it, which is invisible
  * because the copies are identical. A virtual scroll position is what drag,
  * snap and autoplay write to; the rendered position eases toward it on GSAP's
- * ticker. Each frame also scales every card by its distance from the centre
- * (visually 1.5× at centre, 1× one pitch away; the tile is laid out at the
- * centred size and scaled down, so it is never upscaled) and nudges neighbours outward by up to a
- * quarter card so the enlarged centre never overlaps them.
+ * ticker. All cards stay the same size; the ticker only tracks which one is
+ * nearest the centre so the call-to-action and dots can follow it.
  */
 function BoxScroller({ items, onActive, reduced }: ScrollerProps) {
   const navigate = useNavigate()
@@ -409,24 +407,9 @@ function BoxScroller({ items, onActive, reduced }: ScrollerProps) {
       }
       t.style.transform = `translate3d(${-st.real}px,0,0)`
 
-      const push = st.elemW / 4
-      const cards = t.children
+      // No per-card scaling or nudging: every tile sits at the same size, so
+      // the only thing left to track is which one is nearest the centre.
       const ci = nearest(st.virtual)
-      for (let i = 0; i < cards.length; i++) {
-        const card = cards[i] as HTMLElement
-        const d = dist(i, st.real)
-        const tt = Math.abs(d) / st.pitch
-        // The tile is laid out at 1.5× the slot, so the centred tile is
-        // scale 1 and a neighbour one pitch away is 1/1.5 — scaled down,
-        // never up (see the tile markup).
-        const scale = (1 + Math.max(0, 0.5 - tt * 0.5)) / 1.5
-        const x = Math.min(push, tt * push) * -Math.sign(d)
-        const inner = card.firstElementChild as HTMLElement
-        inner.style.transform = `translate3d(${x}px,0,0) scale(${scale})`
-        // 1 at the centre, 0 one pitch away — drives the box's lift shadow and
-        // ground shadow in CSS so the centred product reads as raised off the band.
-        inner.style.setProperty('--focus', String(Math.max(0, 1 - tt).toFixed(3)))
-      }
       if (ci !== st.centerIdx) {
         st.centerIdx = ci
         const logical = ((ci % n) + n) % n
@@ -436,7 +419,7 @@ function BoxScroller({ items, onActive, reduced }: ScrollerProps) {
     }
     gsap.ticker.add(render)
     return () => gsap.ticker.remove(render)
-  }, [nearest, dist, onActive, n, reduced])
+  }, [nearest, onActive, n, reduced])
 
   // Drag. Pointer events cover mouse + touch; touch-action: pan-y keeps the
   // page scrolling vertically through the row.
@@ -492,43 +475,39 @@ function BoxScroller({ items, onActive, reduced }: ScrollerProps) {
         role="group"
         aria-roledescription="carousel"
         aria-label={`${items.length} products — drag or use arrow keys to browse`}
-        className="relative flex cursor-ew-resize select-none items-center overflow-x-clip py-24 outline-none [touch-action:pan-y] focus-visible:ring-2 focus-visible:ring-accent-dark/50 md:py-[clamp(5rem,14vh,10rem)]"
+        className="relative flex cursor-ew-resize select-none items-center overflow-x-clip pb-10 pt-20 outline-none [touch-action:pan-y] focus-visible:ring-2 focus-visible:ring-accent-dark/50 md:pb-[clamp(2.5rem,6vh,4rem)] md:pt-[clamp(5rem,12vh,8rem)]"
         onPointerDown={onPointerDown}
         onPointerMove={onPointerMove}
         onPointerUp={onPointerUp}
         onPointerCancel={onPointerUp}
         onKeyDown={onKeyDown}
       >
-        <div ref={track} className="flex w-max gap-1 will-change-transform md:gap-2">
+        {/* Each slot is exactly as wide as its box, so this flex gap IS the
+            visible gap between neighbouring boxes: a fixed one inch (96px). */}
+        <div ref={track} className="flex w-max items-center gap-[1in] will-change-transform">
           {all.map((item, i) => (
             <div
               key={`${item.key}-${i}`}
-              className="relative h-[46vw] w-[64vw] shrink-0 md:h-[clamp(195px,26.5vh,320px)] md:w-[clamp(330px,46vh,560px)]"
+              // The slot is sized to the box render itself (the box fills its
+              // full width, height follows the artwork), so the only space
+              // between products is the track's flex gap.
+              className="relative w-[68vw] shrink-0 md:w-[clamp(420px,60vh,720px)]"
               onClick={() => onCardClick(i)}
               aria-hidden={i % n !== 0 || i >= n ? true : undefined}
             >
-              {/* Transformed per frame by the ticker (firstElementChild). */}
-              {/* The tile is laid out at the full centred size (1.5× the card
-                  slot, hence the -25% inset) and the ticker scales it DOWN for
-                  the neighbours, never up. Text and artwork are therefore
-                  always rasterised at or above the size they appear, so the
-                  centred tile stays crisp instead of being a 1× bitmap
-                  stretched by the compositor. */}
-              <div
-                className="absolute -inset-[25%] isolate overflow-hidden [--focus:0]"
-              >
-                {/* A plain solid tile in the product's nude tint, with the
-                    details set inside it: name and tagline top-left, the box
-                    and the box centred in the lower part of the tile. */}
-                <div className="absolute inset-0 flex flex-col items-center justify-center px-[7%]">
+              {/* Never transformed, so text and artwork are always rasterised
+                  at the size they appear. --focus is pinned to 1: every box
+                  gets the full lift shadow the centred one used to get alone. */}
+              <div className="relative isolate [--focus:1]">
+                <div className="flex flex-col items-center">
                   {/* The box and its veil lift together. The veil is a sheet
                       of the section's cream, masked to the box's own silhouette,
                       so the artwork reads softer and less saturated. */}
-                  <div className="w-[78%]">
+                  <div className="w-full">
                     <div className="box-lift relative w-full">
                       <img
                         src={item.box}
-                        {...responsive(item.box, '(min-width: 768px) 720px, 90vw')}
+                        {...responsive(item.box, '(min-width: 768px) 900px, 90vw')}
                         alt={`${item.name} — Alluvi research device box`}
                         loading="lazy"
                         decoding="async"

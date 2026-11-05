@@ -13,6 +13,7 @@ import Products from './sections/Products'
 // import Lifestyle from './sections/Lifestyle'
 import Testimonials from './sections/Testimonials'
 import WhyChoose from './sections/WhyChoose'
+import CustomerStories from './sections/CustomerStories'
 import About from './sections/About'
 import FAQ from './sections/FAQ'
 import Newsletter from './sections/Newsletter'
@@ -83,6 +84,7 @@ export default function BelowFold() {
       {/* <Lifestyle /> */}
       <Testimonials />
       <WhyChoose />
+      <CustomerStories />
       <FAQ />
       {/* <CTA /> */}
     </>
