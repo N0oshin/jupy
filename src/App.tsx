@@ -9,6 +9,7 @@ import Cursor from './components/Cursor'
 import Navbar from './components/Navbar'
 import ScrollProgress from './components/ScrollProgress'
 import Botanicals from './components/Botanicals'
+import PartnerPopup from './components/PartnerPopup'
 
 import Hero from './components/sections/Hero'
 
@@ -56,6 +57,7 @@ function App() {
       <ScrollProgress />
       <Botanicals />
       <Navbar />
+      <PartnerPopup ready={ready} />
 
       <main id="main-content" className="relative z-10">
         <Hero />
