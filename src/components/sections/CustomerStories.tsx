@@ -72,7 +72,7 @@ const STORIES: Story[] = [
 ]
 
 const N = STORIES.length
-const AUTOPLAY_MS = 4000
+const AUTOPLAY_MS = 3000
 const LUX = [0.16, 1, 0.3, 1] as const
 
 /* ---------- stage geometry (px) ---------- */

@@ -33,7 +33,7 @@ export default function Testimonials() {
 
       <div className="container-x relative">
         <header className="mx-auto mb-12 max-w-xl text-center md:mb-14">
-          <p className="text-[0.62rem] uppercase tracking-[0.3em] text-accent-dark/80">What labs say</p>
+          <p className="text-[0.62rem] uppercase tracking-[0.3em] text-accent-dark/80">What Jupyter labs say</p>
           <h2 className="mt-3 font-display text-[clamp(1.75rem,1.2rem+2.2vw,2.75rem)] font-light leading-tight text-ink">Testimonials</h2>
         </header>
 
